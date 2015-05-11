@@ -1,0 +1,17 @@
+{
+    "name": "Algorithm",
+    "version": "0.0.1",
+    "description": "Algorihtm visualization component",
+    "homepage": "www.homegape.com/blog",
+    "authors": [ "Serge T <@hotmail.com>" ],
+    "private": true,
+    "license": "MIT",
+    "dependencies": {
+        "jquery": "latest",
+        "knockout": "latest"
+    },
+    "devDependencies": {
+        "dt-jquery": "latest",
+        "qunit": "latest"
+    }
+}

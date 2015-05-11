@@ -1,0 +1,97 @@
+﻿<script type="text/html" id="algorithm-view-template">
+    <div class="algorithm-view-holder" style="position: relative; width: 100%; min-width: 500px;">
+        <div style="position:absolute; top:0; left:0; height:100%;" data-bind="style: { 'width': connectorsAreaWidth() + 'px' }">
+            <!-- ko foreach: transitions -->
+            <!-- ko if: type() === "far" -->
+            <!-- ko if: direction() === "down" -->
+            <div style="border:1px solid black; border-right:none; border-radius: 5px 0 0 5px; position:absolute;" data-bind="style: { top: (startBlock().posY() + startBlock().height() / 2) + 'px', height: (endBlock().posY() - startBlock().posY()) + 'px', left: ($parent.connectorsAreaWidth() - level() * $parent.blockMinDistance()) + 'px', width: level() * $parent.blockMinDistance() + 'px' }">
+                <div style="width: 10px; height:11px; position: absolute; right: 0px; bottom: -2px;">
+                    <svg width="100%" height="100%">
+                        <line y1="25%" y2="50%" x1="50%" x2="100%" style="stroke:black;stroke-width:1"></line>
+                        <line y1="75%" y2="50%" x1="50%" x2="100%" style="stroke:black;stroke-width:1"></line>
+                    </svg>
+                </div>
+                <!-- ko if: label() -->
+                <div style="position:absolute; top:47%; left:-11px; background-color: white;" data-bind="text: label"></div>
+                <!-- /ko -->
+            </div>
+            <!-- /ko -->
+            <!-- ko if: direction() === "up" -->
+            <div style="border:1px solid black; border-right:none; border-radius: 5px 0 0 5px; position:absolute;" data-bind="style: { top: (endBlock().posY() + endBlock().height() / 2) + 'px', height: (startBlock().posY() - endBlock().posY()) + 'px', left: ($parent.connectorsAreaWidth() - level() * $parent.blockMinDistance()) + 'px', width: level() * $parent.blockMinDistance() + 'px' }">
+                <div style="width: 10px; height:11px; position: absolute; right: 0px; top: -10px;">
+                    <svg width="100%" height="100%">
+                        <line y1="25%" y2="50%" x1="50%" x2="100%" style="stroke:black;stroke-width:1"></line>
+                        <line y1="75%" y2="50%" x1="50%" x2="100%" style="stroke:black;stroke-width:1"></line>
+                    </svg>
+                </div>
+                <!-- ko if: label() -->
+                <div style="position:absolute; top:47%; left:-11px; background-color: white;" data-bind="text: label"></div>
+                <!-- /ko -->
+            </div>
+            <!-- /ko -->
+            <!-- /ko -->
+            <!-- ko if: type() === "direct" -->
+            <div style="width:1px; border:1px solid black; border-right:none; position:absolute;" data-bind="style: { top: startBlock().posY() + startBlock().height() + 'px', height: $parent.blockMinDistance() + 'px', left: $parent.connectorsAreaWidth() + $parent.blockWidth() / 2 + 'px' }">
+                <div style="width: 11px; height:10px; position: absolute; bottom: 5px; left: -6px;">
+                    <svg width="100%" height="100%">
+                        <line y1="50%" y2="100%" x1="25%" x2="50%" style="stroke:black;stroke-width:1"></line>
+                        <line y1="50%" y2="100%" x1="75%" x2="50%" style="stroke:black;stroke-width:1"></line>
+                    </svg>
+                </div>
+                <!-- ko if: label() -->
+                <div style="position:absolute; top:-2px; left:6px; background-color: white;" data-bind="text: label"></div>
+                <!-- /ko -->
+            </div>
+            <!-- /ko -->
+            <!-- /ko -->
+        </div>
+        <div style="position:relative; top: 0;" data-bind="style: { 'left': connectorsAreaWidth() + 'px', width: blockWidth() + 'px' }">
+            <!-- ko foreach: blocks -->
+            <!-- ko ifnot: isCondition -->
+            <div style="position:relative; width:100%; border:1px solid black;" data-bind="style: { 'height': height() + 'px', 'lineHeight': height() + 'px', 'margin': $parent.blockMinDistance() + 'px 0', 'borderRadius': (isTerminator() ? $parent.blockMinDistance() : 0) + 'px' }, css : { 'block-shadow': state() === 'inprogress'}">
+                <div style="position:relative; width:100%; height:100%; padding:0 10px; text-align:center; vertical-align:middle; text-overflow:ellipsis; overflow: hidden; white-space:nowrap;" data-bind="style: { 'lineHeight': height() + 'px' }, text: text"></div>
+                <!-- ko if: num() -->
+                <div style="position:absolute; top:-0.5em; line-height: 1em; left:15px; background-color: white;" data-bind="text: num"></div>
+                <!-- /ko -->
+                <!-- ko if: state() === "completed" -->
+                <div style="position:absolute; top:-0.5em; line-height: 1em; right:15px; background-color: white;"><i class="fa fa-fw fa-check" style="color: green;"></i></div>
+                <!-- /ko -->
+                <!-- ko if: state() === "inprogress" -->
+                <!--<div style="position:absolute; top:-0.5em; line-height: 1em; right:15px; background-color: white;"><i class="fa fa-fw fa-circle" style="color: yellow;"></i></div>-->
+                <!-- /ko -->
+            </div>
+            <!-- /ko -->
+            <!-- ko if: isCondition -->
+            <div style="position:relative; width:100%; text-align:center; vertical-align:middle; padding:0 10px; text-overflow:ellipsis; overflow: hidden; white-space:nowrap;" data-bind="style: { 'height': height() + 'px', 'lineHeight': height() + 'px', 'margin': $parent.blockMinDistance() + 'px 0', 'borderRadius': (isTerminator() ? $parent.blockMinDistance() : 0) + 'px' }">
+                <span data-bind="text: text"></span>
+                <svg height="100%" width="100%" style="position:absolute;left:0;">
+                    <line x1="50%" y1="0" x2="100%" y2="50%" style="stroke:black;stroke-width:1" />
+                    <line x1="0" y1="50%" x2="50%" y2="0" style="stroke:black;stroke-width:1" />
+                    <line x1="0" y1="50%" x2="50%" y2="100%" style="stroke:black;stroke-width:1" />
+                    <line x1="50%" y1="100%" x2="100%" y2="50%" style="stroke:black;stroke-width:1" />
+                </svg>
+                <!-- ko if: num() -->
+                <div style="position:absolute; bottom:50%; line-height: 1em; left:15px; background-color: white;" data-bind="text: num"></div>
+                <!-- /ko -->
+            </div>
+            <!-- /ko -->
+            <!-- /ko -->
+        </div>
+        <div style="position:absolute; top: 0;" data-bind="style: { 'top': -blockMinDistance() + 'px', 'left': connectorsAreaWidth() + blockWidth() + 'px', width: commentWidth() + 'px' }">
+            <!-- ko foreach: blocks -->
+            <div style="position: relative" data-bind="style: { 'height': height() + 'px', 'lineHeight': height() + 'px', 'margin': $parent.blockMinDistance() + 'px 0' }">
+                <!-- ko if: comment -->
+                <div style="position:absolute; top: 0; left:0; width: 40px; height: 100%">
+                    <svg width="100%" height="100%">
+                        <line y1="50%" y2="50%" x1="0%" x2="100%" style="stroke:black;stroke-width:0.5;stroke-dasharray:10 5;"></line>
+                    </svg>
+                </div>
+                <div style="position:absolute; line-height: 100%; overflow: auto; top: 0; left:40px; right: 0; height: 100%; padding-left: 10px; text-align:left; vertical-align:middle; border-radius: 8px; border-left: 2px dashed gray;">
+                    <div style="display: inline-block;" data-bind="text: comment"></div>
+                </div>
+                <!-- /ko -->
+            </div>
+            <!-- /ko -->
+        </div>
+    </div>
+</script>

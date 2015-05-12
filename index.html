@@ -6,6 +6,28 @@
     <script src="vendor/knockout/dist/knockout.js"></script>
 </head>
 <body>
-
+    <div id="algorithm-host">
+    </div>
+    <script>
+        (function () {
+            var promises = $("script[type='text/html']").map(function (_, script) {
+                if (script.src) {
+                    var deffered = $.Deferred();
+                    $.get(script.src, function (template) {
+                        script.text = template;
+                        if (template.indexOf('type="text/html"') !== -1 || template.indexOf("type='text/html'") !== -1) {
+                            $(document.body).append(template);
+                        }
+                        deffered.resolve();
+                    })
+                    return deffered.promise();
+                }
+            });
+            $.when.apply($.when, promises).done(function () {
+                //alert("done");
+                init();
+            });
+        })()
+    </script>
 </body>
 </html>

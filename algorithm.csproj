@@ -1,0 +1,290 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{94B45B2B-5A16-48EE-8D01-5E6CABEE3612}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Tests</RootNamespace>
+    <AssemblyName>Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".gitignore" />
+    <Content Include="gruntfile.js" />
+    <Content Include="index.html" />
+    <Content Include="index.js" />
+    <Content Include="tests\tests.html" />
+    <Content Include="vendor\jquery\dist\jquery.js" />
+    <Content Include="vendor\jquery\dist\jquery.min.js" />
+    <Content Include="vendor\jquery\MIT-LICENSE.txt" />
+    <Content Include="vendor\jquery\src\ajax.js" />
+    <Content Include="vendor\jquery\src\ajax\jsonp.js" />
+    <Content Include="vendor\jquery\src\ajax\load.js" />
+    <Content Include="vendor\jquery\src\ajax\parseJSON.js" />
+    <Content Include="vendor\jquery\src\ajax\parseXML.js" />
+    <Content Include="vendor\jquery\src\ajax\script.js" />
+    <Content Include="vendor\jquery\src\ajax\var\nonce.js" />
+    <Content Include="vendor\jquery\src\ajax\var\rquery.js" />
+    <Content Include="vendor\jquery\src\ajax\xhr.js" />
+    <Content Include="vendor\jquery\src\attributes.js" />
+    <Content Include="vendor\jquery\src\attributes\attr.js" />
+    <Content Include="vendor\jquery\src\attributes\classes.js" />
+    <Content Include="vendor\jquery\src\attributes\prop.js" />
+    <Content Include="vendor\jquery\src\attributes\support.js" />
+    <Content Include="vendor\jquery\src\attributes\val.js" />
+    <Content Include="vendor\jquery\src\callbacks.js" />
+    <Content Include="vendor\jquery\src\core.js" />
+    <Content Include="vendor\jquery\src\core\access.js" />
+    <Content Include="vendor\jquery\src\core\init.js" />
+    <Content Include="vendor\jquery\src\core\parseHTML.js" />
+    <Content Include="vendor\jquery\src\core\ready.js" />
+    <Content Include="vendor\jquery\src\core\var\rsingleTag.js" />
+    <Content Include="vendor\jquery\src\css.js" />
+    <Content Include="vendor\jquery\src\css\addGetHookIf.js" />
+    <Content Include="vendor\jquery\src\css\curCSS.js" />
+    <Content Include="vendor\jquery\src\css\defaultDisplay.js" />
+    <Content Include="vendor\jquery\src\css\hiddenVisibleSelectors.js" />
+    <Content Include="vendor\jquery\src\css\support.js" />
+    <Content Include="vendor\jquery\src\css\swap.js" />
+    <Content Include="vendor\jquery\src\css\var\cssExpand.js" />
+    <Content Include="vendor\jquery\src\css\var\getStyles.js" />
+    <Content Include="vendor\jquery\src\css\var\isHidden.js" />
+    <Content Include="vendor\jquery\src\css\var\rmargin.js" />
+    <Content Include="vendor\jquery\src\css\var\rnumnonpx.js" />
+    <Content Include="vendor\jquery\src\data.js" />
+    <Content Include="vendor\jquery\src\data\accepts.js" />
+    <Content Include="vendor\jquery\src\data\Data.js" />
+    <Content Include="vendor\jquery\src\data\var\data_priv.js" />
+    <Content Include="vendor\jquery\src\data\var\data_user.js" />
+    <Content Include="vendor\jquery\src\deferred.js" />
+    <Content Include="vendor\jquery\src\deprecated.js" />
+    <Content Include="vendor\jquery\src\dimensions.js" />
+    <Content Include="vendor\jquery\src\effects.js" />
+    <Content Include="vendor\jquery\src\effects\animatedSelector.js" />
+    <Content Include="vendor\jquery\src\effects\Tween.js" />
+    <Content Include="vendor\jquery\src\event.js" />
+    <Content Include="vendor\jquery\src\event\ajax.js" />
+    <Content Include="vendor\jquery\src\event\alias.js" />
+    <Content Include="vendor\jquery\src\event\support.js" />
+    <Content Include="vendor\jquery\src\exports\amd.js" />
+    <Content Include="vendor\jquery\src\exports\global.js" />
+    <Content Include="vendor\jquery\src\intro.js" />
+    <Content Include="vendor\jquery\src\jquery.js" />
+    <Content Include="vendor\jquery\src\manipulation.js" />
+    <Content Include="vendor\jquery\src\manipulation\support.js" />
+    <Content Include="vendor\jquery\src\manipulation\var\rcheckableType.js" />
+    <Content Include="vendor\jquery\src\manipulation\_evalUrl.js" />
+    <Content Include="vendor\jquery\src\offset.js" />
+    <Content Include="vendor\jquery\src\outro.js" />
+    <Content Include="vendor\jquery\src\queue.js" />
+    <Content Include="vendor\jquery\src\queue\delay.js" />
+    <Content Include="vendor\jquery\src\selector-native.js" />
+    <Content Include="vendor\jquery\src\selector-sizzle.js" />
+    <Content Include="vendor\jquery\src\selector.js" />
+    <Content Include="vendor\jquery\src\serialize.js" />
+    <Content Include="vendor\jquery\src\sizzle\dist\sizzle.js" />
+    <Content Include="vendor\jquery\src\sizzle\dist\sizzle.min.js" />
+    <Content Include="vendor\jquery\src\traversing.js" />
+    <Content Include="vendor\jquery\src\traversing\findFilter.js" />
+    <Content Include="vendor\jquery\src\traversing\var\rneedsContext.js" />
+    <Content Include="vendor\jquery\src\var\arr.js" />
+    <Content Include="vendor\jquery\src\var\class2type.js" />
+    <Content Include="vendor\jquery\src\var\concat.js" />
+    <Content Include="vendor\jquery\src\var\hasOwn.js" />
+    <Content Include="vendor\jquery\src\var\indexOf.js" />
+    <Content Include="vendor\jquery\src\var\pnum.js" />
+    <Content Include="vendor\jquery\src\var\push.js" />
+    <Content Include="vendor\jquery\src\var\rnotwhite.js" />
+    <Content Include="vendor\jquery\src\var\slice.js" />
+    <Content Include="vendor\jquery\src\var\strundefined.js" />
+    <Content Include="vendor\jquery\src\var\support.js" />
+    <Content Include="vendor\jquery\src\var\toString.js" />
+    <Content Include="vendor\jquery\src\wrap.js" />
+    <Content Include="vendor\knockout\build\fragments\amd-post.js" />
+    <Content Include="vendor\knockout\build\fragments\amd-pre.js" />
+    <Content Include="vendor\knockout\build\fragments\extern-post.js" />
+    <Content Include="vendor\knockout\build\fragments\extern-pre.js" />
+    <Content Include="vendor\knockout\build\fragments\source-references.js" />
+    <Content Include="vendor\knockout\build\knockout-raw.js" />
+    <Content Include="vendor\knockout\dist\knockout.debug.js" />
+    <Content Include="vendor\knockout\dist\knockout.js" />
+    <Content Include="vendor\knockout\Gruntfile.js" />
+    <Content Include="vendor\knockout\src\binding\bindingAttributeSyntax.js" />
+    <Content Include="vendor\knockout\src\binding\bindingProvider.js" />
+    <Content Include="vendor\knockout\src\binding\defaultBindings\attr.js" />
+    <Content Include="vendor\knockout\src\binding\defaultBindings\checked.js" />
+    <Content Include="vendor\knockout\src\binding\defaultBindings\click.js" />
+    <Content Include="vendor\knockout\src\binding\defaultBindings\css.js" />
+    <Content Include="vendor\knockout\src\binding\defaultBindings\enableDisable.js" />
+    <Content Include="vendor\knockout\src\binding\defaultBindings\event.js" />
+    <Content Include="vendor\knockout\src\binding\defaultBindings\foreach.js" />
+    <Content Include="vendor\knockout\src\binding\defaultBindings\hasfocus.js" />
+    <Content Include="vendor\knockout\src\binding\defaultBindings\html.js" />
+    <Content Include="vendor\knockout\src\binding\defaultBindings\ifIfnotWith.js" />
+    <Content Include="vendor\knockout\src\binding\defaultBindings\options.js" />
+    <Content Include="vendor\knockout\src\binding\defaultBindings\selectedOptions.js" />
+    <Content Include="vendor\knockout\src\binding\defaultBindings\style.js" />
+    <Content Include="vendor\knockout\src\binding\defaultBindings\submit.js" />
+    <Content Include="vendor\knockout\src\binding\defaultBindings\text.js" />
+    <Content Include="vendor\knockout\src\binding\defaultBindings\textInput.js" />
+    <Content Include="vendor\knockout\src\binding\defaultBindings\uniqueName.js" />
+    <Content Include="vendor\knockout\src\binding\defaultBindings\value.js" />
+    <Content Include="vendor\knockout\src\binding\defaultBindings\visible.js" />
+    <Content Include="vendor\knockout\src\binding\editDetection\arrayToDomNodeChildren.js" />
+    <Content Include="vendor\knockout\src\binding\editDetection\compareArrays.js" />
+    <Content Include="vendor\knockout\src\binding\expressionRewriting.js" />
+    <Content Include="vendor\knockout\src\binding\selectExtensions.js" />
+    <Content Include="vendor\knockout\src\components\componentBinding.js" />
+    <Content Include="vendor\knockout\src\components\customElements.js" />
+    <Content Include="vendor\knockout\src\components\defaultLoader.js" />
+    <Content Include="vendor\knockout\src\components\loaderRegistry.js" />
+    <Content Include="vendor\knockout\src\google-closure-compiler-utils.js" />
+    <Content Include="vendor\knockout\src\memoization.js" />
+    <Content Include="vendor\knockout\src\namespace.js" />
+    <Content Include="vendor\knockout\src\subscribables\dependencyDetection.js" />
+    <Content Include="vendor\knockout\src\subscribables\dependentObservable.js" />
+    <Content Include="vendor\knockout\src\subscribables\extenders.js" />
+    <Content Include="vendor\knockout\src\subscribables\mappingHelpers.js" />
+    <Content Include="vendor\knockout\src\subscribables\observable.js" />
+    <Content Include="vendor\knockout\src\subscribables\observableArray.changeTracking.js" />
+    <Content Include="vendor\knockout\src\subscribables\observableArray.js" />
+    <Content Include="vendor\knockout\src\subscribables\subscribable.js" />
+    <Content Include="vendor\knockout\src\templating\jquery.tmpl\jqueryTmplTemplateEngine.js" />
+    <Content Include="vendor\knockout\src\templating\native\nativeTemplateEngine.js" />
+    <Content Include="vendor\knockout\src\templating\templateEngine.js" />
+    <Content Include="vendor\knockout\src\templating\templateRewriting.js" />
+    <Content Include="vendor\knockout\src\templating\templateSources.js" />
+    <Content Include="vendor\knockout\src\templating\templating.js" />
+    <Content Include="vendor\knockout\src\utils.domData.js" />
+    <Content Include="vendor\knockout\src\utils.domManipulation.js" />
+    <Content Include="vendor\knockout\src\utils.domNodeDisposal.js" />
+    <Content Include="vendor\knockout\src\utils.js" />
+    <Content Include="vendor\knockout\src\version.js" />
+    <Content Include="vendor\knockout\src\virtualElements.js" />
+    <Content Include="vendor\qunit\AUTHORS.txt" />
+    <Content Include="vendor\qunit\build\release.js" />
+    <Content Include="vendor\qunit\LICENSE.txt" />
+    <Content Include="vendor\qunit\qunit\qunit.css" />
+    <Content Include="vendor\qunit\qunit\qunit.js" />
+    <Content Include="vendor\qunit\reporter\html.js" />
+    <Content Include="vendor\qunit\src\assert.js" />
+    <Content Include="vendor\qunit\src\core.js" />
+    <Content Include="vendor\qunit\src\diff.js" />
+    <Content Include="vendor\qunit\src\dump.js" />
+    <Content Include="vendor\qunit\src\equiv.js" />
+    <Content Include="vendor\qunit\src\export.js" />
+    <Content Include="vendor\qunit\src\intro.js" />
+    <Content Include="vendor\qunit\src\outro.js" />
+    <Content Include="vendor\qunit\src\qunit.css" />
+    <Content Include="vendor\qunit\src\test.js" />
+    <Content Include="widget\algorithmview.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Scripts\typings\knockout\knockout.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\qunit\qunit.d.ts" />
+    <TypeScriptCompile Include="tests\algorithm.tests.ts" />
+    <TypeScriptCompile Include="vendor\dt-jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="widget\algorithmview.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="vendor\dt-jquery\.bower.json" />
+    <Content Include="vendor\dt-jquery\bower.json" />
+    <Content Include="vendor\dt-jquery\README.md" />
+    <Content Include="vendor\jquery\.bower.json" />
+    <Content Include="vendor\jquery\bower.json" />
+    <Content Include="vendor\jquery\dist\jquery.min.map" />
+    <Content Include="vendor\jquery\src\sizzle\dist\sizzle.min.map" />
+    <Content Include="vendor\knockout\.bower.json" />
+    <Content Include="vendor\knockout\bower.json" />
+    <Content Include="vendor\knockout\LICENSE" />
+    <Content Include="vendor\knockout\package.json" />
+    <Content Include="vendor\knockout\README.md" />
+    <Content Include="vendor\qunit\.bower.json" />
+    <Content Include="vendor\qunit\bower.json" />
+    <Content Include="vendor\qunit\browserstack.json" />
+    <Content Include="vendor\qunit\CONTRIBUTING.md" />
+    <Content Include="vendor\qunit\History.md" />
+    <Content Include="vendor\qunit\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="widget\algorithmview.less" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".bowerrc" />
+    <Content Include="bower.json" />
+    <Content Include="package.json" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>50746</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:50746/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

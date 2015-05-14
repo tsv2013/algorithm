@@ -1,5 +1,5 @@
-﻿/// <reference path="knockout.d.ts" />
-/// <reference path="../vendor/dt-jquery/jquery.d.ts" />
+﻿/// <reference path="../vendor/dt-jquery/jquery.d.ts" />
+/// <reference path="../scripts/typings/knockout/knockout.d.ts" />
 
 module Algorithm {
 

@@ -32,7 +32,7 @@ Algorithm is defined via JSON, for instance:
         }
     };
 
-And is bound with KnockoutJS:
+and is bound via KnockoutJS:
 
     ko.applyBindings(model);
 

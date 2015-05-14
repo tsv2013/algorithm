@@ -5,7 +5,7 @@
             <!-- ko if: type() === "far" -->
             <!-- ko if: direction() === "down" -->
             <div style="border:1px solid black; border-right:none; border-radius: 5px 0 0 5px; position:absolute;" data-bind="style: { top: (startBlock().posY() + startBlock().height() / 2) + 'px', height: (endBlock().posY() - startBlock().posY()) + 'px', left: ($parent.connectorsAreaWidth() - level() * $parent.blockMinDistance()) + 'px', width: level() * $parent.blockMinDistance() + 'px' }">
-                <div style="width: 10px; height:11px; position: absolute; right: 0px; bottom: -2px;">
+                <div class="connector-far-down-arrow">
                     <svg width="100%" height="100%">
                         <line y1="25%" y2="50%" x1="50%" x2="100%" style="stroke:black;stroke-width:1"></line>
                         <line y1="75%" y2="50%" x1="50%" x2="100%" style="stroke:black;stroke-width:1"></line>
@@ -48,7 +48,7 @@
         <div style="position:relative; top: 0;" data-bind="style: { 'left': connectorsAreaWidth() + 'px', width: blockWidth() + 'px' }">
             <!-- ko foreach: blocks -->
             <!-- ko ifnot: isCondition -->
-            <div style="position:relative; width:100%; border:1px solid black;" data-bind="style: { 'height': height() + 'px', 'lineHeight': height() + 'px', 'margin': $parent.blockMinDistance() + 'px 0', 'borderRadius': (isTerminator() ? $parent.blockMinDistance() : 0) + 'px' }, css : { 'block-shadow': state() === 'inprogress'}">
+            <div class="algorithm-block algorithm-block-item" data-bind="style: { 'height': height() + 'px', 'lineHeight': height() + 'px', 'margin': $parent.blockMinDistance() + 'px 0', 'borderRadius': (isTerminator() ? $parent.blockMinDistance() : 0) + 'px' }, css : { 'block-shadow': state() === 'inprogress'}">
                 <div style="position:relative; width:100%; height:100%; padding:0 10px; text-align:center; vertical-align:middle; text-overflow:ellipsis; overflow: hidden; white-space:nowrap;" data-bind="style: { 'lineHeight': height() + 'px' }, text: text"></div>
                 <!-- ko if: num() -->
                 <div style="position:absolute; top:-0.5em; line-height: 1em; left:15px; background-color: white;" data-bind="text: num"></div>
@@ -64,7 +64,7 @@
             </div>
             <!-- /ko -->
             <!-- ko if: isCondition -->
-            <div style="position:relative; width:100%; text-align:center; vertical-align:middle; padding:0 10px; text-overflow:ellipsis; overflow: hidden; white-space:nowrap;" data-bind="style: { 'height': height() + 'px', 'lineHeight': height() + 'px', 'margin': $parent.blockMinDistance() + 'px 0', 'borderRadius': (isTerminator() ? $parent.blockMinDistance() : 0) + 'px' }">
+            <div class="algorithm-block algorithm-block-condition" data-bind="style: { 'height': height() + 'px', 'lineHeight': height() + 'px', 'margin': $parent.blockMinDistance() + 'px 0', 'borderRadius': (isTerminator() ? $parent.blockMinDistance() : 0) + 'px' }">
                 <span data-bind="text: text"></span>
                 <svg height="100%" width="100%" style="position:absolute;left:0;">
                     <line x1="50%" y1="0" x2="100%" y2="50%" style="stroke:black;stroke-width:1" />

@@ -214,7 +214,13 @@
     <Content Include="vendor\qunit\src\outro.js" />
     <Content Include="vendor\qunit\src\qunit.css" />
     <Content Include="vendor\qunit\src\test.js" />
+    <Content Include="widget\algorithmview.css">
+      <DependentUpon>algorithmview.less</DependentUpon>
+    </Content>
     <Content Include="widget\algorithmview.html" />
+    <Content Include="widget\algorithmview.min.css">
+      <DependentUpon>algorithmview.css</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\typings\knockout\knockout.d.ts" />
@@ -253,6 +259,11 @@
     <Content Include=".bowerrc" />
     <Content Include="bower.json" />
     <Content Include="package.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="widget\algorithmview.css.map">
+      <DependentUpon>algorithmview.css</DependentUpon>
+    </Content>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

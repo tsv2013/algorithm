@@ -4,6 +4,7 @@
 module Algorithm {
 
     export class AlgorithmViewModel {
+        static NoLabelText = "no";
 
         private _findPrevBlocks(id: any, blocks: Array<AlgorithmItemBlockModel>, transitions: Array<any>) {
             var result: Array<AlgorithmItemBlockModel> = []; 
@@ -106,7 +107,7 @@ module Algorithm {
                     var exit2Block = this.findBlock(exit2BlockTransition.exit2);
                     block.exit2Block(exit2Block);
                     var transition = new AlgorithmTransition(block, exit2Block);
-                    transition.label("нет");
+                    transition.label(AlgorithmViewModel.NoLabelText);
                     this.transitions.push(transition);
                 }
             });

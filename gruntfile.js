@@ -58,6 +58,9 @@ module.exports = function (grunt) {
                 }
             }
         },
+        qunit: {
+            all: ['tests/**/*.html']
+        },
         watch: {
             styles: {
                 files: ['widget/**/*.less'],
@@ -87,4 +90,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks("grunt-contrib-watch");
     grunt.loadNpmTasks("grunt-open");
+    grunt.loadNpmTasks('grunt-contrib-qunit');
 };

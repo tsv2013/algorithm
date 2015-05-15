@@ -6,6 +6,7 @@ vendor/**
 lib/**
 dist/**
 **/*.map
+*.log
 widget/*.js
 widget/*.css
 tests/*.js

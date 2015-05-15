@@ -4,6 +4,7 @@ bin/**
 node_modules/**
 vendor/**
 lib/**
+dist/**
 **/*.map
 widget/*.js
 widget/*.css

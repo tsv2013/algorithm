@@ -7,7 +7,7 @@ module.exports = function (grunt) {
         typescript: {
             build: {
                 src: ['widget/**/*.ts'],
-                dest: 'lib/algorithm.js',
+                dest: 'dist/algorithm.js',
                 options: {
                     module: 'amd', //or commonjs
                     target: 'es5', //or es3
@@ -40,21 +40,21 @@ module.exports = function (grunt) {
         cssmin: {
             all: {
                 files: {
-                    'lib/algorithm.min.css': ['widget/**/*.css']
+                    'dist/algorithm.min.css': ['widget/**/*.css']
                 }
             }
         },
         uglify: {
             all: {
                 files: {
-                    'lib/algorithm.min.js': ['lib/algorithm.js']
+                    'dist/algorithm.min.js': ['dist/algorithm.js']
                 }
             }
         },
         concat: {
             templates: {
                 files: {
-                    'lib/algorithm.html': ['widget/**/*.html']
+                    'dist/algorithm.html': ['widget/**/*.html']
                 }
             }
         },

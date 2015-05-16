@@ -81,6 +81,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('default', ['watch']);
     grunt.registerTask('buildall', ['typescript:build', 'less:compile', 'cssmin:all', 'uglify:all', 'concat:templates']);
+    grunt.registerTask('test', ['typescript', 'qunit']);
 
     grunt.loadNpmTasks("grunt-typescript");
     grunt.loadNpmTasks('grunt-contrib-less');

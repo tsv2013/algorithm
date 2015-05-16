@@ -6,16 +6,18 @@ module Algorithm {
     export class AlgorithmViewModel {
         static NoLabelText = "no";
 
+        private _MaxId = -1;
+
         private _findPrevBlocks(id: any, blocks: Array<AlgorithmItemBlockModel>, transitions: Array<any>) {
-            var result: Array<AlgorithmItemBlockModel> = []; 
+            var result: Array<AlgorithmItemBlockModel> = [];
             transitions.filter((transition) => { return transition.exit1 === id; }).
                 forEach((transition) => {
-                    result.push(this.findBlock(transition.iid));
-                });
+                result.push(this.findBlock(transition.iid));
+            });
             transitions.filter((transition) => { return transition.exit2 === id; }).
                 forEach((transition) => {
-                    result.push(this.findBlock(transition.iid));
-                });
+                result.push(this.findBlock(transition.iid));
+            });
 
             return result;
         }
@@ -24,8 +26,8 @@ module Algorithm {
             var result: Array<AlgorithmItemBlockModel> = [];
             transitions.filter((transition) => { return transition.iid === id; }).
                 forEach((transition) => {
-                    result.push(this.findBlock(transition.exit1));
-                });
+                result.push(this.findBlock(transition.exit1));
+            });
 
             return result;
         }
@@ -34,18 +36,18 @@ module Algorithm {
             var followingBlocks = this.blocks().filter(filter),
                 otherThreadsForChild = otherThreads.concat(followingBlocks);
             followingBlocks.forEach((currentBlock) => {
-                var currentBlockHasKnownAncestor = currentBlock.prevBlocks().filter((prevBlock) => { return otherThreads.indexOf(prevBlock) !== -1; } ).length !== 0;
+                var currentBlockHasKnownAncestor = currentBlock.prevBlocks().filter((prevBlock) => { return otherThreads.indexOf(prevBlock) !== -1; }).length !== 0;
                 if(sortResult.indexOf(currentBlock) === -1 && !currentBlockHasKnownAncestor) {
                     sortResult.push(currentBlock);
                     otherThreadsForChild.splice(otherThreadsForChild.indexOf(currentBlock), 1);
-                    this._collectFollowingBlocks(sortResult, (block) => { return block.prevBlocks().indexOf(currentBlock) !== -1; }, otherThreadsForChild);
+                    this._collectFollowingBlocks(sortResult,(block) => { return block.prevBlocks().indexOf(currentBlock) !== -1; }, otherThreadsForChild);
                 }
             });
         }
 
         private _sortBlocks() {
             var sortResult: Array<AlgorithmItemBlockModel> = [];
-            this._collectFollowingBlocks(sortResult, (block) => { return block.prevBlocks().length === 0; });
+            this._collectFollowingBlocks(sortResult,(block) => { return block.prevBlocks().length === 0; });
             this.blocks(sortResult);
         }
 
@@ -58,6 +60,7 @@ module Algorithm {
         }
 
         private _prepareTransitions() {
+            this.transitions().forEach(transition => transition.type("direct"));
             var currentLevel = 1;
             var currentTransitions: AlgorithmTransition[] = [];
             var resultTransitions: AlgorithmTransition[] = [];
@@ -72,19 +75,19 @@ module Algorithm {
                 this._findTransitionsFrom(block)
                     .sort((t1, t2) => { return this.blocks().indexOf(t1.endBlock()) - this.blocks().indexOf(t2.endBlock()); })
                     .forEach((transition) => {
-                        if(this.blocks().indexOf(transition.endBlock()) !== index + 1) {
-                            transition.level(currentLevel);
-                            if(currentLevel > this.maxLevel()) {
-                                this.maxLevel(currentLevel);
-                            }
-                            currentTransitions.push(transition);
-                            transition.type("far");
-                            if(this.blocks().indexOf(transition.endBlock()) < this.blocks().indexOf(transition.startBlock())) {
-                                transition.direction("up");
-                            }
-                            needLevelUp = true;
+                    if(this.blocks().indexOf(transition.endBlock()) !== index + 1) {
+                        transition.level(currentLevel);
+                        if(currentLevel > this.maxLevel()) {
+                            this.maxLevel(currentLevel);
                         }
-                        resultTransitions.push(transition);
+                        currentTransitions.push(transition);
+                        transition.type("far");
+                        if(this.blocks().indexOf(transition.endBlock()) < this.blocks().indexOf(transition.startBlock())) {
+                            transition.direction("up");
+                        }
+                        needLevelUp = true;
+                    }
+                    resultTransitions.push(transition);
                 });
                 if(needLevelUp) {
                     currentLevel++;
@@ -93,8 +96,16 @@ module Algorithm {
             this.transitions(resultTransitions);
         }
 
+        private _updateLayout() {
+            this.blocks().reduce((posY: number, block) => { block.posY(posY); return posY + block.height() + this.blockMinDistance(); }, 0);
+            this._prepareTransitions();
+        }
+
         constructor(options: any) {
             options.items.forEach((item) => {
+                if(item.id > this._MaxId) {
+                    this._MaxId = item.id;
+                }
                 this.blocks.push(new AlgorithmItemBlockModel(item));
             });
             this.blocks().forEach((block) => {
@@ -112,8 +123,7 @@ module Algorithm {
                 }
             });
             this._sortBlocks();
-            this.blocks().reduce((posY: number, block) => { block.posY(posY); return posY + block.height() + this.blockMinDistance(); }, 0);
-            this._prepareTransitions();
+            this._updateLayout();
         }
 
         blocks = ko.observableArray<AlgorithmItemBlockModel>();
@@ -129,10 +139,63 @@ module Algorithm {
         findBlock(id: any) {
             return this.blocks().filter((block) => { return block.id === id; })[0];
         }
+        addBlock(block: AlgorithmItemBlockModel, isBefore: boolean = false) {
+            var newBlock = new AlgorithmItemBlockModel({ id: ++this._MaxId });
+            this.blocks.splice(this.blocks().indexOf(block) + (isBefore ? 0 : 1), 0, newBlock);
+            if(isBefore) {
+                block.prevBlocks().forEach(prevBlock => {
+                    newBlock.prevBlocks.push(prevBlock);
+                });
+                block.prevBlocks([newBlock]);
+                newBlock.exitBlocks([block]);
+
+                this._findTransitionsTo(block).forEach(transition => transition.endBlock(newBlock));
+
+                this.transitions.push(new AlgorithmTransition(newBlock, block));
+            }
+            else {
+                block.exitBlocks().forEach(exitBlock => {
+                    newBlock.exitBlocks.push(exitBlock);
+                });
+                block.exitBlocks([newBlock])
+                newBlock.prevBlocks([block]);
+
+                this._findTransitionsFrom(block).forEach(transition => transition.startBlock(newBlock));
+
+                this.transitions.push(new AlgorithmTransition(block, newBlock));
+            }
+            this._updateLayout();
+        }
+        removeBlock(block: AlgorithmItemBlockModel) {
+            this._findTransitionsTo(block).forEach(transition => {
+                block.exitBlocks().forEach(exitBlock => {
+                    transition.endBlock(exitBlock);
+                    transition.startBlock().exitBlocks.remove(block);
+                    transition.startBlock().exitBlocks.remove(exitBlock);
+                });
+            });
+            this._findTransitionsFrom(block).forEach(transition => {
+                this.transitions.remove(transition);
+            });
+            this.blocks.remove(block);
+            this._updateLayout();
+        }
+        editBlock(block: AlgorithmItemBlockModel) {
+        }
+
+        static titleAddBefore = "Add block before";
+        static titleAddAfter = "Add block after";
+        static titleEdit = "Edit block";
+        static titleRemove = "Remove block";
+        get addTitleBefore() { return AlgorithmViewModel.titleAddBefore; }
+        get addTitleAfter() { return AlgorithmViewModel.titleAddAfter; }
+        get editTitle() { return AlgorithmViewModel.titleEdit; }
+        get removeTitle() { return AlgorithmViewModel.titleRemove; }
     }
 
     export class AlgorithmItemBlockModel {
         private _id: any;
+
         constructor(item: any) {
             this._id = item.id;
             this.text(item.text);
@@ -140,6 +203,7 @@ module Algorithm {
             this.num(item.num);
             this.state(item.state);
         }
+
         get id() {
             return this._id;
         }
@@ -158,10 +222,12 @@ module Algorithm {
     }
 
     export class AlgorithmTransition {
+
         constructor(startBlock?: AlgorithmItemBlockModel, endBlock?: AlgorithmItemBlockModel) {
             this.startBlock(startBlock);
             this.endBlock(endBlock);
         }
+
         startBlock = ko.observable<AlgorithmItemBlockModel>();
         endBlock = ko.observable<AlgorithmItemBlockModel>();
         type = ko.observable("direct");
@@ -170,11 +236,8 @@ module Algorithm {
         label = ko.observable();
     }
 
-    ko.bindingHandlers["algorithmView"] = {
+    ko.bindingHandlers["algorithm"] = {
         init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-            return { controlsDescendantBindings: true };
-        },
-        update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
             var options = ko.unwrap(valueAccessor());
             var $algorithmTemplate = $("#algorithm-view-template"),
                 algorithmViewHolderWidth = ko.observable(500),
@@ -193,7 +256,10 @@ module Algorithm {
             ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
                 clearInterval(intervalId);
             });
+            return { controlsDescendantBindings: true };
+        },
+        update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
         }
     };
 
-} 
+}

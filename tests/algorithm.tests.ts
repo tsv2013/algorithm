@@ -4,7 +4,7 @@
 
 module Algorithm.Tests {
 
-    QUnit.module("Algorithm tests");
+    QUnit.module("Algorithm algorithm view model tests");
 
     var algorithm1 = {
         items: [
@@ -45,7 +45,7 @@ module Algorithm.Tests {
         ]
     };
 
-    test("algorithm view model create test", function() {
+    test("create", function() {
         var algorithmViewModel = new AlgorithmViewModel(algorithm1);
 
         equal(algorithmViewModel.blocks().length, 9);
@@ -81,7 +81,7 @@ module Algorithm.Tests {
         ok(!block.exit2Block());
     });
 
-    test("algorithm view model blocks order test", function() {
+    test("blocks order", function() {
         var algorithmViewModel = new AlgorithmViewModel(algorithm1);
 
         equal(algorithmViewModel.blocks()[0].id, 1);
@@ -95,7 +95,7 @@ module Algorithm.Tests {
         equal(algorithmViewModel.blocks()[8].id, 9);
     });
 
-    test("algorithm view model prepare transitions test", function() {
+    test("prepare transitions", function() {
         var algorithmViewModel = new AlgorithmViewModel(algorithm1);
 
         equal(algorithmViewModel.transitions().length, 10);
@@ -129,7 +129,7 @@ module Algorithm.Tests {
         equal(algorithmViewModel.transitions()[7].endBlock().id, 8);
     });
 
-    test("algorithm view model prepare transitions back test", function() {
+    test("prepare transitions back", function() {
         var algorithmViewModel = new AlgorithmViewModel(algorithm2);
 
         equal(algorithmViewModel.transitions().length, 4);
@@ -149,4 +149,72 @@ module Algorithm.Tests {
         equal(algorithmViewModel.transitions()[3].endBlock().id, 4);
     });
 
+    test("add block", function () {
+        var algorithmViewModel = new AlgorithmViewModel(algorithm2);
+
+        equal(algorithmViewModel.blocks().length, 4, "source configuration");
+        equal(algorithmViewModel.blocks()[0].id, 1);
+        equal(algorithmViewModel.blocks()[1].id, 2);
+        equal(algorithmViewModel.blocks()[2].id, 3);
+
+        algorithmViewModel.addBlock(algorithmViewModel.blocks()[1]);
+        equal(algorithmViewModel.blocks().length, 5, "block was added after");
+        equal(algorithmViewModel.blocks()[0].id, 1);
+        equal(algorithmViewModel.blocks()[1].id, 2);
+        equal(algorithmViewModel.blocks()[2].id, 5);
+        equal(algorithmViewModel.blocks()[3].id, 3);
+        equal(algorithmViewModel.transitions().length, 5, "transitions");
+        equal(algorithmViewModel.transitions()[0].type(), "direct");
+        equal(algorithmViewModel.transitions()[0].startBlock().id, 1);
+        equal(algorithmViewModel.transitions()[0].endBlock().id, 2);
+        equal(algorithmViewModel.transitions()[1].type(), "direct");
+        equal(algorithmViewModel.transitions()[1].startBlock().id, 2);
+        equal(algorithmViewModel.transitions()[1].endBlock().id, 5);
+        equal(algorithmViewModel.transitions()[2].type(), "direct");
+        equal(algorithmViewModel.transitions()[2].startBlock().id, 5);
+        equal(algorithmViewModel.transitions()[2].endBlock().id, 3);
+        equal(algorithmViewModel.transitions()[3].type(), "far");
+        equal(algorithmViewModel.transitions()[3].direction(), "up");
+        equal(algorithmViewModel.transitions()[3].level(), 1);
+        equal(algorithmViewModel.transitions()[3].startBlock().id, 3);
+        equal(algorithmViewModel.transitions()[3].endBlock().id, 2);
+        equal(algorithmViewModel.transitions()[4].type(), "direct");
+        equal(algorithmViewModel.transitions()[4].startBlock().id, 3);
+        equal(algorithmViewModel.transitions()[4].endBlock().id, 4);
+
+        algorithmViewModel.addBlock(algorithmViewModel.blocks()[1], true);
+        equal(algorithmViewModel.blocks().length, 6, "block was added before");
+        equal(algorithmViewModel.blocks()[0].id, 1);
+        equal(algorithmViewModel.blocks()[1].id, 6);
+        equal(algorithmViewModel.blocks()[2].id, 2);
+        equal(algorithmViewModel.blocks()[3].id, 5);
+    });
+
+    test("remove block", function() {
+        var algorithmViewModel = new AlgorithmViewModel(algorithm2);
+
+        equal(algorithmViewModel.blocks().length, 4, "source configuration");
+        equal(algorithmViewModel.blocks()[0].id, 1);
+        equal(algorithmViewModel.blocks()[1].id, 2);
+        equal(algorithmViewModel.blocks()[2].id, 3);
+
+        algorithmViewModel.removeBlock(algorithmViewModel.blocks()[1]);
+        equal(algorithmViewModel.blocks().length, 3, "block was removed");
+        equal(algorithmViewModel.blocks()[0].id, 1);
+        equal(algorithmViewModel.blocks()[1].id, 3);
+        equal(algorithmViewModel.blocks()[2].id, 4);
+        equal(algorithmViewModel.transitions().length, 3, "transitions");
+        equal(algorithmViewModel.transitions()[0].type(), "direct");
+        equal(algorithmViewModel.transitions()[0].startBlock().id, 1);
+        equal(algorithmViewModel.transitions()[0].endBlock().id, 3);
+        equal(algorithmViewModel.transitions()[1].type(), "far");
+        equal(algorithmViewModel.transitions()[1].direction(), "up");
+        equal(algorithmViewModel.transitions()[1].level(), 1);
+        equal(algorithmViewModel.transitions()[1].startBlock().id, 3);
+        equal(algorithmViewModel.transitions()[1].endBlock().id, 3); // TODO: support loops
+        equal(algorithmViewModel.transitions()[2].type(), "direct");
+        equal(algorithmViewModel.transitions()[2].startBlock().id, 3);
+        equal(algorithmViewModel.transitions()[2].endBlock().id, 4);
+
+    });
 } 

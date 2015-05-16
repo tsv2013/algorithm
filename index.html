@@ -3,7 +3,7 @@
 <head>
     <title>Algorithm widget sample</title>
     <script src="vendor/jquery/dist/jquery.js"></script>
-    <script src="vendor/knockout/dist/knockout.js"></script>
+    <script src="vendor/knockout/dist/knockout.debug.js"></script>
 
     <script src="dist/algorithm.js"></script>
     <script type="text/html" src="dist/algorithm.html"></script>
@@ -12,7 +12,7 @@
     <script src="index.js"></script>
 </head>
 <body>
-    <div id="algorithm-host" style="margin: 10px; padding: 10px; border: 1px solid black" data-bind="algorithmView: { value: algorithm }">
+    <div id="algorithm-host" style="margin: 10px; padding: 10px; border: 1px solid black" data-bind="algorithm: { value: algorithm }">
     </div>
     <script>
         (function () {

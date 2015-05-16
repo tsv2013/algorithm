@@ -55,7 +55,7 @@
                 <!-- /ko -->
                 <!-- ko if: state() === "completed" -->
                 <div style="position:absolute; top:-0.5em; line-height: 1em; right:15px;">
-                    <span style="color: green; font-family: wingdings; font-size: 200%;">&#252;</span>
+                    <span style="color: green; font-family: wingdings; font-size: 200%;">&#252;</span><!-- &#251; -->
                 </div>
                 <!-- /ko -->
                 <!-- ko ifnot: isTerminator -->
@@ -85,7 +85,7 @@
             </div>
             <!-- /ko -->
             <!-- /ko -->
-        </div>
+            </div>
         <div style="position:absolute; top: 0;" data-bind="style: { 'top': -blockMinDistance() + 'px', 'left': connectorsAreaWidth() + blockWidth() + 'px', width: commentWidth() + 'px' }">
             <!-- ko foreach: blocks -->
             <div style="position: relative" data-bind="style: { 'height': height() + 'px', 'lineHeight': height() + 'px', 'margin': $parent.blockMinDistance() + 'px 0' }">
@@ -95,12 +95,36 @@
                         <line y1="50%" y2="50%" x1="0%" x2="100%" style="stroke:black;stroke-width:0.5;stroke-dasharray:10 5;"></line>
                     </svg>
                 </div>
-                <div style="position:absolute; line-height: 100%; overflow: auto; top: 0; left:40px; right: 0; height: 100%; padding-left: 10px; text-align:left; vertical-align:middle; border-radius: 8px; border-left: 2px dashed gray;">
-                    <div style="display: inline-block;" data-bind="text: comment"></div>
+                <div class="algorithm-comment-content">
+                    <span data-bind="text: comment"></span>
                 </div>
                 <!-- /ko -->
             </div>
             <!-- /ko -->
+        </div>
+        <div class="algorithm-block-details-container" data-bind="algodetails: $data">
+        </div>
+    </div>
+</script>
+
+<script type="text/html" id="algorithm-details-template">
+    <div class="algorithm-details-holder">
+        <div class="algorithm-details-template-holder">
+            <div class="algo-detail-field">
+                <span class="algo-detail-label">Text: </span>
+                <div class="algo-detail-value-wrapper">
+                    <input class="algo-detail-value" data-bind="value: currentBlock() && currentBlock().text" />
+                </div>
+            </div>
+            <div class="algo-detail-field">
+                <span class="algo-detail-label">Comment: </span>
+                <div class="algo-detail-value-wrapper">
+                    <input class="algo-detail-value" data-bind="value: currentBlock() && currentBlock().comment" />
+                </div>
+            </div>
+        </div>
+        <div class="algorithm-details-actions-holder">
+            <div class="algorithm-button" data-bind="click: function() { $data.isEditMode(false); }">Close</div>
         </div>
     </div>
 </script>

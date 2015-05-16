@@ -181,7 +181,11 @@ module Algorithm {
             this._updateLayout();
         }
         editBlock(block: AlgorithmItemBlockModel) {
+            this.currentBlock(block);
+            this.isEditMode(!this.isEditMode());
         }
+        currentBlock = ko.observable<AlgorithmItemBlockModel>();
+        isEditMode = ko.observable(false);
 
         static titleAddBefore = "Add block before";
         static titleAddAfter = "Add block after";
@@ -262,4 +266,36 @@ module Algorithm {
         }
     };
 
+    ko.bindingHandlers["algodetails"] = {
+        init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+            var model = ko.unwrap<AlgorithmViewModel>(valueAccessor());
+            var $element = $(element),
+                $algorithmTemplate = $("#algorithm-details-template"),
+                childContext = bindingContext.createChildContext(model);
+
+            $(element).children().remove();
+            $(element).append($($algorithmTemplate.text()));
+
+            var subscription = model.isEditMode.subscribe(value => {
+                if(value) {
+                    $element.css({ top: model.currentBlock().posY() + 'px', left: '200px', height: model.currentBlock().height() + 'px', width: '200px' });
+                    $element.show();
+                    $element.animate({ 'top': '-=' + (model.currentBlock().posY() > 200 ? 200 : model.currentBlock().posY()) + 'px', 'left': '0', 'height': '+=400px', 'width': '100%' });
+                }
+                else {
+                    $element.animate({ 'top': model.currentBlock().posY() + 'px', 'left': '200px', 'height': model.currentBlock().height() + 'px', 'width': '200px' }, {
+                        complete: function() {
+                            $element.hide();
+                        }
+                    });
+                }
+            });
+            ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
+                subscription.dispose();
+            });
+
+            ko.applyBindingsToDescendants(childContext, element);
+            return { controlsDescendantBindings: true };
+        }
+    };
 }

@@ -211,12 +211,12 @@
     <Content Include="vendor\qunit\src\outro.js" />
     <Content Include="vendor\qunit\src\qunit.css" />
     <Content Include="vendor\qunit\src\test.js" />
-    <Content Include="widget\algorithmview.css">
-      <DependentUpon>algorithmview.less</DependentUpon>
+    <Content Include="widget\algorithm.css">
+      <DependentUpon>algorithm.less</DependentUpon>
     </Content>
-    <Content Include="widget\algorithmview.html" />
-    <Content Include="widget\algorithmview.min.css">
-      <DependentUpon>algorithmview.css</DependentUpon>
+    <Content Include="widget\algorithm.html" />
+    <Content Include="widget\algorithm.min.css">
+      <DependentUpon>algorithm.css</DependentUpon>
     </Content>
   </ItemGroup>
   <ItemGroup>
@@ -224,7 +224,8 @@
     <TypeScriptCompile Include="Scripts\typings\qunit\qunit.d.ts" />
     <TypeScriptCompile Include="tests\algorithm.tests.ts" />
     <TypeScriptCompile Include="vendor\dt-jquery\jquery.d.ts" />
-    <TypeScriptCompile Include="widget\algorithmview.ts" />
+    <TypeScriptCompile Include="widget\algorithm.ts" />
+    <TypeScriptCompile Include="widget\bindings.ts" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -250,7 +251,7 @@
     <Content Include="vendor\qunit\README.md" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="widget\algorithmview.less" />
+    <Content Include="widget\algorithm.less" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".bowerrc" />
@@ -258,8 +259,8 @@
     <Content Include="package.json" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="widget\algorithmview.css.map">
-      <DependentUpon>algorithmview.css</DependentUpon>
+    <Content Include="widget\algorithm.css.map">
+      <DependentUpon>algorithm.css</DependentUpon>
     </Content>
   </ItemGroup>
   <PropertyGroup>

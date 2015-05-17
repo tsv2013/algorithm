@@ -277,13 +277,14 @@ module Algorithm {
             $(element).append($($algorithmTemplate.text()));
 
             var subscription = model.isEditMode.subscribe(value => {
+                var originalBlockRect = { top: model.currentBlock().posY() + 'px', left: model.connectorsAreaWidth() + 'px', height: model.currentBlock().height() + 'px', width: model.blockWidth() + 'px' };
                 if(value) {
-                    $element.css({ top: model.currentBlock().posY() + 'px', left: '200px', height: model.currentBlock().height() + 'px', width: '200px' });
+                    $element.css(originalBlockRect);
                     $element.show();
                     $element.animate({ 'top': '-=' + (model.currentBlock().posY() > 200 ? 200 : model.currentBlock().posY()) + 'px', 'left': '0', 'height': '+=400px', 'width': '100%' });
                 }
                 else {
-                    $element.animate({ 'top': model.currentBlock().posY() + 'px', 'left': '200px', 'height': model.currentBlock().height() + 'px', 'width': '200px' }, {
+                    $element.animate(originalBlockRect, {
                         complete: function() {
                             $element.hide();
                         }

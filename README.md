@@ -38,4 +38,4 @@ and is bound via KnockoutJS:
 
 and following markup:
 
-        <div data-bind="algorithm: { value: algorithm }"></div>
+    <div data-bind="algorithm: { value: algorithm }"></div>

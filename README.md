@@ -36,3 +36,6 @@ and is bound via KnockoutJS:
 
     ko.applyBindings(model);
 
+and following markup:
+
+        <div data-bind="algorithm: { value: algorithm }"></div>

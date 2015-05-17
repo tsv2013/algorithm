@@ -45,7 +45,7 @@ module.exports = function (grunt) {
             }
         },
         uglify: {
-            all: {
+            modules: {
                 files: {
                     'dist/algorithm.min.js': ['dist/algorithm.js']
                 }
@@ -63,15 +63,22 @@ module.exports = function (grunt) {
         },
         watch: {
             styles: {
-                files: ['widget/**/*.less'],
+                files: ['widget/**/*.less', 'cssmin:all'],
                 tasks: ['less'],
                 options: {
                     nospawn: true
                 }
             },
             modules: {
-                files: ['widget/**/*.ts'], // which files to watch
-                tasks: ['typescript:build'],
+                files: ['widget/**/*.ts'],
+                tasks: ['typescript:build', 'uglify:modules'],
+                options: {
+                    nospawn: true
+                }
+            },
+            templates: {
+                files: ['widget/**/*.html'],
+                tasks: ['concat:templates'],
                 options: {
                     nospawn: true
                 }

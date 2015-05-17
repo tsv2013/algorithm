@@ -1,6 +1,6 @@
 ﻿<script type="text/html" id="algorithm-view-template">
     <div class="algorithm-view-holder" style="position: relative; width: 100%; min-width: 500px;">
-        <div style="position:absolute; top:0; left:0; height:100%;" data-bind="style: { 'width': connectorsAreaWidth() + 'px' }">
+        <div class="algorithm-transitions" data-bind="style: { 'width': connectorsAreaWidth() + 'px' }">
             <!-- ko foreach: transitions -->
             <!-- ko if: type() === "far" -->
             <!-- ko if: direction() === "down" -->
@@ -45,7 +45,7 @@
             <!-- /ko -->
             <!-- /ko -->
         </div>
-        <div style="position:relative; top: 0;" data-bind="style: { 'left': connectorsAreaWidth() + 'px', width: blockWidth() + 'px' }">
+        <div class="algorithm-blocks" data-bind="style: { 'left': connectorsAreaWidth() + 'px', width: blockWidth() + 'px' }">
             <!-- ko foreach: blocks -->
             <!-- ko ifnot: isCondition -->
             <div class="algorithm-block algorithm-block-item" data-bind="style: { 'height': height() + 'px', 'lineHeight': height() + 'px', 'margin': $parent.blockMinDistance() + 'px 0' }, css : { 'algorithm-block-inprogress': state() === 'inprogress', 'algorithm-block-teminator': isTerminator }">
@@ -86,7 +86,7 @@
             <!-- /ko -->
             <!-- /ko -->
             </div>
-        <div style="position:absolute; top: 0;" data-bind="style: { 'top': -blockMinDistance() + 'px', 'left': connectorsAreaWidth() + blockWidth() + 'px', width: commentWidth() + 'px' }">
+        <div class="algorithm-comments" data-bind="style: { 'top': -blockMinDistance() + 'px', 'left': connectorsAreaWidth() + blockWidth() + 'px', width: commentWidth() + 'px' }">
             <!-- ko foreach: blocks -->
             <div style="position: relative" data-bind="style: { 'height': height() + 'px', 'lineHeight': height() + 'px', 'margin': $parent.blockMinDistance() + 'px 0' }">
                 <!-- ko if: comment -->

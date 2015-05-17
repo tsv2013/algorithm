@@ -74,7 +74,6 @@ module Algorithm {
                         if(block instanceof AlgorithmItemBlockModel) {
                             originalEvent.dataTransfer.effectAllowed = 'link';
                             originalEvent.dataTransfer.setData("text", JSON.stringify({ 'type': 'AlgorithmItemBlockModel', 'id': (<AlgorithmItemBlockModel>block).id }));
-                            console.log("drag start data: %o", originalEvent.dataTransfer);
                             //ev.dataTransfer.setDragImage(ev.target, 100, 100);
                             return true;
                         }

@@ -60,7 +60,7 @@ module Algorithm {
         }
 
         private _prepareTransitions() {
-            this.transitions().forEach(transition => transition.type("direct"));
+            this.transitions().forEach(transition => { transition.type("direct"); transition.level(1); });
             var currentLevel = 1;
             var currentTransitions: AlgorithmTransition[] = [];
             var resultTransitions: AlgorithmTransition[] = [];
@@ -187,6 +187,23 @@ module Algorithm {
         currentBlock = ko.observable<AlgorithmItemBlockModel>();
         isEditMode = ko.observable(false);
 
+        updateTransition(fromBlock: AlgorithmItemBlockModel, toBlock: AlgorithmItemBlockModel) {
+            var fromTransitions = this._findTransitionsFrom(fromBlock);
+            if(fromTransitions.length === 0) {
+                fromBlock.exitBlocks.push(toBlock);
+                this.transitions.push(new AlgorithmTransition(fromBlock, toBlock));
+            }
+            else {
+                if(fromTransitions[0].endBlock() === toBlock) {
+                    return;
+                }
+                fromBlock.exitBlocks.remove(fromTransitions[0].endBlock());
+                fromBlock.exitBlocks.push(toBlock);
+                fromTransitions[0].endBlock(toBlock);
+            }
+            this._updateLayout();
+        }
+
         static titleAddBefore = "Add block before";
         static titleAddAfter = "Add block after";
         static titleEdit = "Edit block";
@@ -240,63 +257,4 @@ module Algorithm {
         label = ko.observable();
     }
 
-    ko.bindingHandlers["algorithm"] = {
-        init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-            var options = ko.unwrap(valueAccessor());
-            var $algorithmTemplate = $("#algorithm-view-template"),
-                algorithmViewHolderWidth = ko.observable(500),
-                model = new AlgorithmViewModel(ko.unwrap(options.value)),
-                childContext = bindingContext.createChildContext(model);
-
-            $(element).children().remove();
-            $(element).append($($algorithmTemplate.text()));
-
-            ko.applyBindingsToDescendants(childContext, element);
-
-            var intervalId = setInterval(() => {
-                model.containerWidth($(element).find(".algorithm-view-holder").width());
-                //console.log(model.containerWidth());
-            }, 500);
-            ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
-                clearInterval(intervalId);
-            });
-            return { controlsDescendantBindings: true };
-        },
-        update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-        }
-    };
-
-    ko.bindingHandlers["algodetails"] = {
-        init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-            var model = ko.unwrap<AlgorithmViewModel>(valueAccessor());
-            var $element = $(element),
-                $algorithmTemplate = $("#algorithm-details-template"),
-                childContext = bindingContext.createChildContext(model);
-
-            $(element).children().remove();
-            $(element).append($($algorithmTemplate.text()));
-
-            var subscription = model.isEditMode.subscribe(value => {
-                var originalBlockRect = { top: model.currentBlock().posY() + 'px', left: model.connectorsAreaWidth() + 'px', height: model.currentBlock().height() + 'px', width: model.blockWidth() + 'px' };
-                if(value) {
-                    $element.css(originalBlockRect);
-                    $element.show();
-                    $element.animate({ 'top': '-=' + (model.currentBlock().posY() > 200 ? 200 : model.currentBlock().posY()) + 'px', 'left': '0', 'height': '+=400px', 'width': '100%' });
-                }
-                else {
-                    $element.animate(originalBlockRect, {
-                        complete: function() {
-                            $element.hide();
-                        }
-                    });
-                }
-            });
-            ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
-                subscription.dispose();
-            });
-
-            ko.applyBindingsToDescendants(childContext, element);
-            return { controlsDescendantBindings: true };
-        }
-    };
 }

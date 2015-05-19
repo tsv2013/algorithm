@@ -49,7 +49,7 @@
             <!-- ko foreach: blocks -->
             <!-- ko ifnot: isCondition -->
             <div class="algorithm-block algorithm-block-item" data-bind="style: { 'height': height() + 'px', 'lineHeight': height() + 'px', 'margin': $parent.blockMinDistance() + 'px 0' }, css: { 'algorithm-block-inprogress': state() === 'inprogress', 'algorithm-block-teminator': isTerminator }">
-                <div class="algorithm-block-content" data-bind="style: { 'lineHeight': height() + 'px' }, text: text, attr: { 'draggable': !isTerminator() }"></div>
+                <div class="algorithm-block-content" draggable="true" data-bind="style: { 'lineHeight': height() + 'px' }, text: text"></div>
                 <!-- ko if: num() -->
                 <div style="position:absolute; top:-0.5em; line-height: 1em; left:15px; background-color: white;" data-bind="text: num"></div>
                 <!-- /ko -->
@@ -58,29 +58,23 @@
                     <span style="color: green; font-family: wingdings; font-size: 200%;">&#252;</span><!-- &#251; -->
                 </div>
                 <!-- /ko -->
-                <!-- ko ifnot: isTerminator -->
-                <div class="algorithm-block-controls">
-                    <div class="algorithm-block-command algorithm-block-command-add" data-bind="click: function() { $parent.addBlock($data, true); }, attr: { 'data-title': $parent.addTitleBefore }"></div>
-                    <div style="position:relative; height:16px; top:-3px;">
-                        <div class="algorithm-block-command algorithm-block-command-edit" data-bind="click: function() { $parent.editBlock($data); }, attr: { 'data-title': $parent.editTitle }"></div>
-                        <div class="algorithm-block-command algorithm-block-command-remove" data-bind="click: function() { $parent.removeBlock($data); }, attr: { 'data-title': $parent.removeTitle }"></div>
-                    </div>
-                    <div class="algorithm-block-command algorithm-block-command-add" style="top:-3px;" data-bind="click: function() { $parent.addBlock($data); }, attr: { 'data-title': $parent.addTitleAfter }"></div>
-                </div>
+                <!-- ko template: "algorithm-block-controls" -->
                 <!-- /ko -->
             </div>
             <!-- /ko -->
             <!-- ko if: isCondition -->
             <div class="algorithm-block algorithm-block-condition" data-bind="style: { 'height': height() + 'px', 'lineHeight': height() + 'px', 'margin': $parent.blockMinDistance() + 'px 0' }">
-                <span data-bind="text: text"></span>
                 <svg height="100%" width="100%" style="position:absolute;left:0;">
                     <line x1="50%" y1="0" x2="100%" y2="50%" style="stroke:black;stroke-width:1" />
                     <line x1="0" y1="50%" x2="50%" y2="0" style="stroke:black;stroke-width:1" />
                     <line x1="0" y1="50%" x2="50%" y2="100%" style="stroke:black;stroke-width:1" />
                     <line x1="50%" y1="100%" x2="100%" y2="50%" style="stroke:black;stroke-width:1" />
                 </svg>
+                <div class="algorithm-condition-content" draggable="true" data-bind="style: { 'lineHeight': height() + 'px' }, text: text"></div>
                 <!-- ko if: num() -->
                 <div style="position:absolute; bottom:50%; line-height: 1em; left:15px; background-color: white;" data-bind="text: num"></div>
+                <!-- /ko -->
+                <!-- ko template: "algorithm-block-controls" -->
                 <!-- /ko -->
             </div>
             <!-- /ko -->
@@ -104,6 +98,17 @@
         </div>
         <div class="algorithm-block-details-container" data-bind="algodetails: $data">
         </div>
+    </div>
+</script>
+
+<script type="text/html" id="algorithm-block-controls">
+    <div class="algorithm-block-controls">
+        <div class="algorithm-block-command algorithm-block-command-add" data-bind="click: function() { $parent.addBlock($data, true); }, attr: { 'data-title': $parent.addTitleBefore }"></div>
+        <div style="position:relative; height:16px; top:-3px;">
+            <div class="algorithm-block-command algorithm-block-command-edit" data-bind="click: function() { $parent.editBlock($data); }, attr: { 'data-title': $parent.editTitle }"></div>
+            <div class="algorithm-block-command algorithm-block-command-remove" data-bind="click: function() { $parent.removeBlock($data); }, attr: { 'data-title': $parent.removeTitle }"></div>
+        </div>
+        <div class="algorithm-block-command algorithm-block-command-add" style="top:-3px;" data-bind="click: function() { $parent.addBlock($data); }, attr: { 'data-title': $parent.addTitleAfter }"></div>
     </div>
 </script>
 

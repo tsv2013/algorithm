@@ -104,7 +104,9 @@
             .algorithm-block-content {
                 box-shadow: 0px 0px 15px 0px #888888;
             }
+        }
 
+        .algorithm-block:hover {
             .algorithm-block-controls {
                 display: block;
             }
@@ -115,12 +117,21 @@
         }
 
         .algorithm-block-condition {
-            text-align: center;
-            vertical-align: middle;
             padding: 0 10px;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
+
+            .algorithm-condition-content {
+                position:absolute;
+                left:0;
+                width:100%;
+                padding: 0 20%;
+                text-align: center;
+                vertical-align: middle;
+                -ms-text-overflow: ellipsis;
+                -o-text-overflow: ellipsis;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+            }
         }
 
         .algorithm-block-teminator {

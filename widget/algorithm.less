@@ -1,10 +1,25 @@
 .algorithm-view-holder {
     @block-radius: 20px;
+    @connection-point-size: 16px;
 
     div {
         -moz-box-sizing: border-box;
         -webkit-box-sizing: border-box;
         box-sizing: border-box;
+    }
+
+    .algorithm-hint:hover::after { 
+        content: attr(data-title);
+        white-space: nowrap;
+        position: absolute;
+        left: 100%; top: 100%;
+        line-height: normal;
+        z-index: 1;
+        background: rgba(255,255,255,0.9);
+        font-size: 11px;
+        padding: 5px 10px;
+        border: 1px solid #333;
+        width: auto;
     }
 
     .algorithm-transitions {
@@ -38,13 +53,13 @@
         .algorithm-block {
             position: relative;
             width: 100%;
+            text-align: center;
 
             .algorithm-block-content {
-                position: relative;
+                position: absolute;
                 width: 100%;
                 height: 100%;
                 padding: 0 10px;
-                text-align: center;
                 vertical-align: middle;
                 -ms-text-overflow: ellipsis;
                 -o-text-overflow: ellipsis;
@@ -55,11 +70,9 @@
 
             .algorithm-block-controls {
                 display: none;
-                position: absolute;
-                top: 0;
-                right: 0;
-                line-height: 100%;
                 text-align: center;
+                line-height: normal;
+                vertical-align: bottom;
                 opacity: 0.8;
 
                 .algorithm-block-command {
@@ -71,18 +84,6 @@
                     height: 16px;
                 }
 
-                .algorithm-block-command:hover::after { 
-                    content: attr(data-title);
-                    white-space: nowrap;
-                    position: absolute;
-                    left: 100%; top: 100%;
-                    z-index: 1;
-                    background: rgba(255,255,255,0.9);
-                    font-size: 11px;
-                    padding: 5px 10px;
-                    border: 1px solid #333;
-                    width: auto;
-                }
                 .algorithm-block-command-add {
                     background-color: lightgreen;
                     border: 1px solid lightgreen;
@@ -97,6 +98,11 @@
                     background-color: pink;
                     border: 1px solid pink;
                 }
+
+                .algorithm-block-command-connect {
+                    background-color: lightblue;
+                    border: 1px solid lightblue;
+                }
             }
         }
 
@@ -108,7 +114,7 @@
 
         .algorithm-block:hover {
             .algorithm-block-controls {
-                display: block;
+                display: inline-block;
             }
         }
 
@@ -124,13 +130,37 @@
                 left:0;
                 width:100%;
                 padding: 0 20%;
-                text-align: center;
                 vertical-align: middle;
                 -ms-text-overflow: ellipsis;
                 -o-text-overflow: ellipsis;
                 text-overflow: ellipsis;
                 overflow: hidden;
                 white-space: nowrap;
+            }
+
+            .algorithm-condition-connector {
+                width: @connection-point-size;
+                height: @connection-point-size;
+                background-color: lightblue;
+                border: 1px solid lightblue;
+                opacity: 0.8;
+                border-radius: 50%;
+                position: absolute;
+                display: none;
+            }
+
+            .algorithm-condition-connector-no {
+                left: 0;
+            }
+
+            .algorithm-condition-connector-yes {
+                right: 0;
+            }
+        }
+
+        .algorithm-block-condition:hover {
+            .algorithm-condition-connector {
+                display: block;
             }
         }
 

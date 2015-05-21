@@ -4,8 +4,6 @@
 module Algorithm {
 
     export class AlgorithmViewModel {
-        static NoLabelText = "no";
-
         private _MaxId = -1;
 
         private _collectFollowingBlocks(sortResult: Array<AlgorithmItemBlockModel>, filter: (block: AlgorithmItemBlockModel) => boolean, otherThreads: Array<AlgorithmItemBlockModel> = []) {
@@ -77,7 +75,7 @@ module Algorithm {
                 var isStart = this._findTransitionsTo(block).length === 0;
                 var isEnd = this._findTransitionsFrom(block).length === 0;
                 block.isTerminator(isStart || isEnd);
-                block.isCondition(this._findTransitionsFrom(block).filter(transition => transition.label() === AlgorithmViewModel.NoLabelText).length !== 0);
+                block.isCondition(this._findTransitionsFrom(block).filter(transition => transition.label() === this.noTitle).length !== 0);
                 block.posY(posY);
                 return posY + block.height() + this.blockMinDistance();
             }, 0);
@@ -97,7 +95,7 @@ module Algorithm {
                 }
                 if(transition.exit2) {
                     var newTransition = new AlgorithmTransition(this.findBlock(transition.iid), this.findBlock(transition.exit2));
-                    newTransition.label(AlgorithmViewModel.NoLabelText);
+                    newTransition.label(this.noTitle);
                     this.transitions.push(newTransition);
                 }
             });
@@ -150,10 +148,12 @@ module Algorithm {
         currentBlock = ko.observable<AlgorithmItemBlockModel>();
         isEditMode = ko.observable(false);
 
-        updateTransition(fromBlock: AlgorithmItemBlockModel, toBlock: AlgorithmItemBlockModel) {
-            var fromTransitions = this._findTransitionsFrom(fromBlock);
+        updateTransition(fromBlock: AlgorithmItemBlockModel, toBlock: AlgorithmItemBlockModel, label: string) {
+            var fromTransitions = this._findTransitionsFrom(fromBlock).filter(transition => transition.label() === label);
             if(fromTransitions.length === 0) {
-                this.transitions.push(new AlgorithmTransition(fromBlock, toBlock));
+                var newTransition = new AlgorithmTransition(fromBlock, toBlock);
+                newTransition.label(label);
+                this.transitions.push(newTransition);
             }
             else {
                 if(fromTransitions[0].endBlock() === toBlock) {
@@ -172,6 +172,11 @@ module Algorithm {
         get addTitleAfter() { return AlgorithmViewModel.titleAddAfter; }
         get editTitle() { return AlgorithmViewModel.titleEdit; }
         get removeTitle() { return AlgorithmViewModel.titleRemove; }
+
+        connectTitle = "Drag to connect to..."
+
+        yesTitle = "yes";
+        noTitle = "no";
     }
 
     export class AlgorithmItemBlockModel {

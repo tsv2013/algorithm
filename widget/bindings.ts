@@ -72,8 +72,9 @@ module Algorithm {
                         var originalEvent = <DragEvent>(<any>ev.originalEvent),
                             block = ko.dataFor(originalEvent.target);
                         if(block instanceof AlgorithmItemBlockModel) {
+                            var transitionType = $(ev.target).attr('data-transition');
                             originalEvent.dataTransfer.effectAllowed = 'link';
-                            originalEvent.dataTransfer.setData("text", JSON.stringify({ 'type': 'AlgorithmItemBlockModel', 'id': (<AlgorithmItemBlockModel>block).id }));
+                            originalEvent.dataTransfer.setData('text', JSON.stringify({ 'type': 'AlgorithmItemBlockModel', 'id': (<AlgorithmItemBlockModel>block).id, 'transitionType': transitionType }));
                             //ev.dataTransfer.setDragImage(ev.target, 100, 100);
                             return true;
                         }
@@ -93,7 +94,7 @@ module Algorithm {
                                 if(dragData.type === 'AlgorithmItemBlockModel') {
                                     var sourceBlock = model.findBlock(dragData.id);
                                     if(!!sourceBlock && !!targetBlock) {
-                                        model.updateTransition(sourceBlock, targetBlock);
+                                        model.updateTransition(sourceBlock, targetBlock, dragData.transitionType);
                                         ev.stopPropagation();
                                     }
                                 }

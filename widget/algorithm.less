@@ -55,6 +55,14 @@
             width: 100%;
             text-align: center;
 
+            .algorithm-block-shadow {
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                background-color: gray;
+                display: none;
+            }
+
             .algorithm-block-content {
                 position: absolute;
                 width: 100%;
@@ -66,6 +74,7 @@
                 text-overflow: ellipsis;
                 overflow: hidden;
                 white-space: nowrap;
+                background-color: white;
             }
 
             .algorithm-block-controls {
@@ -106,6 +115,13 @@
             }
         }
 
+        .algorithm-block:hover {
+            .algorithm-block-shadow {
+                display: block;
+                filter: blur(7px);
+                -webkit-filter: blur(7px);
+            }
+        }
         .algorithm-block:not(.algorithm-block-teminator):hover {
             .algorithm-block-content {
                 box-shadow: 0px 0px 15px 0px #888888;
@@ -166,6 +182,12 @@
 
         .algorithm-block-teminator {
             border-radius: @block-radius;
+            .algorithm-block-shadow {
+                border-radius: @block-radius;
+            }
+            .algorithm-block-content {
+                border-radius: @block-radius;
+            }
         }
 
         .algorithm-block-inprogress {

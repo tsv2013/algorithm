@@ -49,6 +49,7 @@
             <!-- ko foreach: blocks -->
             <!-- ko ifnot: isCondition -->
             <div class="algorithm-block algorithm-block-item" data-bind="style: { 'height': height() + 'px', 'lineHeight': height() + 'px', 'margin': $parent.blockMinDistance() + 'px 0' }, css: { 'algorithm-block-inprogress': state() === 'inprogress', 'algorithm-block-teminator': isTerminator }">
+                <div class="algorithm-block-shadow"></div>
                 <div class="algorithm-block-content" data-bind="style: { 'lineHeight': height() + 'px' }, text: text"></div>
                 <!-- ko if: num() -->
                 <div style="position:absolute; top:-0.5em; line-height: 1em; left:15px; background-color: white;" data-bind="text: num"></div>

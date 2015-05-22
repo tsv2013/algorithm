@@ -115,22 +115,28 @@
             }
         }
 
-        .algorithm-block:hover {
-            .algorithm-block-shadow {
-                display: block;
-                filter: blur(7px);
-                -webkit-filter: blur(7px);
-            }
-        }
-        .algorithm-block:not(.algorithm-block-teminator):hover {
+        .algorithm-block-inprogress {
             .algorithm-block-content {
-                box-shadow: 0px 0px 15px 0px #888888;
+                background-color: lightgoldenrodyellow;
             }
         }
 
         .algorithm-block:hover {
+            .algorithm-block-shadow {
+                display: block;
+                filter: blur(7px);
+                -ms-filter: blur(7px);
+                -moz-filter: blur(7px);
+                -webkit-filter: blur(7px);
+            }
             .algorithm-block-controls {
                 display: inline-block;
+            }
+        }
+
+        .algorithm-block:not(.algorithm-block-teminator):hover {
+            .algorithm-block-content {
+                box-shadow: 0px 0px 15px 0px #888888;
             }
         }
 
@@ -192,10 +198,6 @@
             .algorithm-block-content {
                 border-radius: @block-radius;
             }
-        }
-
-        .algorithm-block-inprogress {
-            background-color: lightgoldenrodyellow;
         }
     }
 

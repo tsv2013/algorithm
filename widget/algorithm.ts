@@ -196,10 +196,13 @@ module Algorithm {
         text = ko.observable();
         comment = ko.observable();
 
-        //isTerminator = ko.computed(() => { return this.prevBlocks().length === 0 || (this.exitBlocks().length === 0 && !this.exit2Block()); });
-        //isCondition = ko.computed(() => { return this.exit2Block(); });
         isTerminator = ko.observable(false);
         isCondition = ko.observable(false);
+
+        template = ko.computed(() => {
+            return this.isCondition() ? "algorithm-block-condition-template" : "algorithm-block-item-template";
+        });
+
         height = ko.observable(50);
         posY = ko.observable();
         num = ko.observable();
@@ -219,6 +222,14 @@ module Algorithm {
         direction = ko.observable("down");
         level = ko.observable(1);
         label = ko.observable();
+
+        template = ko.computed(() => {
+            if(this.type() !== "direct") {
+                return this.direction() === "down" ? "algorithm-tr-far-down-template" : "algorithm-tr-far-up-template";
+            }
+            return "algorithm-tr-direct-template";
+        });
+
     }
 
 }

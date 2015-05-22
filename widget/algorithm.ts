@@ -142,7 +142,7 @@ module Algorithm {
             return this.blocks().filter((block) => { return block.id() === id; })[0];
         }
         addBlock(block: AlgorithmItemBlockModel, isBefore: boolean = false) {
-            var newBlock = new AlgorithmItemBlockModel(this._mappings.new(++this._MaxId));
+            var newBlock = new AlgorithmItemBlockModel(this._mappings.new(++this._MaxId), this._mappings);
             this.blocks.splice(this.blocks().indexOf(block) + (isBefore ? 0 : 1), 0, newBlock);
             if(isBefore) {
                 this._findTransitionsTo(block).forEach(transition => transition.endBlock(newBlock));

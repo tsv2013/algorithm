@@ -74,7 +74,7 @@ module Algorithm {
                         if(block instanceof AlgorithmItemBlockModel) {
                             var transitionType = $(ev.target).attr('data-transition');
                             originalEvent.dataTransfer.effectAllowed = 'link';
-                            originalEvent.dataTransfer.setData('text', JSON.stringify({ 'type': 'AlgorithmItemBlockModel', 'id': (<AlgorithmItemBlockModel>block).id, 'transitionType': transitionType }));
+                            originalEvent.dataTransfer.setData('text', JSON.stringify({ 'type': 'AlgorithmItemBlockModel', 'id': (<AlgorithmItemBlockModel>block).id(), 'transitionType': transitionType }));
                             //ev.dataTransfer.setDragImage(ev.target, 100, 100);
                             return true;
                         }

@@ -3,7 +3,14 @@
 
 module Algorithm {
 
+    export interface ITransition {
+        iid: any;
+        exit1: any;
+        exit2: any
+    }
+
     export class AlgorithmViewModel {
+        private _mappings;
         private _MaxId = -1;
 
         private _collectFollowingBlocks(sortResult: Array<AlgorithmItemBlockModel>, filter: (block: AlgorithmItemBlockModel) => boolean, otherThreads: Array<AlgorithmItemBlockModel> = []) {
@@ -82,12 +89,23 @@ module Algorithm {
             this._prepareTransitions();
         }
 
-        constructor(options: any) {
-            options.items.forEach(item => {
-                if(item.id > this._MaxId) {
-                    this._MaxId = item.id;
+        constructor(options: { items: Array<any>; transitions: Array<ITransition>; mappings?: any }) {
+            this._mappings = $.extend({}, options.mappings, {
+                id: "id",
+                text: "text",
+                comment: "comment",
+                num: "num",
+                state: "state",
+                new: function(idVal) {
+                    return { id: idVal }
                 }
-                this.blocks.push(new AlgorithmItemBlockModel(item));
+            });
+            options.items.forEach(item => {
+                var block = new AlgorithmItemBlockModel(item, this._mappings)
+                if(block.id() > this._MaxId) {
+                    this._MaxId = block.id();
+                }
+                this.blocks.push(block);
             });
             options.transitions.forEach(transition => {
                 if(transition.exit1) {
@@ -103,6 +121,13 @@ module Algorithm {
             this._updateLayout();
         }
 
+        get model() {
+            var model = { items: [], transitions: [] };
+            this.blocks().forEach(block => model.items.push(block.item));
+            this.transitions().forEach(transition => model.transitions.push(transition.transition));
+            return model;
+        }
+
         blocks = ko.observableArray<AlgorithmItemBlockModel>();
         transitions = ko.observableArray<AlgorithmTransition>();
 
@@ -114,10 +139,10 @@ module Algorithm {
         commentWidth = ko.computed(() => { return this.containerWidth() - this.blockWidth() - this.connectorsAreaWidth(); });
 
         findBlock(id: any) {
-            return this.blocks().filter((block) => { return block.id === id; })[0];
+            return this.blocks().filter((block) => { return block.id() === id; })[0];
         }
         addBlock(block: AlgorithmItemBlockModel, isBefore: boolean = false) {
-            var newBlock = new AlgorithmItemBlockModel({ id: ++this._MaxId });
+            var newBlock = new AlgorithmItemBlockModel(this._mappings.new(++this._MaxId));
             this.blocks.splice(this.blocks().indexOf(block) + (isBefore ? 0 : 1), 0, newBlock);
             if(isBefore) {
                 this._findTransitionsTo(block).forEach(transition => transition.endBlock(newBlock));
@@ -175,26 +200,56 @@ module Algorithm {
 
         connectTitle = "Drag to connect to..."
 
-        yesTitle = "yes";
-        noTitle = "no";
+        static yesTitle = "yes";
+        static noTitle = "no";
+        get yesTitle() { return AlgorithmViewModel.yesTitle; }
+        get noTitle() { return AlgorithmViewModel.noTitle; }
     }
 
     export class AlgorithmItemBlockModel {
-        private _id: any;
+        private _mappings;
+        private _item: any;
 
-        constructor(item: any) {
-            this._id = item.id;
-            this.text(item.text);
-            this.comment(item.comment);
-            this.num(item.num);
-            this.state(item.state);
+        constructor(item: any, mappings?: any) {
+            this._mappings = $.extend({}, mappings, {
+                id: "id",
+                text: "text",
+                comment: "comment",
+                num: "num",
+                state: "state"
+            });
+
+            this._item = item;
+
+            $.each(this._mappings, (name, value) => {
+                var _innerName = "_" + name;
+                this[_innerName] = ko.observable(ko.unwrap(this._item[value]));
+                this[name] = ko.computed({
+                    read: () => {
+                        return this[_innerName]();
+                    },
+                    write: (val) => {
+                        this[_innerName](val);
+                        if(ko.isObservable(this._item[value])) {
+                            this._item[value](val);
+                        }
+                        else {
+                            this._item[value] = val;
+                        }
+                    }
+                });
+            });
         }
 
-        get id() {
-            return this._id;
+        get item() {
+            return this._item;
         }
+
+        id = ko.observable<number>(0);
         text = ko.observable();
         comment = ko.observable();
+        num = ko.observable();
+        state = ko.observable();
 
         isTerminator = ko.observable(false);
         isCondition = ko.observable(false);
@@ -204,9 +259,7 @@ module Algorithm {
         });
 
         height = ko.observable(50);
-        posY = ko.observable();
-        num = ko.observable();
-        state = ko.observable();
+        posY = ko.observable(0);
     }
 
     export class AlgorithmTransition {
@@ -214,6 +267,15 @@ module Algorithm {
         constructor(startBlock?: AlgorithmItemBlockModel, endBlock?: AlgorithmItemBlockModel) {
             this.startBlock(startBlock);
             this.endBlock(endBlock);
+        }
+
+        get transition() {
+            if(this.label() !== AlgorithmViewModel.noTitle) {
+                return <ITransition>{ iid: this.startBlock().id(), exit1: this.endBlock().id(), exit2: undefined };
+            }
+            else {
+                return <ITransition>{ iid: this.startBlock().id(), exit1: undefined, exit2: this.endBlock().id() };
+            }
         }
 
         startBlock = ko.observable<AlgorithmItemBlockModel>();

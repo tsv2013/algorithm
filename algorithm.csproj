@@ -218,6 +218,8 @@
     <Content Include="widget\algorithm.min.css">
       <DependentUpon>algorithm.css</DependentUpon>
     </Content>
+    <Content Include="widget\blocks.html" />
+    <Content Include="widget\transitions.html" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\typings\knockout\knockout.d.ts" />

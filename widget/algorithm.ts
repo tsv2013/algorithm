@@ -9,6 +9,12 @@ module Algorithm {
         exit2: any
     }
 
+    export interface ITransitionLine {
+        transition: AlgorithmTransition;
+        start: number;
+        length: number
+    }
+
     export class AlgorithmViewModel {
         private _mappings;
         private _MaxId = -1;
@@ -40,58 +46,69 @@ module Algorithm {
             return this.transitions().filter((transition) => { return transition.endBlock() === block; });
         }
 
-        private _resetTransitions() {
-            this.maxLevel(1);
-            var transitionsToRemove = [];
-            this.transitions().forEach(transition => {
-                transition.type("direct"); transition.level(1);
-                if(transition.startBlock() === transition.endBlock()) {
-                    transitionsToRemove.push(transition);
+        private _isFitToLayoutLine(layoutLine: Array<ITransitionLine>, transitionLine: ITransitionLine) {
+            var result = true;
+            layoutLine.forEach(tl => {
+                if(result) {
+                    if(tl.start > transitionLine.start) {
+                        result = transitionLine.start + transitionLine.length <= tl.start;
+                    }
+                    else {
+                        result = tl.start + tl.length <= transitionLine.start;
+                    }
                 }
             });
-            transitionsToRemove.forEach(transition => { this.transitions.remove(transition); });
-        }
-
-        private _getFreeLevel(currentTransitions: AlgorithmTransition[]) {
-            var level = 1;
-            var levels = currentTransitions.map(transition => transition.level());
-            while(levels.indexOf(level) !== -1) {
-                level++;
-            }
-            return level;
+            return result;
         }
 
         private _prepareTransitions() {
-            var currentTransitions: AlgorithmTransition[] = [];
-            var resultTransitions: AlgorithmTransition[] = [];
-
-            this._resetTransitions();
-
-            this.blocks().forEach((block, index) => {
-                this.transitions().forEach(transition => {
-                    if(transition.endBlock() === block && transition.type() !== "direct") {
-                        currentTransitions.splice(currentTransitions.indexOf(transition), 1);
+            var farTransitionLines: Array<ITransitionLine> = [];
+            var loopTransitions = [];
+            this.transitions().forEach(transition => {
+                if(transition.startBlock() === transition.endBlock()) {
+                    loopTransitions.push(transition);
+                }
+                else {
+                    transition.level(1);
+                    var startIndex = this.blocks().indexOf(transition.startBlock());
+                    var endIndex = this.blocks().indexOf(transition.endBlock());
+                    if(endIndex - startIndex === 1) {
+                        transition.type("direct");
                     }
-                });
-                this._findTransitionsFrom(block)
-                    .sort((t1, t2) => { return this.blocks().indexOf(t1.endBlock()) - this.blocks().indexOf(t2.endBlock()); })
-                    .forEach(transition => {
-                    if(this.blocks().indexOf(transition.endBlock()) !== index + 1) {
+                    else {
                         transition.type("far");
-                        if(this.blocks().indexOf(transition.endBlock()) < this.blocks().indexOf(transition.startBlock())) {
+                        if(endIndex > startIndex) {
+                            transition.direction("down");
+                            farTransitionLines.push({ transition: transition, start: startIndex, length: endIndex - startIndex });
+                        }
+                        else {
                             transition.direction("up");
+                            farTransitionLines.push({ transition: transition, start: endIndex, length: startIndex - endIndex });
                         }
-                        transition.level(this._getFreeLevel(currentTransitions));
-                        if(transition.level() > this.maxLevel()) {
-                            this.maxLevel(transition.level());
-                        }
-                        currentTransitions.push(transition);
                     }
-                    resultTransitions.push(transition);
-                });
+                }
             });
 
-            this.transitions(resultTransitions);
+            loopTransitions.forEach(transition => { this.transitions.remove(transition); });
+            farTransitionLines.sort((t1, t2) => { return t1.length - t2.length; })
+
+            var layoutLines: Array<Array<ITransitionLine>> = [];
+            while(farTransitionLines.length > 0) {
+                var fitToLine = false;
+                layoutLines.forEach((layoutLine, index) => {
+                    if(!fitToLine && this._isFitToLayoutLine(layoutLine, farTransitionLines[0])) {
+                        var transitionLineToPush = farTransitionLines.splice(0, 1)[0]
+                        transitionLineToPush.transition.level(index + 1);
+                        layoutLine.push(transitionLineToPush);
+                        fitToLine = true;
+                    }
+                });
+                if(!fitToLine) {
+                    layoutLines.push([]);
+                }
+            }
+
+            this.maxLevel(layoutLines.length + 1);
         }
 
         private _updateLayout() {
@@ -198,10 +215,10 @@ module Algorithm {
                 this.transitions.push(newTransition);
             }
             else {
-                if(fromTransitions[0].endBlock() === toBlock) {
-                    return;
-                }
                 fromTransitions[0].endBlock(toBlock);
+                for(var i = 1; i < fromTransitions.length; i++) {
+                    this.transitions.remove(fromTransitions[i]);
+                }
             }
             this._updateLayout();
         }

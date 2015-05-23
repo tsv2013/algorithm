@@ -45,42 +45,6 @@ module Algorithm.Tests {
         ]
     };
 
-    //test("create", function() {
-    //    var algorithmViewModel = new AlgorithmViewModel(algorithm1);
-
-    //    equal(algorithmViewModel.blocks().length, 9);
-
-    //    var block = algorithmViewModel.findBlock(1);
-    //    equal(block.prevBlocks().length, 0, "block id 1");
-    //    equal(block.exitBlocks().length, 1);
-    //    equal(block.exitBlocks()[0].id(), 2);
-    //    equal(block.exit2Block(), undefined);
-
-    //    block = algorithmViewModel.findBlock(2);
-    //    equal(block.prevBlocks().length, 1, "block id 2");
-    //    equal(block.prevBlocks()[0].id(), 1);
-    //    equal(block.exitBlocks().length, 2);
-    //    equal(block.exitBlocks()[0].id(), 3);
-    //    equal(block.exitBlocks()[1].id(), 5);
-    //    equal(block.exit2Block(), undefined);
-
-    //    block = algorithmViewModel.findBlock(6);
-    //    equal(block.prevBlocks().length, 2, "block id 6");
-    //    equal(block.prevBlocks()[0].id(), 4);
-    //    equal(block.prevBlocks()[1].id(), 5);
-    //    equal(block.exitBlocks().length, 1);
-    //    equal(block.exitBlocks()[0].id(), 7);
-    //    ok(block.exit2Block());
-    //    equal(block.exit2Block().id(), 8);
-
-    //    block = algorithmViewModel.findBlock(9);
-    //    equal(block.prevBlocks().length, 2, "block id 9");
-    //    equal(block.prevBlocks()[0].id(), 7);
-    //    equal(block.prevBlocks()[1].id(), 8);
-    //    equal(block.exitBlocks().length, 0);
-    //    ok(!block.exit2Block());
-    //});
-
     test("blocks order", function() {
         var algorithmViewModel = new AlgorithmViewModel(algorithm1);
 
@@ -203,19 +167,13 @@ module Algorithm.Tests {
         equal(algorithmViewModel.blocks()[0].id(), 1);
         equal(algorithmViewModel.blocks()[1].id(), 3);
         equal(algorithmViewModel.blocks()[2].id(), 4);
-        equal(algorithmViewModel.transitions().length, 3, "transitions");
+        equal(algorithmViewModel.transitions().length, 2, "transitions");
         equal(algorithmViewModel.transitions()[0].type(), "direct");
         equal(algorithmViewModel.transitions()[0].startBlock().id(), 1);
         equal(algorithmViewModel.transitions()[0].endBlock().id(), 3);
-        equal(algorithmViewModel.transitions()[1].type(), "far");
-        equal(algorithmViewModel.transitions()[1].direction(), "up");
-        equal(algorithmViewModel.transitions()[1].level(), 1);
+        equal(algorithmViewModel.transitions()[1].type(), "direct");
         equal(algorithmViewModel.transitions()[1].startBlock().id(), 3);
-        equal(algorithmViewModel.transitions()[1].endBlock().id(), 3); // TODO: support loops
-        equal(algorithmViewModel.transitions()[2].type(), "direct");
-        equal(algorithmViewModel.transitions()[2].startBlock().id(), 3);
-        equal(algorithmViewModel.transitions()[2].endBlock().id(), 4);
-
+        equal(algorithmViewModel.transitions()[1].endBlock().id(), 4);
     });
 
     test("get model", function() {
@@ -272,21 +230,28 @@ module Algorithm.Tests {
                 { id: 2, text: "2" },
                 { id: 1, text: "1" },
                 { id: 4, text: "4" },
+                { id: 5, text: "5" },
             ],
             transitions: [
                 { iid: 1, exit1: 2, exit2: null },
                 { iid: 1, exit1: 3, exit2: null },
                 { iid: 1, exit1: 4, exit2: null },
+                { iid: 2, exit1: 3, exit2: null },
+                { iid: 2, exit1: 4, exit2: null },
             ]
         });
 
-        equal(algorithmViewModel.transitions().length, 3, "transitions");
+        equal(algorithmViewModel.transitions().length, 5, "transitions");
         equal(algorithmViewModel.transitions()[0].type(), "direct");
         equal(algorithmViewModel.transitions()[0].level(), 1);
         equal(algorithmViewModel.transitions()[1].type(), "far");
         equal(algorithmViewModel.transitions()[1].level(), 1);
         equal(algorithmViewModel.transitions()[2].type(), "far");
         equal(algorithmViewModel.transitions()[2].level(), 2);
+        equal(algorithmViewModel.transitions()[3].type(), "far");
+        equal(algorithmViewModel.transitions()[3].level(), 1);
+        equal(algorithmViewModel.transitions()[4].type(), "direct");
+        equal(algorithmViewModel.transitions()[4].level(), 1);
     });
 
 } 

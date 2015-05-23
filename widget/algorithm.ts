@@ -40,19 +40,38 @@ module Algorithm {
             return this.transitions().filter((transition) => { return transition.endBlock() === block; });
         }
 
+        private _resetTransitions() {
+            this.maxLevel(1);
+            var transitionsToRemove = [];
+            this.transitions().forEach(transition => {
+                transition.type("direct"); transition.level(1);
+                if(transition.startBlock() === transition.endBlock()) {
+                    transitionsToRemove.push(transition);
+                }
+            });
+            transitionsToRemove.forEach(transition => { this.transitions.remove(transition); });
+        }
+
+        private _getFreeLevel(currentTransitions: AlgorithmTransition[]) {
+            var level = 1;
+            var levels = currentTransitions.map(transition => transition.level());
+            while(levels.indexOf(level) !== -1) {
+                level++;
+            }
+            return level;
+        }
+
         private _prepareTransitions() {
-            var currentLevel = 1;
             var currentTransitions: AlgorithmTransition[] = [];
             var resultTransitions: AlgorithmTransition[] = [];
 
-            this.transitions().forEach(transition => { transition.type("direct"); transition.level(1); });
+            this._resetTransitions();
 
             this.blocks().forEach((block, index) => {
-                this._findTransitionsTo(block)
-                    .filter((transition) => { return transition.type() !== "direct"; })
-                    .forEach((transition) => {
-                    currentTransitions.splice(currentTransitions.indexOf(transition), 1);
-                    currentLevel--;
+                this.transitions().forEach(transition => {
+                    if(transition.endBlock() === block && transition.type() !== "direct") {
+                        currentTransitions.splice(currentTransitions.indexOf(transition), 1);
+                    }
                 });
                 this._findTransitionsFrom(block)
                     .sort((t1, t2) => { return this.blocks().indexOf(t1.endBlock()) - this.blocks().indexOf(t2.endBlock()); })
@@ -62,12 +81,11 @@ module Algorithm {
                         if(this.blocks().indexOf(transition.endBlock()) < this.blocks().indexOf(transition.startBlock())) {
                             transition.direction("up");
                         }
-                        transition.level(currentLevel);
-                        if(currentLevel > this.maxLevel()) {
-                            this.maxLevel(currentLevel);
+                        transition.level(this._getFreeLevel(currentTransitions));
+                        if(transition.level() > this.maxLevel()) {
+                            this.maxLevel(transition.level());
                         }
                         currentTransitions.push(transition);
-                        currentLevel++;
                     }
                     resultTransitions.push(transition);
                 });

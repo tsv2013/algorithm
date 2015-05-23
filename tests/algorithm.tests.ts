@@ -265,4 +265,28 @@ module Algorithm.Tests {
         });
     });
 
+    test("multiple far transitions", function() {
+        var algorithmViewModel = new AlgorithmViewModel({
+            items: [
+                { id: 3, text: "3" },
+                { id: 2, text: "2" },
+                { id: 1, text: "1" },
+                { id: 4, text: "4" },
+            ],
+            transitions: [
+                { iid: 1, exit1: 2, exit2: null },
+                { iid: 1, exit1: 3, exit2: null },
+                { iid: 1, exit1: 4, exit2: null },
+            ]
+        });
+
+        equal(algorithmViewModel.transitions().length, 3, "transitions");
+        equal(algorithmViewModel.transitions()[0].type(), "direct");
+        equal(algorithmViewModel.transitions()[0].level(), 1);
+        equal(algorithmViewModel.transitions()[1].type(), "far");
+        equal(algorithmViewModel.transitions()[1].level(), 1);
+        equal(algorithmViewModel.transitions()[2].type(), "far");
+        equal(algorithmViewModel.transitions()[2].level(), 2);
+    });
+
 } 

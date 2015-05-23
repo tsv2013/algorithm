@@ -41,10 +41,12 @@ module Algorithm {
         }
 
         private _prepareTransitions() {
-            this.transitions().forEach(transition => { transition.type("direct"); transition.level(1); });
             var currentLevel = 1;
             var currentTransitions: AlgorithmTransition[] = [];
             var resultTransitions: AlgorithmTransition[] = [];
+
+            this.transitions().forEach(transition => { transition.type("direct"); transition.level(1); });
+
             this.blocks().forEach((block, index) => {
                 this._findTransitionsTo(block)
                     .filter((transition) => { return transition.type() !== "direct"; })
@@ -52,28 +54,25 @@ module Algorithm {
                     currentTransitions.splice(currentTransitions.indexOf(transition), 1);
                     currentLevel--;
                 });
-                var needLevelUp = false;
                 this._findTransitionsFrom(block)
                     .sort((t1, t2) => { return this.blocks().indexOf(t1.endBlock()) - this.blocks().indexOf(t2.endBlock()); })
-                    .forEach((transition) => {
+                    .forEach(transition => {
                     if(this.blocks().indexOf(transition.endBlock()) !== index + 1) {
+                        transition.type("far");
+                        if(this.blocks().indexOf(transition.endBlock()) < this.blocks().indexOf(transition.startBlock())) {
+                            transition.direction("up");
+                        }
                         transition.level(currentLevel);
                         if(currentLevel > this.maxLevel()) {
                             this.maxLevel(currentLevel);
                         }
                         currentTransitions.push(transition);
-                        transition.type("far");
-                        if(this.blocks().indexOf(transition.endBlock()) < this.blocks().indexOf(transition.startBlock())) {
-                            transition.direction("up");
-                        }
-                        needLevelUp = true;
+                        currentLevel++;
                     }
                     resultTransitions.push(transition);
                 });
-                if(needLevelUp) {
-                    currentLevel++;
-                }
             });
+
             this.transitions(resultTransitions);
         }
 

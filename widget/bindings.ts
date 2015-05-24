@@ -94,7 +94,7 @@ module Algorithm {
                                 if(dragData.type === 'AlgorithmItemBlockModel') {
                                     var sourceBlock = model.findBlock(dragData.id);
                                     if(!!sourceBlock && !!targetBlock) {
-                                        model.updateTransition(sourceBlock, targetBlock, dragData.transitionType);
+                                        model.updateTransition(sourceBlock, targetBlock, dragData.transitionType, ev.ctrlKey);
                                         ev.stopPropagation();
                                     }
                                 }

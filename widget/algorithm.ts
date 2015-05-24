@@ -207,17 +207,26 @@ module Algorithm {
         currentBlock = ko.observable<AlgorithmItemBlockModel>();
         isEditMode = ko.observable(false);
 
-        updateTransition(fromBlock: AlgorithmItemBlockModel, toBlock: AlgorithmItemBlockModel, label: string) {
+        updateTransition(fromBlock: AlgorithmItemBlockModel, toBlock: AlgorithmItemBlockModel, label: string, preserveTransitions: boolean = false) {
             var fromTransitions = this._findTransitionsFrom(fromBlock).filter(transition => transition.label() === label);
-            if(fromTransitions.length === 0) {
-                var newTransition = new AlgorithmTransition(fromBlock, toBlock);
-                newTransition.label(label);
-                this.transitions.push(newTransition);
+            if(preserveTransitions) {
+                if(fromTransitions.filter(transition => transition.endBlock() === toBlock).length === 0) {
+                    var newTransition = new AlgorithmTransition(fromBlock, toBlock);
+                    newTransition.label(label);
+                    this.transitions.push(newTransition);
+                }
             }
             else {
-                fromTransitions[0].endBlock(toBlock);
-                for(var i = 1; i < fromTransitions.length; i++) {
-                    this.transitions.remove(fromTransitions[i]);
+                if(fromTransitions.length === 0) {
+                    var newTransition = new AlgorithmTransition(fromBlock, toBlock);
+                    newTransition.label(label);
+                    this.transitions.push(newTransition);
+                }
+                else {
+                    fromTransitions[0].endBlock(toBlock);
+                    for(var i = 1; i < fromTransitions.length; i++) {
+                        this.transitions.remove(fromTransitions[i]);
+                    }
                 }
             }
             this._updateLayout();

@@ -36,18 +36,32 @@
 <script type="text/html" id="algorithm-details-template">
     <div class="algorithm-details-holder">
         <div class="algorithm-details-template-holder">
+            <!-- ko with: currentBlock -->
             <div class="algo-detail-field">
                 <span class="algo-detail-label">Text: </span>
                 <div class="algo-detail-value-wrapper">
-                    <input class="algo-detail-value" data-bind="value: currentBlock() && currentBlock().text" />
+                    <input class="algo-detail-value" data-bind="value: text" />
                 </div>
             </div>
             <div class="algo-detail-field">
                 <span class="algo-detail-label">Comment: </span>
                 <div class="algo-detail-value-wrapper">
-                    <input class="algo-detail-value" data-bind="value: currentBlock() && currentBlock().comment" />
+                    <input class="algo-detail-value" data-bind="value: comment" />
                 </div>
             </div>
+            <div class="algo-detail-field">
+                <span class="algo-detail-label">State: </span>
+                <div class="algo-detail-value-wrapper">
+                    <select data-bind="options: [ 'inprogress', 'completed' ], value: state, optionsCaption: 'Choose state...'"></select>
+                </div>
+            </div>
+            <div class="algo-detail-field">
+                <span class="algo-detail-label">Is Condition: </span>
+                <div class="algo-detail-value-wrapper">
+                    <input type="checkbox" data-bind="checked: isCondition" />
+                </div>
+            </div>
+            <!-- /ko -->
         </div>
         <div class="algorithm-details-actions-holder">
             <div class="algorithm-button" data-bind="click: function() { $data.isEditMode(false); }">Close</div>

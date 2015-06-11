@@ -1,6 +1,15 @@
 function init() {
     var model = {
-        algorithm: {
+        algorithm: ko.observable({
+            items: [ ],
+            transitions: [ ]
+        })
+    };
+
+    ko.applyBindings(model);
+
+    setTimeout(function() {
+        model.algorithm({
             items: [
                 { id: 9, text: "finish" },
                 { id: 6, text: "is condition true?" },
@@ -23,8 +32,6 @@ function init() {
                 { iid: 7, exit1: 9, exit2: null },
                 { iid: 8, exit1: 9, exit2: null },
             ]
-        }
-    };
-
-    ko.applyBindings(model);
+        });
+    }, 1000);
 }

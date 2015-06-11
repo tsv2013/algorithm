@@ -8,8 +8,13 @@ module Algorithm {
             var options = ko.unwrap(valueAccessor());
             var $algorithmTemplate = $("#algorithm-view-template"),
                 algorithmViewHolderWidth = ko.observable(500),
-                model = new AlgorithmViewModel(ko.unwrap(options.value)),
+                model = ko.observable(new AlgorithmViewModel(ko.unwrap(options.value))),
+                valueSubscription,
                 childContext = bindingContext.createChildContext(model);
+
+            if(ko.isSubscribable(options.value)) {
+                valueSubscription = options.value.subscribe(newAlgorithm => model(new AlgorithmViewModel(newAlgorithm)));
+            }
 
             $(element).children().remove();
             $(element).append($($algorithmTemplate.text()));
@@ -17,11 +22,14 @@ module Algorithm {
             ko.applyBindingsToDescendants(childContext, element);
 
             var intervalId = setInterval(() => {
-                model.containerWidth($(element).find(".algorithm-view-holder").width());
+                model().containerWidth($(element).find(".algorithm-view-holder").width());
                 //console.log(model.containerWidth());
             }, 500);
             ko.utils.domNodeDisposal.addDisposeCallback(element, function() {
                 clearInterval(intervalId);
+                if(valueSubscription) {
+                    valueSubscription.dispose();
+                }
             });
             return { controlsDescendantBindings: true };
         },

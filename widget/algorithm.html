@@ -1,4 +1,5 @@
 ﻿<script type="text/html" id="algorithm-view-template">
+    <!-- ko with: $data -->
     <div class="algorithm-view-holder" style="position: relative; width: 100%; min-width: 500px;">
         <div class="algorithm-transitions" data-bind="style: { 'width': connectorsAreaWidth() + 'px' }">
             <!-- ko foreach: transitions -->
@@ -31,6 +32,7 @@
         <div class="algorithm-block-details-container" data-bind="algodetails: $data">
         </div>
     </div>
+    <!-- /ko -->
 </script>
 
 <script type="text/html" id="algorithm-details-template">

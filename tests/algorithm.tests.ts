@@ -155,6 +155,12 @@ module Algorithm.Tests {
     });
 
     test("remove block", function() {
+        var changes = [];
+        algorithm2["mappings"] = {
+            change: (element: string, kind: string, object: AlgorithmItemBlockModel | AlgorithmTransition) => {
+                changes.push({ element: element, kind: kind, object: object });
+            }
+        };
         var algorithmViewModel = new AlgorithmViewModel(algorithm2);
 
         equal(algorithmViewModel.blocks().length, 4, "source configuration");
@@ -174,6 +180,11 @@ module Algorithm.Tests {
         equal(algorithmViewModel.transitions()[1].type(), "direct");
         equal(algorithmViewModel.transitions()[1].startBlock().id(), 3);
         equal(algorithmViewModel.transitions()[1].endBlock().id(), 4);
+
+        equal(changes.length, 1);
+        equal(changes[0].element, "block");
+        equal(changes[0].kind, "remove");
+        equal(changes[0].object.id(), "2");
     });
 
     test("get model", function() {

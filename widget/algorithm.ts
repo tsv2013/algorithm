@@ -124,16 +124,18 @@ module Algorithm {
         }
 
         constructor(options: { items: Array<any>; transitions: Array<ITransition>; mappings?: any }) {
-            this._mappings = $.extend({}, options.mappings, {
+            this._mappings = $.extend(true, {}, {
                 id: "id",
                 text: "text",
                 comment: "comment",
                 num: "num",
                 state: "state",
-                new: function(idVal) {
+                new: function(idVal: any) {
                     return { id: idVal }
+                },
+                change: function(element: string, kind: string, object: AlgorithmItemBlockModel | AlgorithmTransition) {
                 }
-            });
+            }, options.mappings);
             options.items.forEach(item => {
                 var block = new AlgorithmItemBlockModel(item, this._mappings)
                 if(block.id() > this._MaxId) {
@@ -187,6 +189,7 @@ module Algorithm {
                 this.transitions.push(new AlgorithmTransition(block, newBlock));
             }
             this._updateLayout();
+            this._mappings.change("block", "add", newBlock);
         }
         removeBlock(block: AlgorithmItemBlockModel) {
             this._findTransitionsTo(block).forEach(transition => {
@@ -199,12 +202,17 @@ module Algorithm {
             });
             this.blocks.remove(block);
             this._updateLayout();
+            this._mappings.change("block", "remove", block);
         }
         editBlock(block: AlgorithmItemBlockModel) {
             this.currentBlock(block);
             this.isEditMode(!this.isEditMode());
+            if(!this.isEditMode()) {
+                this._mappings.change("block", "edit", block);
+            }
         }
         currentBlock = ko.observable<AlgorithmItemBlockModel>();
+        detailTemplate = "algorithm-default-details-template";
         isEditMode = ko.observable(false);
 
         updateTransition(fromBlock: AlgorithmItemBlockModel, toBlock: AlgorithmItemBlockModel, label: string, preserveTransitions: boolean = false) {
@@ -221,11 +229,13 @@ module Algorithm {
                     var newTransition = new AlgorithmTransition(fromBlock, toBlock);
                     newTransition.label(label);
                     this.transitions.push(newTransition);
+                    this._mappings.change("transition", "add", newTransition);
                 }
                 else {
                     fromTransitions[0].endBlock(toBlock);
                     for(var i = 1; i < fromTransitions.length; i++) {
                         this.transitions.remove(fromTransitions[i]);
+                        this._mappings.change("transition", "remove", fromTransitions[i]);
                     }
                 }
             }

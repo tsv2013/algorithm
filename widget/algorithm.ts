@@ -232,19 +232,20 @@ module Algorithm {
             this._updateLayout();
         }
 
-        static titleAddBefore = "Add block before";
-        static titleAddAfter = "Add block after";
-        static titleEdit = "Edit block";
-        static titleRemove = "Remove block";
-        get addTitleBefore() { return AlgorithmViewModel.titleAddBefore; }
-        get addTitleAfter() { return AlgorithmViewModel.titleAddAfter; }
-        get editTitle() { return AlgorithmViewModel.titleEdit; }
-        get removeTitle() { return AlgorithmViewModel.titleRemove; }
-
-        connectTitle = "Drag to connect to..."
-
         static yesTitle = "yes";
         static noTitle = "no";
+        static addBeforeTitle = "Add block before";
+        static addAfterTitle = "Add block after";
+        static titleEdit = "Edit block";
+        static titleRemove = "Remove block";
+        static connectTitle = "Drag to connect to...";
+        static closeTitle = "Close";
+
+        get addBeforeTitle() { return AlgorithmViewModel.addBeforeTitle; }
+        get addAfterTitle() { return AlgorithmViewModel.addAfterTitle; }
+        get editTitle() { return AlgorithmViewModel.titleEdit; }
+        get removeTitle() { return AlgorithmViewModel.titleRemove; }
+        get connectTitle() { return AlgorithmViewModel.connectTitle; }
         get yesTitle() { return AlgorithmViewModel.yesTitle; }
         get noTitle() { return AlgorithmViewModel.noTitle; }
     }

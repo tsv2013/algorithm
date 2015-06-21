@@ -31,7 +31,8 @@ function init() {
                 { iid: 6, exit1: 7, exit2: 8 },
                 { iid: 7, exit1: 9, exit2: null },
                 { iid: 8, exit1: 9, exit2: null },
-            ]
+            ],
+            //allowEdit: false
         });
     }, 1000);
 }

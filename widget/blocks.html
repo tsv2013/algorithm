@@ -10,7 +10,9 @@
             <span style="color: green; font-family: wingdings; font-size: 200%;">&#252;</span><!-- &#251; -->
         </div>
         <!-- /ko -->
+        <!-- ko if: $parent.allowEdit -->
         <!-- ko template: "algorithm-block-controls" -->
+        <!-- /ko -->
         <!-- /ko -->
     </div>
 </script>
@@ -36,10 +38,12 @@
         <!-- ko if: num() -->
         <div style="position:absolute; bottom:50%; line-height: 1em; left:15px; background-color: white;" data-bind="text: num"></div>
         <!-- /ko -->
+        <!-- ko if: $parent.allowEdit -->
         <!-- ko template: "algorithm-block-controls" -->
         <!-- /ko -->
         <div class="algorithm-condition-connector algorithm-condition-connector-no algorithm-hint" draggable="true" data-bind="style: { 'top': height()/2-8 + 'px' }, attr: { 'data-title': $parent.noTitle, 'data-transition': $parent.noTitle }"></div>
         <div class="algorithm-condition-connector algorithm-condition-connector-yes algorithm-hint" draggable="true" data-bind="style: { 'top': height()/2-8 + 'px' }, attr: { 'data-title': $parent.yesTitle }"></div>
+        <!-- /ko -->
     </div>
 </script>
 

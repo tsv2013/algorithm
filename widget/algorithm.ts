@@ -123,7 +123,7 @@ module Algorithm {
             this._prepareTransitions();
         }
 
-        constructor(options: { items: Array<any>; transitions: Array<ITransition>; mappings?: any }) {
+        constructor(options: { items: Array<any>; transitions: Array<ITransition>; mappings?: any; allowEdit?: boolean }) {
             this._mappings = $.extend(true, {}, {
                 id: "id",
                 text: "text",
@@ -136,6 +136,7 @@ module Algorithm {
                 change: function(element: string, kind: string, object: AlgorithmItemBlockModel | AlgorithmTransition) {
                 }
             }, options.mappings);
+            this.allowEdit = options.allowEdit !== false;
             options.items.forEach(item => {
                 var block = new AlgorithmItemBlockModel(item, this._mappings)
                 if(block.id() > this._MaxId) {
@@ -214,6 +215,7 @@ module Algorithm {
         currentBlock = ko.observable<AlgorithmItemBlockModel>();
         detailTemplate = "algorithm-default-details-template";
         isEditMode = ko.observable(false);
+        allowEdit: boolean = true;
 
         updateTransition(fromBlock: AlgorithmItemBlockModel, toBlock: AlgorithmItemBlockModel, label: string, preserveTransitions: boolean = false) {
             var fromTransitions = this._findTransitionsFrom(fromBlock).filter(transition => transition.label() === label);

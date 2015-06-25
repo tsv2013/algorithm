@@ -181,10 +181,22 @@ module Algorithm.Tests {
         equal(algorithmViewModel.transitions()[1].startBlock().id(), 3);
         equal(algorithmViewModel.transitions()[1].endBlock().id(), 4);
 
-        equal(changes.length, 1);
-        equal(changes[0].element, "block");
-        equal(changes[0].kind, "remove");
-        equal(changes[0].object.id(), "2");
+        equal(changes.length, 5);
+        equal(changes[0].element, "transition");
+        equal(changes[0].kind, "edit");
+        //equal(changes[0].object.id(), "2");
+        equal(changes[1].element, "transition");
+        equal(changes[1].kind, "edit");
+        //equal(changes[1].object.id(), "2");
+        equal(changes[2].element, "transition");
+        equal(changes[2].kind, "deleted");
+        //equal(changes[2].object.id(), "2");
+        equal(changes[3].element, "block");
+        equal(changes[3].kind, "deleted");
+        equal(changes[3].object.id(), "2");
+        equal(changes[4].element, "transition");
+        equal(changes[4].kind, "deleted");
+        //equal(changes[4].object.id(), "2");
     });
 
     test("get model", function() {

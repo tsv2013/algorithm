@@ -32,6 +32,15 @@ function init() {
                 { iid: 7, exit1: 9, exit2: null },
                 { iid: 8, exit1: 9, exit2: null },
             ],
+            //mappings: {
+            //    new: function(idVal) {
+            //        debugger;
+            //        return { id: idVal }
+            //    },
+            //    change: function(element, kind, object) {
+            //        debugger;
+            //    }
+            //}
             //allowEdit: false
         });
     }, 1000);

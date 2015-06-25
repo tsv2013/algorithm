@@ -156,6 +156,18 @@ module Algorithm {
             });
             this._sortBlocks();
             this._updateLayout();
+
+            this.blocks.subscribe((changes) => {
+                (<any>changes).forEach(change => this._mappings.change("block", change.status, change.value));
+            }, null, "arrayChange");
+            this.transitions.subscribe((changes) => {
+                (<any>changes).forEach(change => this._mappings.change("transition", change.status, change.value));
+            }, null, "arrayChange");
+            this.isEditMode.subscribe(newValue => {
+                if(!newValue) {
+                    this._mappings.change("block", "edit", this.currentBlock());
+                }
+            });
         }
 
         get model() {
@@ -182,19 +194,25 @@ module Algorithm {
             var newBlock = new AlgorithmItemBlockModel(this._mappings.new(++this._MaxId), this._mappings);
             this.blocks.splice(this.blocks().indexOf(block) + (isBefore ? 0 : 1), 0, newBlock);
             if(isBefore) {
-                this._findTransitionsTo(block).forEach(transition => transition.endBlock(newBlock));
+                this._findTransitionsTo(block).forEach(transition => {
+                    this._mappings.change("transition", "edit", transition);
+                    transition.endBlock(newBlock);
+                });
                 this.transitions.push(new AlgorithmTransition(newBlock, block));
             }
             else {
-                this._findTransitionsFrom(block).forEach(transition => transition.startBlock(newBlock));
+                this._findTransitionsFrom(block).forEach(transition => {
+                    this._mappings.change("transition", "edit", transition);
+                    transition.startBlock(newBlock);
+                });
                 this.transitions.push(new AlgorithmTransition(block, newBlock));
             }
             this._updateLayout();
-            this._mappings.change("block", "add", newBlock);
         }
         removeBlock(block: AlgorithmItemBlockModel) {
             this._findTransitionsTo(block).forEach(transition => {
                 this._findTransitionsFrom(block).forEach(transitionFrom => {
+                    this._mappings.change("transition", "edit", transition);
                     transition.endBlock(transitionFrom.endBlock());
                 });
             });
@@ -203,14 +221,10 @@ module Algorithm {
             });
             this.blocks.remove(block);
             this._updateLayout();
-            this._mappings.change("block", "remove", block);
         }
         editBlock(block: AlgorithmItemBlockModel) {
             this.currentBlock(block);
             this.isEditMode(!this.isEditMode());
-            if(!this.isEditMode()) {
-                this._mappings.change("block", "edit", block);
-            }
         }
         currentBlock = ko.observable<AlgorithmItemBlockModel>();
         detailTemplate = "algorithm-default-details-template";
@@ -231,13 +245,11 @@ module Algorithm {
                     var newTransition = new AlgorithmTransition(fromBlock, toBlock);
                     newTransition.label(label);
                     this.transitions.push(newTransition);
-                    this._mappings.change("transition", "add", newTransition);
                 }
                 else {
                     fromTransitions[0].endBlock(toBlock);
                     for(var i = 1; i < fromTransitions.length; i++) {
                         this.transitions.remove(fromTransitions[i]);
-                        this._mappings.change("transition", "remove", fromTransitions[i]);
                     }
                 }
             }

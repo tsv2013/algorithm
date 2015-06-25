@@ -16,7 +16,8 @@ module Algorithm {
     }
 
     export class AlgorithmViewModel {
-        private _mappings;
+        private _blockMappings;
+        private _transitionMappings;
         private _MaxId = -1;
 
         private _collectFollowingBlocks(sortResult: Array<AlgorithmItemBlockModel>, filter: (block: AlgorithmItemBlockModel) => boolean, otherThreads: Array<AlgorithmItemBlockModel> = []) {
@@ -123,33 +124,43 @@ module Algorithm {
             this._prepareTransitions();
         }
 
-        constructor(options: { items: Array<any>; transitions: Array<ITransition>; mappings?: any; allowEdit?: boolean }) {
-            this._mappings = $.extend(true, {}, {
+        constructor(options: { items: Array<any>; transitions: Array<any>; blockMappings?: any; transitionMappings?: any; allowEdit?: boolean }) {
+            this._blockMappings = $.extend(true, {}, {
                 id: "id",
                 text: "text",
                 comment: "comment",
                 num: "num",
                 state: "state",
                 new: function(idVal: any) {
-                    return { id: idVal }
+                    return { id: idVal };
                 },
-                change: function(element: string, kind: string, object: AlgorithmItemBlockModel | AlgorithmTransition) {
+                change: function(kind: string, object: AlgorithmItemBlockModel) {
                 }
-            }, options.mappings);
+            }, options.blockMappings);
+            this._transitionMappings = $.extend(true, {}, {
+                iid: "iid",
+                exit1: "exit1",
+                exit2: "exit2",
+                new: function(idVal: any) {
+                    return {};
+                },
+                change: function(kind: string, object: AlgorithmTransition) {
+                }
+            }, options.transitionMappings);
             this.allowEdit = options.allowEdit !== false;
             options.items.forEach(item => {
-                var block = new AlgorithmItemBlockModel(item, this._mappings)
+                var block = new AlgorithmItemBlockModel(item, this._blockMappings)
                 if(block.id() > this._MaxId) {
                     this._MaxId = block.id();
                 }
                 this.blocks.push(block);
             });
             options.transitions.forEach(transition => {
-                if(transition.exit1) {
-                    this.transitions.push(new AlgorithmTransition(this.findBlock(transition.iid), this.findBlock(transition.exit1)));
+                if(ko.unwrap(transition[this._transitionMappings.exit1])) {
+                    this.transitions.push(new AlgorithmTransition(this.findBlock(transition[this._transitionMappings.iid]), this.findBlock(ko.unwrap(transition[this._transitionMappings.exit1])), transition, this._transitionMappings));
                 }
-                if(transition.exit2) {
-                    var newTransition = new AlgorithmTransition(this.findBlock(transition.iid), this.findBlock(transition.exit2));
+                if(ko.unwrap(transition[this._transitionMappings.exit2])) {
+                    var newTransition = new AlgorithmTransition(this.findBlock(transition[this._transitionMappings.iid]), this.findBlock(ko.unwrap(transition[this._transitionMappings.exit2])), transition, this._transitionMappings);
                     newTransition.label(this.noTitle);
                     this.transitions.push(newTransition);
                 }
@@ -158,14 +169,14 @@ module Algorithm {
             this._updateLayout();
 
             this.blocks.subscribe((changes) => {
-                (<any>changes).forEach(change => this._mappings.change("block", change.status, change.value));
+                (<any>changes).forEach(change => this._blockMappings.change(change.status, change.value));
             }, null, "arrayChange");
             this.transitions.subscribe((changes) => {
-                (<any>changes).forEach(change => this._mappings.change("transition", change.status, change.value));
+                (<any>changes).forEach(change => this._transitionMappings.change(change.status, change.value));
             }, null, "arrayChange");
             this.isEditMode.subscribe(newValue => {
                 if(!newValue) {
-                    this._mappings.change("block", "edit", this.currentBlock());
+                    this._blockMappings.change("edit", this.currentBlock());
                 }
             });
         }
@@ -191,28 +202,28 @@ module Algorithm {
             return this.blocks().filter((block) => { return block.id() === id; })[0];
         }
         addBlock(block: AlgorithmItemBlockModel, isBefore: boolean = false) {
-            var newBlock = new AlgorithmItemBlockModel(this._mappings.new(++this._MaxId), this._mappings);
+            var newBlock = new AlgorithmItemBlockModel(this._blockMappings.new(++this._MaxId), this._blockMappings);
             this.blocks.splice(this.blocks().indexOf(block) + (isBefore ? 0 : 1), 0, newBlock);
             if(isBefore) {
                 this._findTransitionsTo(block).forEach(transition => {
-                    this._mappings.change("transition", "edit", transition);
+                    this._transitionMappings.change("edit", transition);
                     transition.endBlock(newBlock);
                 });
-                this.transitions.push(new AlgorithmTransition(newBlock, block));
+                this.transitions.push(new AlgorithmTransition(newBlock, block, this._transitionMappings.new(++this._MaxId), this._transitionMappings));
             }
             else {
                 this._findTransitionsFrom(block).forEach(transition => {
-                    this._mappings.change("transition", "edit", transition);
+                    this._transitionMappings.change("edit", transition);
                     transition.startBlock(newBlock);
                 });
-                this.transitions.push(new AlgorithmTransition(block, newBlock));
+                this.transitions.push(new AlgorithmTransition(block, newBlock, this._transitionMappings.new(++this._MaxId), this._transitionMappings));
             }
             this._updateLayout();
         }
         removeBlock(block: AlgorithmItemBlockModel) {
             this._findTransitionsTo(block).forEach(transition => {
                 this._findTransitionsFrom(block).forEach(transitionFrom => {
-                    this._mappings.change("transition", "edit", transition);
+                    this._transitionMappings.change("edit", transition);
                     transition.endBlock(transitionFrom.endBlock());
                 });
             });
@@ -235,14 +246,14 @@ module Algorithm {
             var fromTransitions = this._findTransitionsFrom(fromBlock).filter(transition => transition.label() === label);
             if(preserveTransitions) {
                 if(fromTransitions.filter(transition => transition.endBlock() === toBlock).length === 0) {
-                    var newTransition = new AlgorithmTransition(fromBlock, toBlock);
+                    var newTransition = new AlgorithmTransition(fromBlock, toBlock, this._transitionMappings.new(++this._MaxId), this._transitionMappings);
                     newTransition.label(label);
                     this.transitions.push(newTransition);
                 }
             }
             else {
                 if(fromTransitions.length === 0) {
-                    var newTransition = new AlgorithmTransition(fromBlock, toBlock);
+                    var newTransition = new AlgorithmTransition(fromBlock, toBlock, this._transitionMappings.new(++this._MaxId), this._transitionMappings);
                     newTransition.label(label);
                     this.transitions.push(newTransition);
                 }
@@ -274,22 +285,16 @@ module Algorithm {
         get noTitle() { return AlgorithmViewModel.noTitle; }
     }
 
-    export class AlgorithmItemBlockModel {
+    export class ItemHolder {
         private _mappings;
         private _item: any;
 
         constructor(item: any, mappings?: any) {
-            this._mappings = $.extend({}, mappings, {
-                id: "id",
-                text: "text",
-                comment: "comment",
-                num: "num",
-                state: "state"
-            });
+            this._mappings = $.extend({}, mappings);
 
             this._item = item;
 
-            $.each(this._mappings, (name, value) => {
+            $.each(this._mappings,(name, value) => {
                 var _innerName = "_" + name;
                 this[_innerName] = ko.observable(ko.unwrap(this._item[value]));
                 this[name] = ko.computed({
@@ -313,11 +318,25 @@ module Algorithm {
             return this._item;
         }
 
-        id = ko.observable<number>(0);
-        text = ko.observable();
-        comment = ko.observable();
-        num = ko.observable();
-        state = ko.observable();
+    }
+
+    export class AlgorithmItemBlockModel extends ItemHolder {
+
+        constructor(item: any, mappings?: any) {
+            super(item, mappings || {
+                id: "id",
+                text: "text",
+                comment: "comment",
+                num: "num",
+                state: "state"
+            });
+        }
+
+        id: KnockoutObservable<number>;
+        text: KnockoutObservable<string>;
+        comment: KnockoutObservable<string>;
+        num: KnockoutObservable<number>;
+        state: KnockoutObservable<string>;
 
         isTerminator = ko.observable(false);
         isCondition = ko.observable(false);
@@ -330,9 +349,14 @@ module Algorithm {
         posY = ko.observable(0);
     }
 
-    export class AlgorithmTransition {
+    export class AlgorithmTransition extends ItemHolder {
 
-        constructor(startBlock?: AlgorithmItemBlockModel, endBlock?: AlgorithmItemBlockModel) {
+        constructor(startBlock: AlgorithmItemBlockModel, endBlock: AlgorithmItemBlockModel, item: any, mappings?: any) {
+            super(item, mappings || {
+                iid: "iid",
+                exit1: "exit1",
+                exit2: "exit2"
+            });
             this.startBlock(startBlock);
             this.endBlock(endBlock);
         }

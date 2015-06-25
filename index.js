@@ -32,15 +32,24 @@ function init() {
                 { iid: 7, exit1: 9, exit2: null },
                 { iid: 8, exit1: 9, exit2: null },
             ],
-            //mappings: {
+            //blockMappings: {
             //    new: function(idVal) {
             //        debugger;
-            //        return { id: idVal }
+            //        return { id: idVal };
             //    },
-            //    change: function(element, kind, object) {
+            //    change: function(kind, object) {
             //        debugger;
             //    }
-            //}
+            //},
+            //transitionMappings: {
+            //    new: function(idVal) {
+            //        debugger;
+            //        return { };
+            //    },
+            //    change: function(kind, object) {
+            //        debugger;
+            //    }
+            //},
             //allowEdit: false
         });
     }, 1000);

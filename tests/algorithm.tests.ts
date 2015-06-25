@@ -149,16 +149,21 @@ module Algorithm.Tests {
         algorithmViewModel.addBlock(algorithmViewModel.blocks()[1], true);
         equal(algorithmViewModel.blocks().length, 6, "block was added before");
         equal(algorithmViewModel.blocks()[0].id(), 1);
-        equal(algorithmViewModel.blocks()[1].id(), 6);
+        equal(algorithmViewModel.blocks()[1].id(), 7); // not 6 because transitions are using the same MaxID
         equal(algorithmViewModel.blocks()[2].id(), 2);
         equal(algorithmViewModel.blocks()[3].id(), 5);
     });
 
     test("remove block", function() {
         var changes = [];
-        algorithm2["mappings"] = {
-            change: (element: string, kind: string, object: AlgorithmItemBlockModel | AlgorithmTransition) => {
-                changes.push({ element: element, kind: kind, object: object });
+        algorithm2["blockMappings"] = {
+            change: (kind: string, object: ItemHolder) => {
+                changes.push({ element: "block", kind: kind, object: object });
+            }
+        };
+        algorithm2["transitionMappings"] = {
+            change: (kind: string, object: ItemHolder) => {
+                changes.push({ element: "transition", kind: kind, object: object });
             }
         };
         var algorithmViewModel = new AlgorithmViewModel(algorithm2);

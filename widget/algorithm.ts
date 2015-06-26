@@ -157,10 +157,10 @@ module Algorithm {
             });
             options.transitions.forEach(transition => {
                 if(ko.unwrap(transition[this._transitionMappings.exit1])) {
-                    this.transitions.push(new AlgorithmTransition(this.findBlock(transition[this._transitionMappings.iid]), this.findBlock(ko.unwrap(transition[this._transitionMappings.exit1])), transition, this._transitionMappings));
+                    this.transitions.push(new AlgorithmTransition(this.findBlock(ko.unwrap(transition[this._transitionMappings.iid])), this.findBlock(ko.unwrap(transition[this._transitionMappings.exit1])), transition, this._transitionMappings));
                 }
                 if(ko.unwrap(transition[this._transitionMappings.exit2])) {
-                    var newTransition = new AlgorithmTransition(this.findBlock(transition[this._transitionMappings.iid]), this.findBlock(ko.unwrap(transition[this._transitionMappings.exit2])), transition, this._transitionMappings);
+                    var newTransition = new AlgorithmTransition(this.findBlock(ko.unwrap(transition[this._transitionMappings.iid])), this.findBlock(ko.unwrap(transition[this._transitionMappings.exit2])), transition, this._transitionMappings);
                     newTransition.label(this.noTitle);
                     this.transitions.push(newTransition);
                 }

@@ -210,15 +210,15 @@ module Algorithm {
             this.blocks.splice(this.blocks().indexOf(block) + (isBefore ? 0 : 1), 0, newBlock);
             if(isBefore) {
                 this._findTransitionsTo(block).forEach(transition => {
-                    this._transitionMappings.change("edit", transition);
                     transition.endBlock(newBlock);
+                    this._transitionMappings.change("edit", transition);
                 });
                 this.transitions.push(new AlgorithmTransition(newBlock, block, this._transitionMappings.new(++this._MaxId), this._transitionMappings));
             }
             else {
                 this._findTransitionsFrom(block).forEach(transition => {
-                    this._transitionMappings.change("edit", transition);
                     transition.startBlock(newBlock);
+                    this._transitionMappings.change("edit", transition);
                 });
                 this.transitions.push(new AlgorithmTransition(block, newBlock, this._transitionMappings.new(++this._MaxId), this._transitionMappings));
             }
@@ -227,8 +227,8 @@ module Algorithm {
         removeBlock(block: AlgorithmItemBlockModel) {
             this._findTransitionsTo(block).forEach(transition => {
                 this._findTransitionsFrom(block).forEach(transitionFrom => {
-                    this._transitionMappings.change("edit", transition);
                     transition.endBlock(transitionFrom.endBlock());
+                    this._transitionMappings.change("edit", transition);
                 });
             });
             this._findTransitionsFrom(block).forEach(transition => {

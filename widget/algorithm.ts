@@ -138,6 +138,8 @@ module Algorithm {
                 change: function(kind: string, object: AlgorithmItemBlockModel) {
                 },
                 click: function(block: AlgorithmItemBlockModel) {
+                },
+                customEdit: (block: AlgorithmItemBlockModel) => {
                 }
             }, options.blockMappings);
             this.detailTemplate = this._blockMappings.detailTemplate;
@@ -239,7 +241,9 @@ module Algorithm {
         }
         editBlock(block: AlgorithmItemBlockModel) {
             this.currentBlock(block);
-            this.isEditMode(!this.isEditMode());
+            if(!this._blockMappings.customEdit(block)) {
+                this.isEditMode(!this.isEditMode());
+            }
         }
         currentBlock = ko.observable<AlgorithmItemBlockModel>();
         detailTemplate = "algorithm-default-details-template";

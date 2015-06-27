@@ -39,6 +39,9 @@ function init() {
             //    },
             //    change: function(kind, object) {
             //        debugger;
+            //    },
+            //    click: function(block) {
+            //        alert(block.text());
             //    }
             //},
             //transitionMappings: {

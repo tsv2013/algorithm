@@ -131,12 +131,16 @@ module Algorithm {
                 comment: "comment",
                 num: "num",
                 state: "state",
+                detailTemplate: "algorithm-default-details-template",
                 new: function(idVal: any) {
                     return { id: idVal };
                 },
                 change: function(kind: string, object: AlgorithmItemBlockModel) {
+                },
+                click: function(block: AlgorithmItemBlockModel) {
                 }
             }, options.blockMappings);
+            this.detailTemplate = this._blockMappings.detailTemplate;
             this._transitionMappings = $.extend(true, {}, {
                 iid: "iid",
                 exit1: "exit1",
@@ -242,6 +246,10 @@ module Algorithm {
         isEditMode = ko.observable(false);
         allowEdit: boolean = true;
 
+        clickBlock(block: AlgorithmItemBlockModel) {
+            this._blockMappings.click(block);
+        }
+
         updateTransition(fromBlock: AlgorithmItemBlockModel, toBlock: AlgorithmItemBlockModel, label: string, preserveTransitions: boolean = false) {
             var fromTransitions = this._findTransitionsFrom(fromBlock).filter(transition => transition.label() === label);
             if(preserveTransitions) {
@@ -259,6 +267,7 @@ module Algorithm {
                 }
                 else {
                     fromTransitions[0].endBlock(toBlock);
+                    this._transitionMappings.change("edit", fromTransitions[0]);
                     for(var i = 1; i < fromTransitions.length; i++) {
                         this.transitions.remove(fromTransitions[i]);
                     }

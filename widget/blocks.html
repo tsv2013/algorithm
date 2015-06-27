@@ -1,5 +1,5 @@
 ﻿<script type="text/html" id="algorithm-block-item-template">
-    <div class="algorithm-block algorithm-block-item" data-bind="style: { 'height': height() + 'px', 'lineHeight': height() + 'px', 'margin': $parent.blockMinDistance() + 'px 0' }, css: { 'algorithm-block-inprogress': state() === 'inprogress', 'algorithm-block-teminator': isTerminator }">
+    <div class="algorithm-block algorithm-block-item" data-bind="style: { 'height': height() + 'px', 'lineHeight': height() + 'px', 'margin': $parent.blockMinDistance() + 'px 0' }, css: { 'algorithm-block-inprogress': state() === 'inprogress', 'algorithm-block-teminator': isTerminator }, click: function() { $parent.clickBlock($data); }">
         <div class="algorithm-block-shadow"></div>
         <div class="algorithm-block-content" data-bind="style: { 'lineHeight': height() + 'px' }, text: text"></div>
         <!-- ko if: num() -->
@@ -18,7 +18,7 @@
 </script>
 
 <script type="text/html" id="algorithm-block-condition-template">
-    <div class="algorithm-block algorithm-block-condition" data-bind="style: { 'height': height() + 'px', 'lineHeight': height() + 'px', 'margin': $parent.blockMinDistance() + 'px 0' }">
+    <div class="algorithm-block algorithm-block-condition" data-bind="style: { 'height': height() + 'px', 'lineHeight': height() + 'px', 'margin': $parent.blockMinDistance() + 'px 0' }, click: function() { $parent.clickBlock($data); }">
         <div class="algorithm-block-shadow">
             <svg width='100%' height='100%' style="position:absolute;left:0;">
                 <defs>

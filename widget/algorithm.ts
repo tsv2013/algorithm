@@ -309,17 +309,14 @@ module Algorithm {
 
             $.each(this._mappings,(name, value) => {
                 var _innerName = "_" + name;
-                this[_innerName] = ko.observable(ko.unwrap(this._item[value]));
+                this[_innerName] = ko.isObservable(this._item[value]) ? this._item[value] : ko.observable(this._item[value]);
                 this[name] = ko.computed({
                     read: () => {
                         return this[_innerName]();
                     },
                     write: (val) => {
                         this[_innerName](val);
-                        if(ko.isObservable(this._item[value])) {
-                            this._item[value](val);
-                        }
-                        else {
+                        if(!ko.isObservable(this._item[value])) {
                             this._item[value] = val;
                         }
                     }

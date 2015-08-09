@@ -117,6 +117,25 @@
                     border: 1px solid lightblue;
                 }
             }
+        
+            .algorithm-condition-connector {
+                width: @connection-point-size;
+                height: @connection-point-size;
+                background-color: lightblue;
+                border: 1px solid lightblue;
+                opacity: 0.8;
+                border-radius: 50%;
+                position: absolute;
+                display: none;
+            }
+
+            .algorithm-condition-connector-no {
+                left: 0;
+            }
+
+            .algorithm-condition-connector-yes {
+                right: 0;
+            }
         }
 
         .algorithm-block-inprogress {
@@ -135,6 +154,9 @@
             }
             .algorithm-block-controls {
                 display: inline-block;
+            }
+            .algorithm-condition-connector {
+                display: block;
             }
         }
 
@@ -166,31 +188,6 @@
                 text-overflow: ellipsis;
                 overflow: hidden;
                 white-space: nowrap;
-            }
-
-            .algorithm-condition-connector {
-                width: @connection-point-size;
-                height: @connection-point-size;
-                background-color: lightblue;
-                border: 1px solid lightblue;
-                opacity: 0.8;
-                border-radius: 50%;
-                position: absolute;
-                display: none;
-            }
-
-            .algorithm-condition-connector-no {
-                left: 0;
-            }
-
-            .algorithm-condition-connector-yes {
-                right: 0;
-            }
-        }
-
-        .algorithm-block-condition:hover {
-            .algorithm-condition-connector {
-                display: block;
             }
         }
 

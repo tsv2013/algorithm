@@ -1,6 +1,6 @@
-﻿/// <reference path="../scripts/typings/knockout/knockout.d.ts" />
+﻿/// <reference path="../typings/jquery/jquery.d.ts" />
+/// <reference path="../typings/qunit/qunit.d.ts" />
 /// <reference path="../widget/algorithm.ts" />
-/// <reference path="../scripts/typings/qunit/qunit.d.ts" />
 
 module Algorithm.Tests {
 

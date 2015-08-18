@@ -222,10 +222,10 @@
     <Content Include="widget\transitions.html" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Scripts\typings\knockout\knockout.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\qunit\qunit.d.ts" />
     <TypeScriptCompile Include="tests\algorithm.tests.ts" />
-    <TypeScriptCompile Include="vendor\dt-jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="typings\jquery\jquery.d.ts" />
+    <TypeScriptCompile Include="typings\knockout\knockout.d.ts" />
+    <TypeScriptCompile Include="typings\qunit\qunit.d.ts" />
     <TypeScriptCompile Include="widget\algorithm.ts" />
     <TypeScriptCompile Include="widget\bindings.ts" />
   </ItemGroup>
@@ -233,9 +233,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="vendor\dt-jquery\.bower.json" />
-    <Content Include="vendor\dt-jquery\bower.json" />
-    <Content Include="vendor\dt-jquery\README.md" />
     <Content Include="vendor\jquery\.bower.json" />
     <Content Include="vendor\jquery\bower.json" />
     <Content Include="vendor\jquery\dist\jquery.min.map" />

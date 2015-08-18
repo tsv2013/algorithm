@@ -11,7 +11,6 @@
         "knockout": "latest"
     },
     "devDependencies": {
-        "dt-jquery": "latest",
         "qunit": "latest"
     }
 }

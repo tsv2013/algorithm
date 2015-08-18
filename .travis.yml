@@ -9,5 +9,6 @@ before_script:
   - tsd install knockout
   - tsd install jquery
   - tsd install qunit
+  - bower install
  
 script: grunt test

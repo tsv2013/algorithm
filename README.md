@@ -1,7 +1,7 @@
 # algorithm
 Algorithm visualization widget (jQuery+KnockoutJS)
 
-[![Build Status](https://travis-ci.org/toedter/chatty.svg?branch=master)](https://travis-ci.org/toedter/chatty)
+[![Build Status](https://travis-ci.org/tsv2013/algorithm.svg)](https://travis-ci.org/tsv2013/algorithm)
 
 The demo page: http://tsv2013.github.io/algorithm/.
 

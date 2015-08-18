@@ -1,9 +1,10 @@
-language: javascript
+language: node_js
 
 before_script:
   - npm install -g grunt
   - npm install -g grunt-cli
   - npm install -g bower
+  - npm install -g typescript
   - npm install -g tsd
  
-script: grunt test
+script: grunt

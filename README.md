@@ -1,4 +1,5 @@
-# algorithm [![Build Status](https://travis-ci.org/tsv2013/algorithm.svg)](https://travis-ci.org/tsv2013/algorithm) [![Build Status](https://api.shippable.com/projects/55d44398c650590c00926d02/badge?branchName=master)](https://app.shippable.com/builds/55d44398c650590c00926d02)
+# algorithm [![Build Status](https://travis-ci.org/tsv2013/algorithm.svg)](https://travis-ci.org/tsv2013/algorithm)
+
 Algorithm visualization widget (jQuery+KnockoutJS)
 
 The demo page: http://tsv2013.github.io/algorithm/.

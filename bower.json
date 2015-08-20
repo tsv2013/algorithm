@@ -4,7 +4,7 @@
     "description": "Algorihtm visualization component",
     "homepage": "http://tsv2013.github.io/algorithm",
     "authors": [ "Serge T <@domain.com>" ],
-    "private": true,
+    "private": false,
     "license": "MIT",
     "dependencies": {
         "jquery": "latest",

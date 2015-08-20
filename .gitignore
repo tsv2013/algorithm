@@ -1,6 +1,9 @@
 obj/**
 bin/**
+_build/**
 *.user
+*.suo
+*.sln
 node_modules/**
 vendor/**
 lib/**

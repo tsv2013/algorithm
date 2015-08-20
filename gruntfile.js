@@ -61,6 +61,11 @@ module.exports = function (grunt) {
         qunit: {
             all: ['tests/**/*.html']
         },
+        qunit_junit: {
+            options: {
+                // Task-specific options go here.
+            }
+        },
         watch: {
             styles: {
                 files: ['widget/**/*.less'],
@@ -88,7 +93,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('default', ['watch']);
     grunt.registerTask('buildall', ['typescript:build', 'less:compile', 'cssmin:all', 'uglify:modules', 'concat:templates']);
-    grunt.registerTask('test', ['typescript', 'qunit']);
+    grunt.registerTask('test', ['typescript', 'qunit_junit', 'qunit']);
 
     grunt.loadNpmTasks("grunt-typescript");
     grunt.loadNpmTasks('grunt-contrib-less');
@@ -99,4 +104,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-contrib-watch");
     grunt.loadNpmTasks("grunt-open");
     grunt.loadNpmTasks('grunt-contrib-qunit');
+    grunt.loadNpmTasks('grunt-qunit-junit');
 };

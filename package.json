@@ -3,6 +3,7 @@
     "version": "0.0.1",
     "license": "MIT",
     "private": false,
+    "repository": { "url": "https://github.com/tsv2013/algorithm.git"},
     "dependencies": {
     },
     "devDependencies": {
@@ -17,6 +18,7 @@
         "grunt-contrib-concat": "^0.5.1",
         "grunt-bower-task": "~0.4.0",
         "grunt-contrib-qunit": "^0.7.0",
-        "grunt-qunit-junit": "^0.3.1"
+        "grunt-qunit-junit": "^0.3.1",
+        "grunt-coveralls": "^1.0.0"
     }
 }

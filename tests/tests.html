@@ -8,8 +8,10 @@
 
     <script src="../vendor/qunit/qunit/qunit.js"></script>
     <link href="../vendor/qunit/qunit/qunit.css" rel="stylesheet" />
-    
-    <script src="../dist/algorithm.js"></script>
+
+    <script src="../vendor/blanket/dist/qunit/blanket.min.js"></script>
+
+    <script src="../dist/algorithm.js" data-cover></script>
 
     <script src="algorithm.tests.js"></script>
 
@@ -20,5 +22,17 @@
     <div id="qunit-header"></div>
     <div id="qunit-banner"></div>
     <div id="qunit-tests"></div>
+
+    <script>
+    // LCOV reporter, only if called with "lcovReport" parameter
+    if(location.href.match(/(\?|&)lcovReport($|&|=)/)) {
+        blanket.options("reporter", "../vendor/blanket/src/reporters/lcov_reporter.js");
+        blanket.options("reporter_options", { toHTML: false });
+        // send results to PhantomJS
+        QUnit.done(function() {
+            alert(JSON.stringify(['qunit.report', window._$blanket_LCOV]));
+        });
+    }
+    </script>
 </body>
 </html>

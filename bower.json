@@ -11,6 +11,7 @@
         "knockout": "latest"
     },
     "devDependencies": {
-        "qunit": "latest"
+        "qunit": "latest",
+        "blanket": "^1.1.7"
     }
 }

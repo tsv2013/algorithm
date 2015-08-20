@@ -59,11 +59,24 @@ module.exports = function (grunt) {
             }
         },
         qunit: {
-            all: ['tests/**/*.html']
+            all: {
+                options: {
+                    urls: ['tests/tests.html?coverage=true&lcovReport'],
+                    noGlobals: true
+                }
+            }
         },
         qunit_junit: {
             options: {
                 // Task-specific options go here.
+            }
+        },
+        coveralls: {
+            options: {
+                force: true
+            },
+            all: {
+                src: '_build/coverage-results/algorithm.lcov',
             }
         },
         watch: {
@@ -93,7 +106,7 @@ module.exports = function (grunt) {
 
     grunt.registerTask('default', ['watch']);
     grunt.registerTask('buildall', ['typescript:build', 'less:compile', 'cssmin:all', 'uglify:modules', 'concat:templates']);
-    grunt.registerTask('test', ['typescript', 'qunit_junit', 'qunit']);
+    grunt.registerTask('test', ['typescript', 'qunit_junit', 'qunit:all']);
 
     grunt.loadNpmTasks("grunt-typescript");
     grunt.loadNpmTasks('grunt-contrib-less');
@@ -105,4 +118,10 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks("grunt-open");
     grunt.loadNpmTasks('grunt-contrib-qunit');
     grunt.loadNpmTasks('grunt-qunit-junit');
+    grunt.loadNpmTasks('grunt-coveralls');
+
+    grunt.event.on('qunit.report', function(data) {
+        grunt.file.write('_build/coverage-results/algorithm.lcov', data);
+    });
+
 };

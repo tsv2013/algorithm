@@ -12,3 +12,5 @@ before_script:
   - bower install
  
 script: grunt test
+
+after_success: grunt coveralls

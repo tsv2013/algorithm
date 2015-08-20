@@ -24,15 +24,18 @@
     <div id="qunit-tests"></div>
 
     <script>
-    // LCOV reporter, only if called with "lcovReport" parameter
-    if(location.href.match(/(\?|&)lcovReport($|&|=)/)) {
-        blanket.options("reporter", "../vendor/blanket/src/reporters/lcov_reporter.js");
-        blanket.options("reporter_options", { toHTML: false });
-        // send results to PhantomJS
-        QUnit.done(function() {
-            alert(JSON.stringify(['qunit.report', window._$blanket_LCOV]));
-        });
-    }
+        // LCOV reporter, only if called with "lcovReport" parameter
+        if(location.href.match(/(\?|&)lcovReport($|&|=)/)) {
+            blanket.options("reporter", "../vendor/blanket/src/reporters/lcov_reporter.js");
+            blanket.options("reporter_options", { toHTML: false });
+            // send results to PhantomJS
+            QUnit.done(function() {
+                var fnStart = window._$blanket_LCOV.indexOf("SF:") + 3;
+                var fnEnd = window._$blanket_LCOV.indexOf("/dist");
+                var strToReplace = window._$blanket_LCOV.substring(fnStart, fnEnd);
+                alert(JSON.stringify(['qunit.report', window._$blanket_LCOV.replace(strToReplace, ".")]));
+            });
+        }
     </script>
 </body>
 </html>

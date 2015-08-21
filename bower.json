@@ -1,6 +1,6 @@
 {
     "name": "tw-widget-algorithm",
-    "version": "0.2.1",
+    "version": "v0.2.1",
     "description": "Algorihtm visualization component",
     "homepage": "http://tsv2013.github.io/algorithm",
     "authors": [ "Serge T <@domain.com>" ],

@@ -1,0 +1,23 @@
+# Install scripts. (runs after repo cloning)
+install:
+  # Get the latest stable version of Node.js or io.js
+  - ps: Install-Product node $env:nodejs_version
+  # install modules
+  - npm install
+  - npm install -g grunt
+  - npm install -g grunt-cli
+  - npm install -g bower
+  - npm install -g typescript
+  - npm install -g tsd
+  - tsd install knockout
+  - tsd install jquery
+  - tsd install qunit
+  - bower install
+  
+# Post-install test scripts.
+test_script:
+  # Output useful info for debugging.
+  - node --version
+  - npm --version
+  # run tests
+  - grunt test

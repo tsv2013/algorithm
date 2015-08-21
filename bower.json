@@ -1,6 +1,6 @@
 {
     "name": "tw-widget-algorithm",
-    "version": "v0.2.3",
+    "version": "v0.2.4",
     "description": "Algorihtm visualization component",
     "homepage": "http://tsv2013.github.io/algorithm",
     "authors": [ "Serge T <@domain.com>" ],
@@ -14,7 +14,8 @@
     ],
     "moduleType": "none",
     "ignore": [
-        ".coveralls.yml"
+        ".coveralls.yml",
+        "algorithm.csproj"
     ], 
     "repository": {
         "type": "git",

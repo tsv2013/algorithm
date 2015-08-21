@@ -1,4 +1,4 @@
-# algorithm [![Build Status](https://travis-ci.org/tsv2013/algorithm.svg)](https://travis-ci.org/tsv2013/algorithm) [![Coverage Status](https://coveralls.io/repos/tsv2013/algorithm/badge.svg?branch=master&service=github)](https://coveralls.io/github/tsv2013/algorithm?branch=master)
+# algorithm [![Build Status](https://travis-ci.org/tsv2013/algorithm.svg)](https://travis-ci.org/tsv2013/algorithm) [![Coverage Status](https://coveralls.io/repos/tsv2013/algorithm/badge.svg?branch=master&service=github)](https://coveralls.io/github/tsv2013/algorithm?branch=master) [![Codacy Badge](https://www.codacy.com/project/badge/f23d9de79b914ec88ab42470b96a189a)](https://www.codacy.com/app/tsv2013/algorithm)
 
 Algorithm visualization widget (jQuery+KnockoutJS)
 

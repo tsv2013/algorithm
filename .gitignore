@@ -6,6 +6,7 @@ _build/**
 *.sln
 node_modules/**
 vendor/**
+typings/**
 lib/**
 dist/**
 **/*.map

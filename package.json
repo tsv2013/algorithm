@@ -1,9 +1,9 @@
 ﻿{
     "name": "Algorithm",
-    "version": "0.0.1",
+    "version": "0.2.1",
     "license": "MIT",
     "private": false,
-    "repository": { "url": "https://github.com/tsv2013/algorithm.git"},
+    "repository": { "url": "https://github.com/tsv2013/algorithm.git" },
     "dependencies": {
     },
     "devDependencies": {

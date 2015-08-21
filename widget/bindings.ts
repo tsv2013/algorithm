@@ -1,5 +1,6 @@
 ﻿/// <reference path="../typings/jquery/jquery.d.ts" />
 /// <reference path="../typings/knockout/knockout.d.ts" />
+/// <reference path="algorithm.ts" />
 
 module Algorithm {
 
@@ -48,11 +49,11 @@ module Algorithm {
             $(element).append($($algorithmTemplate.text()));
 
             var subscription = model.isEditMode.subscribe(value => {
-                var originalBlockRect = { top: model.currentBlock().posY() + 'px', left: model.connectorsAreaWidth() + 'px', height: model.currentBlock().height() + 'px', width: model.blockWidth() + 'px' };
+                var originalBlockRect = { top: model.currentBlock().posY() + "px", left: model.connectorsAreaWidth() + "px", height: model.currentBlock().height() + "px", width: model.blockWidth() + "px" };
                 if(value) {
                     $element.css(originalBlockRect);
                     $element.show();
-                    $element.animate({ 'top': '-=' + (model.currentBlock().posY() > 200 ? 200 : model.currentBlock().posY()) + 'px', 'left': '0', 'height': '+=400px', 'width': '100%' });
+                    $element.animate({ "top": "-=" + (model.currentBlock().posY() > 200 ? 200 : model.currentBlock().posY()) + "px", "left": "0", "height": "+=400px", "width": "100%" });
                 }
                 else {
                     $element.animate(originalBlockRect, {
@@ -80,9 +81,9 @@ module Algorithm {
                         var originalEvent = <DragEvent>(<any>ev.originalEvent),
                             block = ko.dataFor(originalEvent.target);
                         if(block instanceof AlgorithmItemBlockModel) {
-                            var transitionType = $(ev.target).attr('data-transition');
-                            originalEvent.dataTransfer.effectAllowed = 'link';
-                            originalEvent.dataTransfer.setData('text', JSON.stringify({ 'type': 'AlgorithmItemBlockModel', 'id': (<AlgorithmItemBlockModel>block).id(), 'transitionType': transitionType }));
+                            var transitionType = $(ev.target).attr("data-transition");
+                            originalEvent.dataTransfer.effectAllowed = "link";
+                            originalEvent.dataTransfer.setData("text", JSON.stringify({ "type": "AlgorithmItemBlockModel", "id": (<AlgorithmItemBlockModel>block).id(), "transitionType": transitionType }));
                             //ev.dataTransfer.setDragImage(ev.target, 100, 100);
                             return true;
                         }

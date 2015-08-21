@@ -6,13 +6,13 @@ module Algorithm {
     export interface ITransition {
         iid: any;
         exit1: any;
-        exit2: any
+        exit2: any;
     }
 
     export interface ITransitionLine {
         transition: AlgorithmTransition;
         start: number;
-        length: number
+        length: number;
     }
 
     export class AlgorithmViewModel {
@@ -91,14 +91,14 @@ module Algorithm {
             });
 
             loopTransitions.forEach(transition => { this.transitions.remove(transition); });
-            farTransitionLines.sort((t1, t2) => { return t1.length - t2.length; })
+            farTransitionLines.sort((t1, t2) => { return t1.length - t2.length; });
 
             var layoutLines: Array<Array<ITransitionLine>> = [];
             while(farTransitionLines.length > 0) {
                 var fitToLine = false;
                 layoutLines.forEach((layoutLine, index) => {
                     if(!fitToLine && this._isFitToLayoutLine(layoutLine, farTransitionLines[0])) {
-                        var transitionLineToPush = farTransitionLines.splice(0, 1)[0]
+                        var transitionLineToPush = farTransitionLines.splice(0, 1)[0];
                         transitionLineToPush.transition.level(index + 1);
                         layoutLine.push(transitionLineToPush);
                         fitToLine = true;
@@ -155,7 +155,7 @@ module Algorithm {
             }, options.transitionMappings);
             this.allowEdit = options.allowEdit !== false;
             options.items.forEach(item => {
-                var block = new AlgorithmItemBlockModel(item, this._blockMappings)
+                var block = new AlgorithmItemBlockModel(item, this._blockMappings);
                 if(block.id() > this._MaxId) {
                     this._MaxId = block.id();
                 }

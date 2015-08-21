@@ -15,7 +15,8 @@
     "moduleType": "none",
     "ignore": [
         ".coveralls.yml",
-        "algorithm.csproj"
+        "algorithm.csproj",
+        "packages.config"
     ], 
     "repository": {
         "type": "git",

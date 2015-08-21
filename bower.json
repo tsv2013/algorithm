@@ -6,7 +6,18 @@
     "authors": [ "Serge T <@domain.com>" ],
     "private": false,
     "license": "MIT",
-    "repository": { "type": "git", "url": "https://github.com/tsv2013/algorithm.git" },
+    "main": [
+        "dist/algorithm.js",
+        "dist/algorithm.min.js",
+        "dist/algorithm.html",
+        "dist/algorithm.min.css"
+    ],
+    "moduleType": "none",
+    "ignore": [], 
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tsv2013/algorithm.git"
+    },
     "dependencies": {
         "jquery": "latest",
         "knockout": "latest"

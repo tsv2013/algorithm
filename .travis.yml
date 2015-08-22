@@ -1,5 +1,9 @@
 language: node_js
 
+env:
+ global:
+ - GH_REF: github.com/tsv2013/algorithm.git
+ 
 before_script:
   - npm install -g grunt
   - npm install -g grunt-cli
@@ -11,6 +15,9 @@ before_script:
   - tsd install qunit
   - bower install
  
-script: grunt test
+script:
+  - grunt buildall 
+  - grunt test
 
-after_success: grunt coveralls
+after_success: 
+  - grunt coveralls

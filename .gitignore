@@ -1,0 +1,8 @@
+obj/**
+bin/**
+*.user
+*.log
+node_modules/**
+vendor/**
+widget/**
+tests/**

@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Algorithm widget sample</title>
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/knockout.js"></script>
+
+    <script src="dist/algorithm.js"></script>
+    <script type="text/html" src="dist/algorithm.html"></script>
+    <link href="dist/algorithm.min.css" rel="stylesheet" />
+
+    <script src="index.js"></script>
+</head>
+<body>
+    <div id="algorithm-host" style="margin: 10px; padding: 10px; border: 1px solid black" data-bind="algorithm: { value: algorithm }">
+    </div>
+    <script>
+        (function () {
+            var promises = $("script[type='text/html']").map(function (_, script) {
+                if (script.src) {
+                    var deffered = $.Deferred();
+                    $.get(script.src, function (template) {
+                        script.text = template;
+                        if (template.indexOf('type="text/html"') !== -1 || template.indexOf("type='text/html'") !== -1) {
+                            $(document.body).append(template);
+                        }
+                        deffered.resolve();
+                    })
+                    return deffered.promise();
+                }
+            });
+            $.when.apply($.when, promises).done(function () {
+                init();
+            });
+        })()
+    </script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 obj/**
 bin/**
 _build/**
+out/**
 *.user
 *.suo
 *.sln

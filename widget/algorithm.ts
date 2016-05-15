@@ -27,7 +27,9 @@ module Algorithm {
                 var currentBlockHasKnownAncestor = this._findTransitionsTo(currentBlock).filter((transitionTo) => { return otherThreads.indexOf(transitionTo.startBlock()) !== -1; }).length !== 0;
                 if(sortResult.indexOf(currentBlock) === -1 && !currentBlockHasKnownAncestor) {
                     sortResult.push(currentBlock);
-                    otherThreadsForChild.splice(otherThreadsForChild.indexOf(currentBlock), 1);
+                    while(otherThreadsForChild.indexOf(currentBlock) !== -1) {
+                        otherThreadsForChild.splice(otherThreadsForChild.indexOf(currentBlock), 1);
+                    }
                     this._collectFollowingBlocks(sortResult, block => { return this._findTransitionsTo(block).filter((transitionTo) => { return transitionTo.startBlock() === currentBlock; }).length !== 0; }, otherThreadsForChild);
                 }
             });

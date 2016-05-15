@@ -285,4 +285,29 @@ module Algorithm.Tests {
         equal(algorithmViewModel.transitions()[4].level(), 1);
     });
 
+    test("blocks order 2 (lost last block)", function() {
+        var algorithmViewModel = new AlgorithmViewModel({
+            items: [
+                { id: 1, text: "1" },
+                { id: 3, text: "3" },
+                { id: 2, text: "2" },
+                { id: 4, text: "4" },
+                { id: 5, text: "end" }
+            ],
+            transitions: [
+                { iid: 1, exit1: 3, exit2: null },
+                { iid: 3, exit1: 2, exit2: null },
+                { iid: 2, exit1: 4, exit2: null },
+                { iid: 3, exit1: null, exit2: 4 },
+                { iid: 4, exit1: 5, exit2: null }
+            ]});
+
+        equal(algorithmViewModel.blocks().length, 5);
+        equal(algorithmViewModel.blocks()[0].id(), 1);
+        equal(algorithmViewModel.blocks()[1].id(), 3);
+        equal(algorithmViewModel.blocks()[2].id(), 2);
+        equal(algorithmViewModel.blocks()[3].id(), 4);
+        equal(algorithmViewModel.blocks()[4].id(), 5);
+    });
+
 } 

@@ -100,7 +100,9 @@ var Algorithm;
                 }).length !== 0;
                 if (sortResult.indexOf(currentBlock) === -1 && !currentBlockHasKnownAncestor) {
                     sortResult.push(currentBlock);
-                    otherThreadsForChild.splice(otherThreadsForChild.indexOf(currentBlock), 1);
+                    while (otherThreadsForChild.indexOf(currentBlock) !== -1) {
+                        otherThreadsForChild.splice(otherThreadsForChild.indexOf(currentBlock), 1);
+                    }
                     _this._collectFollowingBlocks(sortResult, function (block) {
                         return _this._findTransitionsTo(block).filter(function (transitionTo) {
                             return transitionTo.startBlock() === currentBlock;

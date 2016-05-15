@@ -1,6 +1,6 @@
 {
     "name": "tsv-widget-algorithm",
-    "version": "v0.2.5",
+    "version": "v0.2.6",
     "description": "Algorihtm visualization component",
     "homepage": "http://tsv2013.github.io/algorithm",
     "authors": [ "Serge T <@domain.com>" ],

@@ -15,10 +15,12 @@ var Algorithm;
             this.transitions = ko.observableArray();
             this.maxLevel = ko.observable(1);
             this.blockMinDistance = ko.observable(20);
+            this.addonsTemplate = ko.observable();
+            this.addonsWidth = ko.computed(function () { return !_this.addonsTemplate() ? 0 : _this.containerWidth() * 0.2; });
             this.connectorsAreaWidth = ko.computed(function () { return _this.maxLevel() * _this.blockMinDistance(); });
             this.containerWidth = ko.observable(500);
-            this.blockWidth = ko.computed(function () { return (_this.containerWidth() - _this.connectorsAreaWidth()) * 0.6; });
-            this.commentWidth = ko.computed(function () { return _this.containerWidth() - _this.blockWidth() - _this.connectorsAreaWidth(); });
+            this.blockWidth = ko.computed(function () { return (_this.containerWidth() - _this.connectorsAreaWidth() - _this.addonsWidth()) * 0.6; });
+            this.commentWidth = ko.computed(function () { return _this.containerWidth() - _this.blockWidth() - _this.connectorsAreaWidth() - _this.addonsWidth(); });
             this.currentBlock = ko.observable();
             this.detailTemplate = "algorithm-default-details-template";
             this.isEditMode = ko.observable(false);
@@ -41,6 +43,7 @@ var Algorithm;
                 }
             }, options.blockMappings);
             this.detailTemplate = this._blockMappings.detailTemplate;
+            this.addonsTemplate(options.addonsTemplate);
             this._transitionMappings = $.extend(true, {}, {
                 iid: "iid",
                 exit1: "exit1",

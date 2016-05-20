@@ -126,7 +126,7 @@ module Algorithm {
             this._prepareTransitions();
         }
 
-        constructor(options: { items: Array<any>; transitions: Array<any>; blockMappings?: any; transitionMappings?: any; allowEdit?: boolean }) {
+        constructor(options: { items: Array<any>; transitions: Array<any>; blockMappings?: any; transitionMappings?: any; allowEdit?: boolean; addonsTemplate?: string }) {
             this._blockMappings = $.extend(true, {}, {
                 id: "id",
                 text: "text",
@@ -145,6 +145,7 @@ module Algorithm {
                 }
             }, options.blockMappings);
             this.detailTemplate = this._blockMappings.detailTemplate;
+            this.addonsTemplate(options.addonsTemplate);
             this._transitionMappings = $.extend(true, {}, {
                 iid: "iid",
                 exit1: "exit1",
@@ -201,10 +202,13 @@ module Algorithm {
 
         maxLevel = ko.observable(1);
         blockMinDistance = ko.observable(20);
+        addonsTemplate = ko.observable<string>();
+        addonsWidth = ko.computed(() => { return !this.addonsTemplate() ? 0 : this.containerWidth() * 0.2; });
         connectorsAreaWidth = ko.computed(() => { return this.maxLevel() * this.blockMinDistance(); });
         containerWidth = ko.observable(500);
-        blockWidth = ko.computed(() => { return (this.containerWidth() - this.connectorsAreaWidth()) * 0.6; });
-        commentWidth = ko.computed(() => { return this.containerWidth() - this.blockWidth() - this.connectorsAreaWidth(); });
+        blockWidth = ko.computed(() => { return (this.containerWidth() - this.connectorsAreaWidth() - this.addonsWidth()) * 0.6; });
+        commentWidth = ko.computed(() => { return this.containerWidth() - this.blockWidth() - this.connectorsAreaWidth() - this.addonsWidth(); });
+
 
         findBlock(id: any) {
             return this.blocks().filter((block) => { return block.id() === id; })[0];

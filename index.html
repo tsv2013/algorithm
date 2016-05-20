@@ -10,6 +10,11 @@
     <link href="dist/algorithm.min.css" rel="stylesheet" />
 
     <script src="index.js"></script>
+    <script type="text/html" id="algorithm-addon-template">
+        <!-- ko if: item.additional -->
+        <div data-bind="text: item.additional.info"></div>
+        <!-- /ko -->
+    </script>
 </head>
 <body>
     <div id="algorithm-host" style="margin: 10px; padding: 10px; border: 1px solid black" data-bind="algorithm: { value: algorithm }">

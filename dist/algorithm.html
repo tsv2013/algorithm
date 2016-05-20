@@ -1,19 +1,29 @@
 <script type="text/html" id="algorithm-view-template">
     <!-- ko with: $data -->
     <div class="algorithm-view-holder">
-        <div class="algorithm-transitions" data-bind="style: { 'width': connectorsAreaWidth() + 'px' }">
+        <!-- ko if: addonsTemplate -->
+        <div class="algorithm-addons" data-bind="style: { 'width': addonsWidth() + 'px' }">
+            <!-- ko foreach: blocks -->
+            <div class="algorithm-addon-holder" data-bind="style: { 'height': height() + 'px', 'marginBottom': $parent.blockMinDistance() + 'px' }">
+                <!-- ko template: $parent.addonsTemplate -->
+                <!-- /ko -->
+            </div>
+            <!-- /ko -->
+        </div>
+        <!-- /ko -->
+        <div class="algorithm-transitions" data-bind="style: { 'left': addonsWidth() + 'px', 'width': connectorsAreaWidth() + 'px' }">
             <!-- ko foreach: transitions -->
             <!-- ko template: template -->
             <!-- /ko -->
             <!-- /ko -->
         </div>
-        <div class="algorithm-blocks" data-bind="draggableblocks: $data, style: { 'left': connectorsAreaWidth() + 'px', width: blockWidth() + 'px' }">
+        <div class="algorithm-blocks" data-bind="draggableblocks: $data, style: { 'left': addonsWidth() + connectorsAreaWidth() + 'px', width: blockWidth() + 'px' }">
             <!-- ko foreach: blocks -->
             <!-- ko template: template -->
             <!-- /ko -->
             <!-- /ko -->
         </div>
-        <div class="algorithm-comments" data-bind="style: { 'top': -blockMinDistance() + 'px', 'left': connectorsAreaWidth() + blockWidth() + 'px', width: commentWidth() + 'px' }">
+        <div class="algorithm-comments" data-bind="style: { 'top': -blockMinDistance() + 'px', 'left': addonsWidth() + connectorsAreaWidth() + blockWidth() + 'px', width: commentWidth() + 'px' }">
             <!-- ko foreach: blocks -->
             <div style="position: relative" data-bind="style: { 'height': height() + 'px', 'lineHeight': height() + 'px', 'margin': $parent.blockMinDistance() + 'px 0' }">
                 <!-- ko if: comment -->

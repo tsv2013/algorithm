@@ -9,9 +9,7 @@ install:
   - npm install -g bower
   - npm install -g typescript
   - npm install -g tsd
-  - tsd install knockout
-  - tsd install jquery
-  - tsd install qunit
+  - tsd install
   - bower install
   
 # Post-install test scripts.

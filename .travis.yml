@@ -10,7 +10,9 @@ before_script:
   - npm install -g bower
   - npm install -g typescript
   - npm install -g tsd
-  - tsd install
+  - tsd install knockout
+  - tsd install jquery
+  - tsd install qunit
   - bower install
  
 script:

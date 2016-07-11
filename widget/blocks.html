@@ -3,7 +3,7 @@
         <div class="algorithm-block-shadow"></div>
         <div class="algorithm-block-content" data-bind="style: { 'lineHeight': height() + 'px' }, text: text"></div>
         <!-- ko if: num() -->
-        <div style="position:absolute; top:-0.5em; line-height: 1em; left:15px; background-color: white;" data-bind="text: num"></div>
+        <div class="algorithm-block-num" data-bind="text: num"></div>
         <!-- /ko -->
         <!-- ko if: state() === "completed" -->
         <div style="position:absolute; top:-0.5em; line-height: 1em; right:15px;">
@@ -34,7 +34,7 @@
         </svg>
         <div class="algorithm-condition-content" data-bind="style: { 'lineHeight': height() + 'px' }, text: text"></div>
         <!-- ko if: num() -->
-        <div style="position:absolute; bottom:50%; line-height: 1em; left:15px; background-color: white;" data-bind="text: num"></div>
+        <div class="algorithm-block-num" data-bind="text: num"></div>
         <!-- /ko -->
         <!-- ko template: "algorithm-block-controls" -->
         <!-- /ko -->

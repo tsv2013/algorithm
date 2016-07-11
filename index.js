@@ -12,7 +12,7 @@ function init() {
         model.algorithm({
             items: [
                 { id: 9, text: "finish" },
-                { id: 6, text: "is condition true?", additional: { info: "Some string" } },
+                { id: 6, text: "is condition true?", additional: { info: "Some string" }, num: 122 },
                 { id: 3, text: "block is in progress", state: "inprogress" },
                 { id: 7, text: "this block has a number", num: 1 },
                 { id: 2, text: "this is a simple block with a very very content string" },

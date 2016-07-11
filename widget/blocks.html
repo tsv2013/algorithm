@@ -46,17 +46,12 @@
     <div class="algorithm-block-controls">
         <div class="algorithm-block-command algorithm-hint algorithm-block-command-add" data-bind="click: function() { $parent.addBlock($data, true); }, attr: { 'data-title': $parent.addBeforeTitle }"></div>
         <div class="algorithm-block-command algorithm-hint algorithm-block-command-edit" data-bind="click: function() { $parent.editBlock($data); }, attr: { 'data-title': $parent.editTitle }"></div>
-        <!-- ko ifnot: isCondition -->
         <div class="algorithm-block-command algorithm-hint algorithm-block-command-connect" draggable="true" data-bind="attr: { 'data-title': $parent.connectTitle }"></div>
-        <!-- /ko -->
         <!-- ko if: $parent.blocks().length > 1 -->
         <div class="algorithm-block-command algorithm-hint algorithm-block-command-remove" data-bind="click: function() { $parent.removeBlock($data); }, attr: { 'data-title': $parent.removeTitle }"></div>
         <!-- /ko -->
         <div class="algorithm-block-command algorithm-hint algorithm-block-command-add" data-bind="click: function() { $parent.addBlock($data); }, attr: { 'data-title': $parent.addAfterTitle }"></div>
     </div>
     <div class="algorithm-condition-connector algorithm-condition-connector-no algorithm-hint" draggable="true" data-bind="style: { 'top': height()/2-8 + 'px' }, attr: { 'data-title': $parent.noTitle, 'data-transition': $parent.noTitle }"></div>
-    <!-- ko if: isCondition -->
-    <div class="algorithm-condition-connector algorithm-condition-connector-yes algorithm-hint" draggable="true" data-bind="style: { 'top': height()/2-8 + 'px' }, attr: { 'data-title': $parent.yesTitle }"></div>
-    <!-- /ko -->
     <!-- /ko -->
 </script>

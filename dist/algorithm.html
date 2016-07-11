@@ -29,7 +29,7 @@
                 <!-- ko if: comment -->
                 <div style="position:absolute; top: 0; left:0; width: 40px; height: 100%">
                     <svg width="100%" height="100%">
-                        <line y1="50%" y2="50%" x1="0%" x2="100%" style="stroke:black;stroke-width:0.5;stroke-dasharray:10 5;"></line>
+                        <line y1="50%" y2="50%" x1="0%" x2="100%" style="stroke:gray;"></line>
                     </svg>
                 </div>
                 <div class="algorithm-comment-content">
@@ -90,7 +90,7 @@
         <div class="algorithm-block-shadow"></div>
         <div class="algorithm-block-content" data-bind="style: { 'lineHeight': height() + 'px' }, text: text"></div>
         <!-- ko if: num() -->
-        <div style="position:absolute; top:-0.5em; line-height: 1em; left:15px; background-color: white;" data-bind="text: num"></div>
+        <div class="algorithm-block-num" data-bind="text: num"></div>
         <!-- /ko -->
         <!-- ko if: state() === "completed" -->
         <div style="position:absolute; top:-0.5em; line-height: 1em; right:15px;">
@@ -121,7 +121,7 @@
         </svg>
         <div class="algorithm-condition-content" data-bind="style: { 'lineHeight': height() + 'px' }, text: text"></div>
         <!-- ko if: num() -->
-        <div style="position:absolute; bottom:50%; line-height: 1em; left:15px; background-color: white;" data-bind="text: num"></div>
+        <div class="algorithm-block-num" data-bind="text: num"></div>
         <!-- /ko -->
         <!-- ko template: "algorithm-block-controls" -->
         <!-- /ko -->
@@ -133,18 +133,13 @@
     <div class="algorithm-block-controls">
         <div class="algorithm-block-command algorithm-hint algorithm-block-command-add" data-bind="click: function() { $parent.addBlock($data, true); }, attr: { 'data-title': $parent.addBeforeTitle }"></div>
         <div class="algorithm-block-command algorithm-hint algorithm-block-command-edit" data-bind="click: function() { $parent.editBlock($data); }, attr: { 'data-title': $parent.editTitle }"></div>
-        <!-- ko ifnot: isCondition -->
         <div class="algorithm-block-command algorithm-hint algorithm-block-command-connect" draggable="true" data-bind="attr: { 'data-title': $parent.connectTitle }"></div>
-        <!-- /ko -->
         <!-- ko if: $parent.blocks().length > 1 -->
         <div class="algorithm-block-command algorithm-hint algorithm-block-command-remove" data-bind="click: function() { $parent.removeBlock($data); }, attr: { 'data-title': $parent.removeTitle }"></div>
         <!-- /ko -->
         <div class="algorithm-block-command algorithm-hint algorithm-block-command-add" data-bind="click: function() { $parent.addBlock($data); }, attr: { 'data-title': $parent.addAfterTitle }"></div>
     </div>
     <div class="algorithm-condition-connector algorithm-condition-connector-no algorithm-hint" draggable="true" data-bind="style: { 'top': height()/2-8 + 'px' }, attr: { 'data-title': $parent.noTitle, 'data-transition': $parent.noTitle }"></div>
-    <!-- ko if: isCondition -->
-    <div class="algorithm-condition-connector algorithm-condition-connector-yes algorithm-hint" draggable="true" data-bind="style: { 'top': height()/2-8 + 'px' }, attr: { 'data-title': $parent.yesTitle }"></div>
-    <!-- /ko -->
     <!-- /ko -->
 </script>
 

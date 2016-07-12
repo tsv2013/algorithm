@@ -145,12 +145,6 @@
 
 <script type="text/html" id="algorithm-tr-direct-template">
     <div style="width:1px; border:1px solid black; border-right:none; position:absolute;" data-bind="style: { top: startBlock().posY() + startBlock().height() + 'px', height: $parent.blockMinDistance() + 'px', left: $parent.connectorsAreaWidth() + $parent.blockWidth() / 2 + 'px' }">
-        <div class="connector-direct-arrow">
-            <svg width="100%" height="100%">
-                <line y1="50%" y2="100%" x1="25%" x2="50%" style="stroke:black;stroke-width:1"></line>
-                <line y1="50%" y2="100%" x1="75%" x2="50%" style="stroke:black;stroke-width:1"></line>
-            </svg>
-        </div>
         <!-- ko if: label() -->
         <div style="position:absolute; top:-2px; left:6px; background-color: white;" data-bind="text: label"></div>
         <!-- /ko -->
@@ -158,13 +152,14 @@
 </script>
 
 <script type="text/html" id="algorithm-tr-far-up-template">
-    <div style="border:1px solid black; border-right:none; border-radius: 5px 0 0 5px; position:absolute;" data-bind="style: { top: (endBlock().posY() + endBlock().height() / 2) + 'px', height: (startBlock().posY() - endBlock().posY()) + 'px', left: ($parent.connectorsAreaWidth() - level() * $parent.blockMinDistance()) + 'px', width: level() * $parent.blockMinDistance() + 'px' }">
+    <div style="border:1px solid black; border-right:none; border-radius: 5px 0 0 5px; position:absolute;" data-bind="style: { top: (endBlock().posY() - $parent.blockMinDistance() / 2) + 'px', height: (startBlock().posY() - endBlock().posY() + $parent.blockMinDistance() / 2 + startBlock().height() / 2) + 'px', left: ($parent.connectorsAreaWidth() - level() * $parent.blockMinDistance()) + 'px', width: level() * $parent.blockMinDistance() + $parent.blockWidth() / 2 + 'px' }">
         <div class="connector-far-up-arrow">
             <svg width="100%" height="100%">
                 <line y1="25%" y2="50%" x1="50%" x2="100%" style="stroke:black;stroke-width:1"></line>
                 <line y1="75%" y2="50%" x1="50%" x2="100%" style="stroke:black;stroke-width:1"></line>
             </svg>
         </div>
+        <div class="connector-far-up-arrow-to-block" style="border-right: 1px solid black; position: absolute; top: -1px; right: -1px; height: 10px;"></div>
         <!-- ko if: label() -->
         <div class="connector-label" data-bind="text: label"></div>
         <!-- /ko -->

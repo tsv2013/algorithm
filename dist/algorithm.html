@@ -152,7 +152,7 @@
 </script>
 
 <script type="text/html" id="algorithm-tr-far-up-template">
-    <div style="border:1px solid black; border-right:none; border-radius: 5px 0 0 5px; position:absolute;" data-bind="style: { top: (endBlock().posY() - $parent.blockMinDistance() / 2) + 'px', height: (startBlock().posY() - endBlock().posY() + $parent.blockMinDistance() / 2 + startBlock().height() / 2) + 'px', left: ($parent.connectorsAreaWidth() - level() * $parent.blockMinDistance()) + 'px', width: level() * $parent.blockMinDistance() + $parent.blockWidth() / 2 + 'px' }">
+    <div style="border:1px solid black; border-right:none; border-radius: 5px 0 0 5px; position:absolute;" data-bind="style: { top: (endBlock().posY() - $parent.blockMinDistance() / 2 - 1) + 'px', height: (startBlock().posY() - endBlock().posY() + $parent.blockMinDistance() / 2 + startBlock().height() / 2 + 1) + 'px', left: ($parent.connectorsAreaWidth() - level() * $parent.blockMinDistance()) + 'px', width: level() * $parent.blockMinDistance() + $parent.blockWidth() / 2 + 'px' }">
         <div class="connector-far-up-arrow">
             <svg width="100%" height="100%">
                 <line y1="25%" y2="50%" x1="50%" x2="100%" style="stroke:black;stroke-width:1"></line>
@@ -167,13 +167,14 @@
 </script>
 
 <script type="text/html" id="algorithm-tr-far-down-template">
-    <div style="border:1px solid black; border-right:none; border-radius: 5px 0 0 5px; position:absolute;" data-bind="style: { top: (startBlock().posY() + startBlock().height() / 2) + 'px', height: (endBlock().posY() - startBlock().posY()) + 'px', left: ($parent.connectorsAreaWidth() - level() * $parent.blockMinDistance()) + 'px', width: level() * $parent.blockMinDistance() + 'px' }">
+    <div style="border:1px solid black; border-right:none; border-radius: 5px 0 0 5px; position:absolute;" data-bind="style: { top: (startBlock().posY() + startBlock().height() / 2) + 'px', height: (endBlock().posY() - startBlock().posY() - $parent.blockMinDistance() / 2 - endBlock().height() / 2) + 'px', left: ($parent.connectorsAreaWidth() - level() * $parent.blockMinDistance()) + 'px', width: level() * $parent.blockMinDistance() + $parent.blockWidth() / 2 + 'px' }">
         <div class="connector-far-down-arrow">
             <svg width="100%" height="100%">
                 <line y1="25%" y2="50%" x1="50%" x2="100%" style="stroke:black;stroke-width:1"></line>
                 <line y1="75%" y2="50%" x1="50%" x2="100%" style="stroke:black;stroke-width:1"></line>
             </svg>
         </div>
+        <div class="connector-far-down-arrow-to-block" style="border-right: 1px solid black; position: absolute; bottom: -11px; right: -1px; height: 11px;"></div>
         <!-- ko if: label() -->
         <div class="connector-label" data-bind="text: label"></div>
         <!-- /ko -->

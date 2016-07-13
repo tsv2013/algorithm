@@ -1,5 +1,5 @@
-/// <reference path="../vendor/dt-jquery/jquery.d.ts" />
-/// <reference path="../scripts/typings/knockout/knockout.d.ts" />
+/// <reference path="../typings/jquery/jquery.d.ts" />
+/// <reference path="../typings/knockout/knockout.d.ts" />
 declare module Algorithm {
     interface ITransition {
         iid: any;
@@ -28,6 +28,7 @@ declare module Algorithm {
             blockMappings?: any;
             transitionMappings?: any;
             allowEdit?: boolean;
+            addonsTemplate?: string;
         });
         model: {
             items: any[];
@@ -37,6 +38,8 @@ declare module Algorithm {
         transitions: KnockoutObservableArray<AlgorithmTransition>;
         maxLevel: KnockoutObservable<number>;
         blockMinDistance: KnockoutObservable<number>;
+        addonsTemplate: KnockoutObservable<string>;
+        addonsWidth: KnockoutComputed<number>;
         connectorsAreaWidth: KnockoutComputed<number>;
         containerWidth: KnockoutObservable<number>;
         blockWidth: KnockoutComputed<number>;

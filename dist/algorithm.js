@@ -1,10 +1,9 @@
-/// <reference path="../vendor/dt-jquery/jquery.d.ts" />
-/// <reference path="../scripts/typings/knockout/knockout.d.ts" />
-var __extends = this.__extends || function (d, b) {
+/// <reference path="../typings/jquery/jquery.d.ts" />
+/// <reference path="../typings/knockout/knockout.d.ts" />
+var __extends = (this && this.__extends) || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var Algorithm;
 (function (Algorithm) {
@@ -16,16 +15,12 @@ var Algorithm;
             this.transitions = ko.observableArray();
             this.maxLevel = ko.observable(1);
             this.blockMinDistance = ko.observable(20);
-            this.connectorsAreaWidth = ko.computed(function () {
-                return _this.maxLevel() * _this.blockMinDistance();
-            });
+            this.addonsTemplate = ko.observable();
+            this.addonsWidth = ko.computed(function () { return !_this.addonsTemplate() ? 0 : _this.containerWidth() * 0.2; });
+            this.connectorsAreaWidth = ko.computed(function () { return _this.maxLevel() * _this.blockMinDistance(); });
             this.containerWidth = ko.observable(500);
-            this.blockWidth = ko.computed(function () {
-                return (_this.containerWidth() - _this.connectorsAreaWidth()) * 0.6;
-            });
-            this.commentWidth = ko.computed(function () {
-                return _this.containerWidth() - _this.blockWidth() - _this.connectorsAreaWidth();
-            });
+            this.blockWidth = ko.computed(function () { return (_this.containerWidth() - _this.connectorsAreaWidth() - _this.addonsWidth()) * 0.6; });
+            this.commentWidth = ko.computed(function () { return _this.containerWidth() - _this.blockWidth() - _this.connectorsAreaWidth() - _this.addonsWidth(); });
             this.currentBlock = ko.observable();
             this.detailTemplate = "algorithm-default-details-template";
             this.isEditMode = ko.observable(false);
@@ -48,6 +43,7 @@ var Algorithm;
                 }
             }, options.blockMappings);
             this.detailTemplate = this._blockMappings.detailTemplate;
+            this.addonsTemplate(options.addonsTemplate);
             this._transitionMappings = $.extend(true, {}, {
                 iid: "iid",
                 exit1: "exit1",
@@ -95,37 +91,27 @@ var Algorithm;
             if (otherThreads === void 0) { otherThreads = []; }
             var followingBlocks = this.blocks().filter(filter), otherThreadsForChild = otherThreads.concat(followingBlocks);
             followingBlocks.forEach(function (currentBlock) {
-                var currentBlockHasKnownAncestor = _this._findTransitionsTo(currentBlock).filter(function (transitionTo) {
-                    return otherThreads.indexOf(transitionTo.startBlock()) !== -1;
-                }).length !== 0;
+                var currentBlockHasKnownAncestor = _this._findTransitionsTo(currentBlock).filter(function (transitionTo) { return otherThreads.indexOf(transitionTo.startBlock()) !== -1; }).length !== 0;
                 if (sortResult.indexOf(currentBlock) === -1 && !currentBlockHasKnownAncestor) {
                     sortResult.push(currentBlock);
-                    otherThreadsForChild.splice(otherThreadsForChild.indexOf(currentBlock), 1);
-                    _this._collectFollowingBlocks(sortResult, function (block) {
-                        return _this._findTransitionsTo(block).filter(function (transitionTo) {
-                            return transitionTo.startBlock() === currentBlock;
-                        }).length !== 0;
-                    }, otherThreadsForChild);
+                    while (otherThreadsForChild.indexOf(currentBlock) !== -1) {
+                        otherThreadsForChild.splice(otherThreadsForChild.indexOf(currentBlock), 1);
+                    }
+                    _this._collectFollowingBlocks(sortResult, function (block) { return _this._findTransitionsTo(block).filter(function (transitionTo) { return transitionTo.startBlock() === currentBlock; }).length !== 0; }, otherThreadsForChild);
                 }
             });
         };
         AlgorithmViewModel.prototype._sortBlocks = function () {
             var _this = this;
             var sortResult = [];
-            this._collectFollowingBlocks(sortResult, function (block) {
-                return _this._findTransitionsTo(block).length === 0;
-            });
+            this._collectFollowingBlocks(sortResult, function (block) { return _this._findTransitionsTo(block).length === 0; });
             this.blocks(sortResult);
         };
         AlgorithmViewModel.prototype._findTransitionsFrom = function (block) {
-            return this.transitions().filter(function (transition) {
-                return transition.startBlock() === block;
-            });
+            return this.transitions().filter(function (transition) { return transition.startBlock() === block; });
         };
         AlgorithmViewModel.prototype._findTransitionsTo = function (block) {
-            return this.transitions().filter(function (transition) {
-                return transition.endBlock() === block;
-            });
+            return this.transitions().filter(function (transition) { return transition.endBlock() === block; });
         };
         AlgorithmViewModel.prototype._isFitToLayoutLine = function (layoutLine, transitionLine) {
             var result = true;
@@ -169,12 +155,8 @@ var Algorithm;
                     }
                 }
             });
-            loopTransitions.forEach(function (transition) {
-                _this.transitions.remove(transition);
-            });
-            farTransitionLines.sort(function (t1, t2) {
-                return t1.length - t2.length;
-            });
+            loopTransitions.forEach(function (transition) { _this.transitions.remove(transition); });
+            farTransitionLines.sort(function (t1, t2) { return t1.length - t2.length; });
             var layoutLines = [];
             while (farTransitionLines.length > 0) {
                 var fitToLine = false;
@@ -215,9 +197,7 @@ var Algorithm;
             configurable: true
         });
         AlgorithmViewModel.prototype.findBlock = function (id) {
-            return this.blocks().filter(function (block) {
-                return block.id() === id;
-            })[0];
+            return this.blocks().filter(function (block) { return block.id() === id; })[0];
         };
         AlgorithmViewModel.prototype.addBlock = function (block, isBefore) {
             var _this = this;
@@ -290,51 +270,37 @@ var Algorithm;
             this._updateLayout();
         };
         Object.defineProperty(AlgorithmViewModel.prototype, "addBeforeTitle", {
-            get: function () {
-                return AlgorithmViewModel.addBeforeTitle;
-            },
+            get: function () { return AlgorithmViewModel.addBeforeTitle; },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(AlgorithmViewModel.prototype, "addAfterTitle", {
-            get: function () {
-                return AlgorithmViewModel.addAfterTitle;
-            },
+            get: function () { return AlgorithmViewModel.addAfterTitle; },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(AlgorithmViewModel.prototype, "editTitle", {
-            get: function () {
-                return AlgorithmViewModel.titleEdit;
-            },
+            get: function () { return AlgorithmViewModel.titleEdit; },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(AlgorithmViewModel.prototype, "removeTitle", {
-            get: function () {
-                return AlgorithmViewModel.titleRemove;
-            },
+            get: function () { return AlgorithmViewModel.titleRemove; },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(AlgorithmViewModel.prototype, "connectTitle", {
-            get: function () {
-                return AlgorithmViewModel.connectTitle;
-            },
+            get: function () { return AlgorithmViewModel.connectTitle; },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(AlgorithmViewModel.prototype, "yesTitle", {
-            get: function () {
-                return AlgorithmViewModel.yesTitle;
-            },
+            get: function () { return AlgorithmViewModel.yesTitle; },
             enumerable: true,
             configurable: true
         });
         Object.defineProperty(AlgorithmViewModel.prototype, "noTitle", {
-            get: function () {
-                return AlgorithmViewModel.noTitle;
-            },
+            get: function () { return AlgorithmViewModel.noTitle; },
             enumerable: true,
             configurable: true
         });
@@ -442,8 +408,9 @@ var Algorithm;
     })(ItemHolder);
     Algorithm.AlgorithmTransition = AlgorithmTransition;
 })(Algorithm || (Algorithm = {}));
-/// <reference path="../vendor/dt-jquery/jquery.d.ts" />
-/// <reference path="../scripts/typings/knockout/knockout.d.ts" />
+/// <reference path="../typings/jquery/jquery.d.ts" />
+/// <reference path="../typings/knockout/knockout.d.ts" />
+/// <reference path="algorithm.ts" />
 var Algorithm;
 (function (Algorithm) {
     ko.bindingHandlers["algorithm"] = {
@@ -478,11 +445,11 @@ var Algorithm;
             $(element).children().remove();
             $(element).append($($algorithmTemplate.text()));
             var subscription = model.isEditMode.subscribe(function (value) {
-                var originalBlockRect = { top: model.currentBlock().posY() + 'px', left: model.connectorsAreaWidth() + 'px', height: model.currentBlock().height() + 'px', width: model.blockWidth() + 'px' };
+                var originalBlockRect = { top: model.currentBlock().posY() + "px", left: model.connectorsAreaWidth() + "px", height: model.currentBlock().height() + "px", width: model.blockWidth() + "px" };
                 if (value) {
                     $element.css(originalBlockRect);
                     $element.show();
-                    $element.animate({ 'top': '-=' + (model.currentBlock().posY() > 200 ? 200 : model.currentBlock().posY()) + 'px', 'left': '0', 'height': '+=400px', 'width': '100%' });
+                    $element.animate({ "top": "-=" + (model.currentBlock().posY() > 200 ? 200 : model.currentBlock().posY()) + "px", "left": "0", "height": "+=400px", "width": "100%" });
                 }
                 else {
                     $element.animate(originalBlockRect, {
@@ -505,9 +472,9 @@ var Algorithm;
                 "dragstart": function (ev) {
                     var originalEvent = ev.originalEvent, block = ko.dataFor(originalEvent.target);
                     if (block instanceof Algorithm.AlgorithmItemBlockModel) {
-                        var transitionType = $(ev.target).attr('data-transition');
-                        originalEvent.dataTransfer.effectAllowed = 'link';
-                        originalEvent.dataTransfer.setData('text', JSON.stringify({ 'type': 'AlgorithmItemBlockModel', 'id': block.id(), 'transitionType': transitionType }));
+                        var transitionType = $(ev.target).attr("data-transition");
+                        originalEvent.dataTransfer.effectAllowed = "link";
+                        originalEvent.dataTransfer.setData("text", JSON.stringify({ "type": "AlgorithmItemBlockModel", "id": block.id(), "transitionType": transitionType }));
                         //ev.dataTransfer.setDragImage(ev.target, 100, 100);
                         return true;
                     }
@@ -531,8 +498,7 @@ var Algorithm;
                                 }
                             }
                         }
-                        catch (ex) {
-                        }
+                        catch (ex) { }
                     }
                 }
             };

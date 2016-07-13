@@ -1,25 +1,35 @@
 <script type="text/html" id="algorithm-view-template">
     <!-- ko with: $data -->
     <div class="algorithm-view-holder">
-        <div class="algorithm-transitions" data-bind="style: { 'width': connectorsAreaWidth() + 'px' }">
+        <!-- ko if: addonsTemplate -->
+        <div class="algorithm-addons" data-bind="style: { 'width': addonsWidth() + 'px' }">
+            <!-- ko foreach: blocks -->
+            <div class="algorithm-addon-holder" data-bind="style: { 'height': height() + 'px', 'marginBottom': $parent.blockMinDistance() + 'px' }">
+                <!-- ko template: $parent.addonsTemplate -->
+                <!-- /ko -->
+            </div>
+            <!-- /ko -->
+        </div>
+        <!-- /ko -->
+        <div class="algorithm-transitions" data-bind="style: { 'left': addonsWidth() + 'px', 'width': connectorsAreaWidth() + 'px' }">
             <!-- ko foreach: transitions -->
             <!-- ko template: template -->
             <!-- /ko -->
             <!-- /ko -->
         </div>
-        <div class="algorithm-blocks" data-bind="draggableblocks: $data, style: { 'left': connectorsAreaWidth() + 'px', width: blockWidth() + 'px' }">
+        <div class="algorithm-blocks" data-bind="draggableblocks: $data, style: { 'left': addonsWidth() + connectorsAreaWidth() + 'px', width: blockWidth() + 'px' }">
             <!-- ko foreach: blocks -->
             <!-- ko template: template -->
             <!-- /ko -->
             <!-- /ko -->
         </div>
-        <div class="algorithm-comments" data-bind="style: { 'top': -blockMinDistance() + 'px', 'left': connectorsAreaWidth() + blockWidth() + 'px', width: commentWidth() + 'px' }">
+        <div class="algorithm-comments" data-bind="style: { 'top': -blockMinDistance() + 'px', 'left': addonsWidth() + connectorsAreaWidth() + blockWidth() + 'px', width: commentWidth() + 'px' }">
             <!-- ko foreach: blocks -->
             <div style="position: relative" data-bind="style: { 'height': height() + 'px', 'lineHeight': height() + 'px', 'margin': $parent.blockMinDistance() + 'px 0' }">
                 <!-- ko if: comment -->
                 <div style="position:absolute; top: 0; left:0; width: 40px; height: 100%">
                     <svg width="100%" height="100%">
-                        <line y1="50%" y2="50%" x1="0%" x2="100%" style="stroke:black;stroke-width:0.5;stroke-dasharray:10 5;"></line>
+                        <line y1="50%" y2="50%" x1="0%" x2="100%" style="stroke:gray;"></line>
                     </svg>
                 </div>
                 <div class="algorithm-comment-content">
@@ -80,7 +90,7 @@
         <div class="algorithm-block-shadow"></div>
         <div class="algorithm-block-content" data-bind="style: { 'lineHeight': height() + 'px' }, text: text"></div>
         <!-- ko if: num() -->
-        <div style="position:absolute; top:-0.5em; line-height: 1em; left:15px; background-color: white;" data-bind="text: num"></div>
+        <div class="algorithm-block-num" data-bind="text: num"></div>
         <!-- /ko -->
         <!-- ko if: state() === "completed" -->
         <div style="position:absolute; top:-0.5em; line-height: 1em; right:15px;">
@@ -111,7 +121,7 @@
         </svg>
         <div class="algorithm-condition-content" data-bind="style: { 'lineHeight': height() + 'px' }, text: text"></div>
         <!-- ko if: num() -->
-        <div style="position:absolute; bottom:50%; line-height: 1em; left:15px; background-color: white;" data-bind="text: num"></div>
+        <div class="algorithm-block-num" data-bind="text: num"></div>
         <!-- /ko -->
         <!-- ko template: "algorithm-block-controls" -->
         <!-- /ko -->
@@ -123,29 +133,18 @@
     <div class="algorithm-block-controls">
         <div class="algorithm-block-command algorithm-hint algorithm-block-command-add" data-bind="click: function() { $parent.addBlock($data, true); }, attr: { 'data-title': $parent.addBeforeTitle }"></div>
         <div class="algorithm-block-command algorithm-hint algorithm-block-command-edit" data-bind="click: function() { $parent.editBlock($data); }, attr: { 'data-title': $parent.editTitle }"></div>
-        <!-- ko ifnot: isCondition -->
         <div class="algorithm-block-command algorithm-hint algorithm-block-command-connect" draggable="true" data-bind="attr: { 'data-title': $parent.connectTitle }"></div>
-        <!-- /ko -->
         <!-- ko if: $parent.blocks().length > 1 -->
         <div class="algorithm-block-command algorithm-hint algorithm-block-command-remove" data-bind="click: function() { $parent.removeBlock($data); }, attr: { 'data-title': $parent.removeTitle }"></div>
         <!-- /ko -->
         <div class="algorithm-block-command algorithm-hint algorithm-block-command-add" data-bind="click: function() { $parent.addBlock($data); }, attr: { 'data-title': $parent.addAfterTitle }"></div>
     </div>
     <div class="algorithm-condition-connector algorithm-condition-connector-no algorithm-hint" draggable="true" data-bind="style: { 'top': height()/2-8 + 'px' }, attr: { 'data-title': $parent.noTitle, 'data-transition': $parent.noTitle }"></div>
-    <!-- ko if: isCondition -->
-    <div class="algorithm-condition-connector algorithm-condition-connector-yes algorithm-hint" draggable="true" data-bind="style: { 'top': height()/2-8 + 'px' }, attr: { 'data-title': $parent.yesTitle }"></div>
-    <!-- /ko -->
     <!-- /ko -->
 </script>
 
 <script type="text/html" id="algorithm-tr-direct-template">
     <div style="width:1px; border:1px solid black; border-right:none; position:absolute;" data-bind="style: { top: startBlock().posY() + startBlock().height() + 'px', height: $parent.blockMinDistance() + 'px', left: $parent.connectorsAreaWidth() + $parent.blockWidth() / 2 + 'px' }">
-        <div style="width: 11px; height:10px; position: absolute; bottom: 5px; left: -6px;">
-            <svg width="100%" height="100%">
-                <line y1="50%" y2="100%" x1="25%" x2="50%" style="stroke:black;stroke-width:1"></line>
-                <line y1="50%" y2="100%" x1="75%" x2="50%" style="stroke:black;stroke-width:1"></line>
-            </svg>
-        </div>
         <!-- ko if: label() -->
         <div style="position:absolute; top:-2px; left:6px; background-color: white;" data-bind="text: label"></div>
         <!-- /ko -->
@@ -153,13 +152,14 @@
 </script>
 
 <script type="text/html" id="algorithm-tr-far-up-template">
-    <div style="border:1px solid black; border-right:none; border-radius: 5px 0 0 5px; position:absolute;" data-bind="style: { top: (endBlock().posY() + endBlock().height() / 2) + 'px', height: (startBlock().posY() - endBlock().posY()) + 'px', left: ($parent.connectorsAreaWidth() - level() * $parent.blockMinDistance()) + 'px', width: level() * $parent.blockMinDistance() + 'px' }">
-        <div style="width: 10px; height:11px; position: absolute; right: 0px; top: -10px;">
+    <div style="border:1px solid black; border-right:none; border-radius: 5px 0 0 5px; position:absolute;" data-bind="style: { top: (endBlock().posY() - $parent.blockMinDistance() / 2 - 1) + 'px', height: (startBlock().posY() - endBlock().posY() + $parent.blockMinDistance() / 2 + startBlock().height() / 2 + 1) + 'px', left: ($parent.connectorsAreaWidth() - level() * $parent.blockMinDistance()) + 'px', width: level() * $parent.blockMinDistance() + $parent.blockWidth() / 2 + 'px' }">
+        <div class="connector-far-up-arrow">
             <svg width="100%" height="100%">
                 <line y1="25%" y2="50%" x1="50%" x2="100%" style="stroke:black;stroke-width:1"></line>
                 <line y1="75%" y2="50%" x1="50%" x2="100%" style="stroke:black;stroke-width:1"></line>
             </svg>
         </div>
+        <div class="connector-far-up-arrow-to-block" style="border-right: 1px solid black; position: absolute; top: -1px; right: -1px; height: 10px;"></div>
         <!-- ko if: label() -->
         <div class="connector-label" data-bind="text: label"></div>
         <!-- /ko -->
@@ -167,13 +167,14 @@
 </script>
 
 <script type="text/html" id="algorithm-tr-far-down-template">
-    <div style="border:1px solid black; border-right:none; border-radius: 5px 0 0 5px; position:absolute;" data-bind="style: { top: (startBlock().posY() + startBlock().height() / 2) + 'px', height: (endBlock().posY() - startBlock().posY()) + 'px', left: ($parent.connectorsAreaWidth() - level() * $parent.blockMinDistance()) + 'px', width: level() * $parent.blockMinDistance() + 'px' }">
+    <div style="border:1px solid black; border-right:none; border-radius: 5px 0 0 5px; position:absolute;" data-bind="style: { top: (startBlock().posY() + startBlock().height() / 2) + 'px', height: (endBlock().posY() - startBlock().posY() - $parent.blockMinDistance() / 2 - endBlock().height() / 2) + 'px', left: ($parent.connectorsAreaWidth() - level() * $parent.blockMinDistance()) + 'px', width: level() * $parent.blockMinDistance() + $parent.blockWidth() / 2 + 'px' }">
         <div class="connector-far-down-arrow">
             <svg width="100%" height="100%">
                 <line y1="25%" y2="50%" x1="50%" x2="100%" style="stroke:black;stroke-width:1"></line>
                 <line y1="75%" y2="50%" x1="50%" x2="100%" style="stroke:black;stroke-width:1"></line>
             </svg>
         </div>
+        <div class="connector-far-down-arrow-to-block" style="border-right: 1px solid black; position: absolute; bottom: -11px; right: -1px; height: 11px;"></div>
         <!-- ko if: label() -->
         <div class="connector-label" data-bind="text: label"></div>
         <!-- /ko -->

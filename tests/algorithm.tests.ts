@@ -45,116 +45,116 @@ module Algorithm.Tests {
         ]
     };
 
-    test("blocks order", function() {
+    QUnit.test("blocks order", function(assert) {
         var algorithmViewModel = new AlgorithmViewModel(algorithm1);
 
-        equal(algorithmViewModel.blocks()[0].id(), 1);
-        equal(algorithmViewModel.blocks()[1].id(), 2);
-        equal(algorithmViewModel.blocks()[2].id(), 3);
-        equal(algorithmViewModel.blocks()[3].id(), 4);
-        equal(algorithmViewModel.blocks()[4].id(), 5);
-        equal(algorithmViewModel.blocks()[5].id(), 6);
-        equal(algorithmViewModel.blocks()[6].id(), 7);
-        equal(algorithmViewModel.blocks()[7].id(), 8);
-        equal(algorithmViewModel.blocks()[8].id(), 9);
+        assert.equal(algorithmViewModel.blocks()[0].id(), 1);
+        assert.equal(algorithmViewModel.blocks()[1].id(), 2);
+        assert.equal(algorithmViewModel.blocks()[2].id(), 3);
+        assert.equal(algorithmViewModel.blocks()[3].id(), 4);
+        assert.equal(algorithmViewModel.blocks()[4].id(), 5);
+        assert.equal(algorithmViewModel.blocks()[5].id(), 6);
+        assert.equal(algorithmViewModel.blocks()[6].id(), 7);
+        assert.equal(algorithmViewModel.blocks()[7].id(), 8);
+        assert.equal(algorithmViewModel.blocks()[8].id(), 9);
     });
 
-    test("prepare transitions", function() {
+    QUnit.test("prepare transitions", function(assert) {
         var algorithmViewModel = new AlgorithmViewModel(algorithm1);
 
-        equal(algorithmViewModel.transitions().length, 10);
-        equal(algorithmViewModel.transitions()[0].type(), "direct");
-        equal(algorithmViewModel.transitions()[0].startBlock().id(), 1);
-        equal(algorithmViewModel.transitions()[0].endBlock().id(), 2);
-        equal(algorithmViewModel.transitions()[1].type(), "direct");
-        equal(algorithmViewModel.transitions()[1].startBlock().id(), 2);
-        equal(algorithmViewModel.transitions()[1].endBlock().id(), 3);
-        equal(algorithmViewModel.transitions()[2].type(), "far");
-        equal(algorithmViewModel.transitions()[2].level(), 2);
-        equal(algorithmViewModel.transitions()[2].startBlock().id(), 2);
-        equal(algorithmViewModel.transitions()[2].endBlock().id(), 5);
-        equal(algorithmViewModel.transitions()[3].type(), "direct");
-        equal(algorithmViewModel.transitions()[3].startBlock().id(), 3);
-        equal(algorithmViewModel.transitions()[3].endBlock().id(), 4);
-        equal(algorithmViewModel.transitions()[4].type(), "far");
-        equal(algorithmViewModel.transitions()[4].level(), 1);
-        equal(algorithmViewModel.transitions()[4].startBlock().id(), 4);
-        equal(algorithmViewModel.transitions()[4].endBlock().id(), 6);
-        equal(algorithmViewModel.transitions()[5].type(), "direct");
-        equal(algorithmViewModel.transitions()[5].startBlock().id(), 5);
-        equal(algorithmViewModel.transitions()[5].endBlock().id(), 6);
-        equal(algorithmViewModel.transitions()[6].type(), "direct");
-        equal(algorithmViewModel.transitions()[6].startBlock().id(), 6);
-        equal(algorithmViewModel.transitions()[6].endBlock().id(), 7);
-        equal(algorithmViewModel.transitions()[7].type(), "far");
-        equal(algorithmViewModel.transitions()[7].direction(), "down");
-        equal(algorithmViewModel.transitions()[7].level(), 1);
-        equal(algorithmViewModel.transitions()[7].startBlock().id(), 6);
-        equal(algorithmViewModel.transitions()[7].endBlock().id(), 8);
+        assert.equal(algorithmViewModel.transitions().length, 10);
+        assert.equal(algorithmViewModel.transitions()[0].type(), "direct");
+        assert.equal(algorithmViewModel.transitions()[0].startBlock().id(), 1);
+        assert.equal(algorithmViewModel.transitions()[0].endBlock().id(), 2);
+        assert.equal(algorithmViewModel.transitions()[1].type(), "direct");
+        assert.equal(algorithmViewModel.transitions()[1].startBlock().id(), 2);
+        assert.equal(algorithmViewModel.transitions()[1].endBlock().id(), 3);
+        assert.equal(algorithmViewModel.transitions()[2].type(), "far");
+        assert.equal(algorithmViewModel.transitions()[2].level(), 2);
+        assert.equal(algorithmViewModel.transitions()[2].startBlock().id(), 2);
+        assert.equal(algorithmViewModel.transitions()[2].endBlock().id(), 5);
+        assert.equal(algorithmViewModel.transitions()[3].type(), "direct");
+        assert.equal(algorithmViewModel.transitions()[3].startBlock().id(), 3);
+        assert.equal(algorithmViewModel.transitions()[3].endBlock().id(), 4);
+        assert.equal(algorithmViewModel.transitions()[4].type(), "far");
+        assert.equal(algorithmViewModel.transitions()[4].level(), 1);
+        assert.equal(algorithmViewModel.transitions()[4].startBlock().id(), 4);
+        assert.equal(algorithmViewModel.transitions()[4].endBlock().id(), 6);
+        assert.equal(algorithmViewModel.transitions()[5].type(), "direct");
+        assert.equal(algorithmViewModel.transitions()[5].startBlock().id(), 5);
+        assert.equal(algorithmViewModel.transitions()[5].endBlock().id(), 6);
+        assert.equal(algorithmViewModel.transitions()[6].type(), "direct");
+        assert.equal(algorithmViewModel.transitions()[6].startBlock().id(), 6);
+        assert.equal(algorithmViewModel.transitions()[6].endBlock().id(), 7);
+        assert.equal(algorithmViewModel.transitions()[7].type(), "far");
+        assert.equal(algorithmViewModel.transitions()[7].direction(), "down");
+        assert.equal(algorithmViewModel.transitions()[7].level(), 1);
+        assert.equal(algorithmViewModel.transitions()[7].startBlock().id(), 6);
+        assert.equal(algorithmViewModel.transitions()[7].endBlock().id(), 8);
     });
 
-    test("prepare transitions back", function() {
+    QUnit.test("prepare transitions back", function(assert) {
         var algorithmViewModel = new AlgorithmViewModel(algorithm2);
 
-        equal(algorithmViewModel.transitions().length, 4);
-        equal(algorithmViewModel.transitions()[0].type(), "direct");
-        equal(algorithmViewModel.transitions()[0].startBlock().id(), 1);
-        equal(algorithmViewModel.transitions()[0].endBlock().id(), 2);
-        equal(algorithmViewModel.transitions()[1].type(), "direct");
-        equal(algorithmViewModel.transitions()[1].startBlock().id(), 2);
-        equal(algorithmViewModel.transitions()[1].endBlock().id(), 3);
-        equal(algorithmViewModel.transitions()[2].type(), "direct");
-        equal(algorithmViewModel.transitions()[2].startBlock().id(), 3);
-        equal(algorithmViewModel.transitions()[2].endBlock().id(), 4);
-        equal(algorithmViewModel.transitions()[3].type(), "far");
-        equal(algorithmViewModel.transitions()[3].direction(), "up");
-        equal(algorithmViewModel.transitions()[3].level(), 1);
-        equal(algorithmViewModel.transitions()[3].startBlock().id(), 3);
-        equal(algorithmViewModel.transitions()[3].endBlock().id(), 2);
+        assert.equal(algorithmViewModel.transitions().length, 4);
+        assert.equal(algorithmViewModel.transitions()[0].type(), "direct");
+        assert.equal(algorithmViewModel.transitions()[0].startBlock().id(), 1);
+        assert.equal(algorithmViewModel.transitions()[0].endBlock().id(), 2);
+        assert.equal(algorithmViewModel.transitions()[1].type(), "direct");
+        assert.equal(algorithmViewModel.transitions()[1].startBlock().id(), 2);
+        assert.equal(algorithmViewModel.transitions()[1].endBlock().id(), 3);
+        assert.equal(algorithmViewModel.transitions()[2].type(), "direct");
+        assert.equal(algorithmViewModel.transitions()[2].startBlock().id(), 3);
+        assert.equal(algorithmViewModel.transitions()[2].endBlock().id(), 4);
+        assert.equal(algorithmViewModel.transitions()[3].type(), "far");
+        assert.equal(algorithmViewModel.transitions()[3].direction(), "up");
+        assert.equal(algorithmViewModel.transitions()[3].level(), 1);
+        assert.equal(algorithmViewModel.transitions()[3].startBlock().id(), 3);
+        assert.equal(algorithmViewModel.transitions()[3].endBlock().id(), 2);
     });
 
-    test("add block", function () {
+    QUnit.test("add block", function (assert) {
         var algorithmViewModel = new AlgorithmViewModel(algorithm2);
 
-        equal(algorithmViewModel.blocks().length, 4, "source configuration");
-        equal(algorithmViewModel.blocks()[0].id(), 1);
-        equal(algorithmViewModel.blocks()[1].id(), 2);
-        equal(algorithmViewModel.blocks()[2].id(), 3);
+        assert.equal(algorithmViewModel.blocks().length, 4, "source configuration");
+        assert.equal(algorithmViewModel.blocks()[0].id(), 1);
+        assert.equal(algorithmViewModel.blocks()[1].id(), 2);
+        assert.equal(algorithmViewModel.blocks()[2].id(), 3);
 
         algorithmViewModel.addBlock(algorithmViewModel.blocks()[1]);
-        equal(algorithmViewModel.blocks().length, 5, "block was added after");
-        equal(algorithmViewModel.blocks()[0].id(), 1);
-        equal(algorithmViewModel.blocks()[1].id(), 2);
-        equal(algorithmViewModel.blocks()[2].id(), 5);
-        equal(algorithmViewModel.blocks()[3].id(), 3);
-        equal(algorithmViewModel.transitions().length, 5, "transitions");
-        equal(algorithmViewModel.transitions()[0].type(), "direct");
-        equal(algorithmViewModel.transitions()[0].startBlock().id(), 1);
-        equal(algorithmViewModel.transitions()[0].endBlock().id(), 2);
-        equal(algorithmViewModel.transitions()[1].type(), "direct");
-        equal(algorithmViewModel.transitions()[1].startBlock().id(), 5);
-        equal(algorithmViewModel.transitions()[1].endBlock().id(), 3);
-        equal(algorithmViewModel.transitions()[2].type(), "direct");
-        equal(algorithmViewModel.transitions()[2].startBlock().id(), 3);
-        equal(algorithmViewModel.transitions()[2].endBlock().id(), 4);
-        equal(algorithmViewModel.transitions()[3].type(), "far");
-        equal(algorithmViewModel.transitions()[3].direction(), "up");
-        equal(algorithmViewModel.transitions()[3].level(), 1);
-        equal(algorithmViewModel.transitions()[3].startBlock().id(), 3);
-        equal(algorithmViewModel.transitions()[3].endBlock().id(), 2);
-        equal(algorithmViewModel.transitions()[4].type(), "direct");
-        equal(algorithmViewModel.transitions()[4].startBlock().id(), 2);
-        equal(algorithmViewModel.transitions()[4].endBlock().id(), 5);
+        assert.equal(algorithmViewModel.blocks().length, 5, "block was added after");
+        assert.equal(algorithmViewModel.blocks()[0].id(), 1);
+        assert.equal(algorithmViewModel.blocks()[1].id(), 2);
+        assert.equal(algorithmViewModel.blocks()[2].id(), 5);
+        assert.equal(algorithmViewModel.blocks()[3].id(), 3);
+        assert.equal(algorithmViewModel.transitions().length, 5, "transitions");
+        assert.equal(algorithmViewModel.transitions()[0].type(), "direct");
+        assert.equal(algorithmViewModel.transitions()[0].startBlock().id(), 1);
+        assert.equal(algorithmViewModel.transitions()[0].endBlock().id(), 2);
+        assert.equal(algorithmViewModel.transitions()[1].type(), "direct");
+        assert.equal(algorithmViewModel.transitions()[1].startBlock().id(), 5);
+        assert.equal(algorithmViewModel.transitions()[1].endBlock().id(), 3);
+        assert.equal(algorithmViewModel.transitions()[2].type(), "direct");
+        assert.equal(algorithmViewModel.transitions()[2].startBlock().id(), 3);
+        assert.equal(algorithmViewModel.transitions()[2].endBlock().id(), 4);
+        assert.equal(algorithmViewModel.transitions()[3].type(), "far");
+        assert.equal(algorithmViewModel.transitions()[3].direction(), "up");
+        assert.equal(algorithmViewModel.transitions()[3].level(), 1);
+        assert.equal(algorithmViewModel.transitions()[3].startBlock().id(), 3);
+        assert.equal(algorithmViewModel.transitions()[3].endBlock().id(), 2);
+        assert.equal(algorithmViewModel.transitions()[4].type(), "direct");
+        assert.equal(algorithmViewModel.transitions()[4].startBlock().id(), 2);
+        assert.equal(algorithmViewModel.transitions()[4].endBlock().id(), 5);
 
         algorithmViewModel.addBlock(algorithmViewModel.blocks()[1], true);
-        equal(algorithmViewModel.blocks().length, 6, "block was added before");
-        equal(algorithmViewModel.blocks()[0].id(), 1);
-        equal(algorithmViewModel.blocks()[1].id(), 7); // not 6 because transitions are using the same MaxID
-        equal(algorithmViewModel.blocks()[2].id(), 2);
-        equal(algorithmViewModel.blocks()[3].id(), 5);
+        assert.equal(algorithmViewModel.blocks().length, 6, "block was added before");
+        assert.equal(algorithmViewModel.blocks()[0].id(), 1);
+        assert.equal(algorithmViewModel.blocks()[1].id(), 7); // not 6 because transitions are using the same MaxID
+        assert.equal(algorithmViewModel.blocks()[2].id(), 2);
+        assert.equal(algorithmViewModel.blocks()[3].id(), 5);
     });
 
-    test("remove block", function() {
+    QUnit.test("remove block", function(assert) {
         var changes = [];
         algorithm2["blockMappings"] = {
             change: (kind: string, object: ItemHolder) => {
@@ -168,46 +168,46 @@ module Algorithm.Tests {
         };
         var algorithmViewModel = new AlgorithmViewModel(algorithm2);
 
-        equal(algorithmViewModel.blocks().length, 4, "source configuration");
-        equal(algorithmViewModel.blocks()[0].id(), 1);
-        equal(algorithmViewModel.blocks()[1].id(), 2);
-        equal(algorithmViewModel.blocks()[2].id(), 3);
+        assert.equal(algorithmViewModel.blocks().length, 4, "source configuration");
+        assert.equal(algorithmViewModel.blocks()[0].id(), 1);
+        assert.equal(algorithmViewModel.blocks()[1].id(), 2);
+        assert.equal(algorithmViewModel.blocks()[2].id(), 3);
 
         algorithmViewModel.removeBlock(algorithmViewModel.blocks()[1]);
-        equal(algorithmViewModel.blocks().length, 3, "block was removed");
-        equal(algorithmViewModel.blocks()[0].id(), 1);
-        equal(algorithmViewModel.blocks()[1].id(), 3);
-        equal(algorithmViewModel.blocks()[2].id(), 4);
-        equal(algorithmViewModel.transitions().length, 2, "transitions");
-        equal(algorithmViewModel.transitions()[0].type(), "direct");
-        equal(algorithmViewModel.transitions()[0].startBlock().id(), 1);
-        equal(algorithmViewModel.transitions()[0].endBlock().id(), 3);
-        equal(algorithmViewModel.transitions()[1].type(), "direct");
-        equal(algorithmViewModel.transitions()[1].startBlock().id(), 3);
-        equal(algorithmViewModel.transitions()[1].endBlock().id(), 4);
+        assert.equal(algorithmViewModel.blocks().length, 3, "block was removed");
+        assert.equal(algorithmViewModel.blocks()[0].id(), 1);
+        assert.equal(algorithmViewModel.blocks()[1].id(), 3);
+        assert.equal(algorithmViewModel.blocks()[2].id(), 4);
+        assert.equal(algorithmViewModel.transitions().length, 2, "transitions");
+        assert.equal(algorithmViewModel.transitions()[0].type(), "direct");
+        assert.equal(algorithmViewModel.transitions()[0].startBlock().id(), 1);
+        assert.equal(algorithmViewModel.transitions()[0].endBlock().id(), 3);
+        assert.equal(algorithmViewModel.transitions()[1].type(), "direct");
+        assert.equal(algorithmViewModel.transitions()[1].startBlock().id(), 3);
+        assert.equal(algorithmViewModel.transitions()[1].endBlock().id(), 4);
 
-        equal(changes.length, 5);
-        equal(changes[0].element, "transition");
-        equal(changes[0].kind, "edit");
-        //equal(changes[0].object.id(), "2");
-        equal(changes[1].element, "transition");
-        equal(changes[1].kind, "edit");
-        //equal(changes[1].object.id(), "2");
-        equal(changes[2].element, "transition");
-        equal(changes[2].kind, "deleted");
-        //equal(changes[2].object.id(), "2");
-        equal(changes[3].element, "block");
-        equal(changes[3].kind, "deleted");
-        equal(changes[3].object.id(), "2");
-        equal(changes[4].element, "transition");
-        equal(changes[4].kind, "deleted");
-        //equal(changes[4].object.id(), "2");
+        assert.equal(changes.length, 5);
+        assert.equal(changes[0].element, "transition");
+        assert.equal(changes[0].kind, "edit");
+        //assert.equal(changes[0].object.id(), "2");
+        assert.equal(changes[1].element, "transition");
+        assert.equal(changes[1].kind, "edit");
+        //assert.equal(changes[1].object.id(), "2");
+        assert.equal(changes[2].element, "transition");
+        assert.equal(changes[2].kind, "deleted");
+        //assert.equal(changes[2].object.id(), "2");
+        assert.equal(changes[3].element, "block");
+        assert.equal(changes[3].kind, "deleted");
+        assert.equal(changes[3].object.id(), "2");
+        assert.equal(changes[4].element, "transition");
+        assert.equal(changes[4].kind, "deleted");
+        //assert.equal(changes[4].object.id(), "2");
     });
 
-    test("get model", function() {
+    QUnit.test("get model", function(assert) {
         var algorithmViewModel = new AlgorithmViewModel(algorithm2);
 
-        deepEqual(algorithmViewModel.model, {
+        assert.deepEqual(algorithmViewModel.model, {
             "items": [
                 {
                     "id": 1,
@@ -251,7 +251,7 @@ module Algorithm.Tests {
         });
     });
 
-    test("multiple far transitions", function() {
+    QUnit.test("multiple far transitions", function(assert) {
         var algorithmViewModel = new AlgorithmViewModel({
             items: [
                 { id: 3, text: "3" },
@@ -268,24 +268,24 @@ module Algorithm.Tests {
             ]
         });
 
-        equal(algorithmViewModel.blocks()[0].id(), 1);
-        equal(algorithmViewModel.blocks()[1].id(), 3);
-        equal(algorithmViewModel.blocks()[2].id(), 2);
-        equal(algorithmViewModel.blocks()[3].id(), 4);
-        equal(algorithmViewModel.transitions().length, 5, "transitions");
-        equal(algorithmViewModel.transitions()[0].type(), "far");
-        equal(algorithmViewModel.transitions()[0].level(), 2);
-        equal(algorithmViewModel.transitions()[1].type(), "direct");
-        equal(algorithmViewModel.transitions()[1].level(), 1);
-        equal(algorithmViewModel.transitions()[2].type(), "far");
-        equal(algorithmViewModel.transitions()[2].level(), 3);
-        equal(algorithmViewModel.transitions()[3].type(), "far");
-        equal(algorithmViewModel.transitions()[3].level(), 1);
-        equal(algorithmViewModel.transitions()[4].type(), "direct");
-        equal(algorithmViewModel.transitions()[4].level(), 1);
+        assert.equal(algorithmViewModel.blocks()[0].id(), 1);
+        assert.equal(algorithmViewModel.blocks()[1].id(), 3);
+        assert.equal(algorithmViewModel.blocks()[2].id(), 2);
+        assert.equal(algorithmViewModel.blocks()[3].id(), 4);
+        assert.equal(algorithmViewModel.transitions().length, 5, "transitions");
+        assert.equal(algorithmViewModel.transitions()[0].type(), "far");
+        assert.equal(algorithmViewModel.transitions()[0].level(), 2);
+        assert.equal(algorithmViewModel.transitions()[1].type(), "direct");
+        assert.equal(algorithmViewModel.transitions()[1].level(), 1);
+        assert.equal(algorithmViewModel.transitions()[2].type(), "far");
+        assert.equal(algorithmViewModel.transitions()[2].level(), 3);
+        assert.equal(algorithmViewModel.transitions()[3].type(), "far");
+        assert.equal(algorithmViewModel.transitions()[3].level(), 1);
+        assert.equal(algorithmViewModel.transitions()[4].type(), "direct");
+        assert.equal(algorithmViewModel.transitions()[4].level(), 1);
     });
 
-    test("blocks order 2 (lost last block)", function() {
+    QUnit.test("blocks order 2 (lost last block)", function(assert) {
         var algorithmViewModel = new AlgorithmViewModel({
             items: [
                 { id: 1, text: "1" },
@@ -302,12 +302,12 @@ module Algorithm.Tests {
                 { iid: 4, exit1: 5, exit2: null }
             ]});
 
-        equal(algorithmViewModel.blocks().length, 5);
-        equal(algorithmViewModel.blocks()[0].id(), 1);
-        equal(algorithmViewModel.blocks()[1].id(), 3);
-        equal(algorithmViewModel.blocks()[2].id(), 2);
-        equal(algorithmViewModel.blocks()[3].id(), 4);
-        equal(algorithmViewModel.blocks()[4].id(), 5);
+        assert.equal(algorithmViewModel.blocks().length, 5);
+        assert.equal(algorithmViewModel.blocks()[0].id(), 1);
+        assert.equal(algorithmViewModel.blocks()[1].id(), 3);
+        assert.equal(algorithmViewModel.blocks()[2].id(), 2);
+        assert.equal(algorithmViewModel.blocks()[3].id(), 4);
+        assert.equal(algorithmViewModel.blocks()[4].id(), 5);
     });
 
 } 

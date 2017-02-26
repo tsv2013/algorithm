@@ -1,5 +1,5 @@
-﻿/// <reference path="../typings/jquery/jquery.d.ts" />
-/// <reference path="../typings/knockout/knockout.d.ts" />
+﻿import * as $ from "jquery";
+import * as ko from "knockout";
 
 module Algorithm {
 
@@ -302,6 +302,7 @@ module Algorithm {
         get connectTitle() { return AlgorithmViewModel.connectTitle; }
         get yesTitle() { return AlgorithmViewModel.yesTitle; }
         get noTitle() { return AlgorithmViewModel.noTitle; }
+        get closeTitle() { return AlgorithmViewModel.closeTitle; }
     }
 
     export class ItemHolder {
@@ -403,3 +404,5 @@ module Algorithm {
     }
 
 }
+
+export = Algorithm;

@@ -4,18 +4,6 @@ env:
  global:
  - GH_REF: github.com/tsv2013/algorithm.git
  
-before_script:
-  - npm install -g grunt
-  - npm install -g grunt-cli
-  - npm install -g bower
-  - npm install -g typescript
-  - npm install -g tsd
-  - tsd install
-  - bower install
- 
 script:
-  - grunt buildall 
-  - grunt test
-
-after_success: 
-  - grunt coveralls
+  - webpack 
+  - karma start --single-run

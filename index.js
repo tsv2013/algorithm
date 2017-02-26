@@ -1,4 +1,3 @@
-function init() {
     var model = {
         algorithm: ko.observable({
             items: [ ],
@@ -57,4 +56,3 @@ function init() {
             addonsTemplate: "algorithm-addon-template"
         });
     }, 1000);
-}

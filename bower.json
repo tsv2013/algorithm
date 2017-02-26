@@ -1,6 +1,6 @@
 {
     "name": "tsv-widget-algorithm",
-    "version": "v0.2.9",
+    "version": "0.3.0",
     "description": "Algorihtm visualization component",
     "homepage": "http://tsv2013.github.io/algorithm",
     "authors": [ "Serge T <@domain.com>" ],
@@ -9,25 +9,22 @@
     "main": [
         "dist/algorithm.js",
         "dist/algorithm.min.js",
-        "dist/algorithm.html",
+        "dist/algorithm.css",
         "dist/algorithm.min.css"
     ],
     "moduleType": "none",
     "ignore": [
-        ".coveralls.yml",
-        "algorithm.csproj",
-        "packages.config"
+        ".coveralls.yml"
     ], 
     "repository": {
         "type": "git",
         "url": "https://github.com/tsv2013/algorithm.git"
     },
     "dependencies": {
-        "jquery": "latest",
-        "knockout": "latest"
+        "jquery": "^1.7.2",
+        "knockout": "^3.0.0"
     },
     "devDependencies": {
-        "qunit": "latest",
-        "blanket": "^1.1.7"
+        "qunit": "latest"
     }
 }

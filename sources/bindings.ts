@@ -1,8 +1,27 @@
-﻿/// <reference path="../typings/jquery/jquery.d.ts" />
-/// <reference path="../typings/knockout/knockout.d.ts" />
-/// <reference path="algorithm.ts" />
+﻿import * as $ from "jquery";
+import * as ko from "knockout";
+
+import "./algorithm.scss";
+var templateA = require("text-loader!./algorithm.html");
+var templateB = require("text-loader!./blocks.html");
+var templateT = require("text-loader!./transitions.html");
+
+import { AlgorithmViewModel, AlgorithmItemBlockModel } from "./algorithm";
 
 module Algorithm {
+
+    export function createFragment(htmlString: string) {
+        var fragment = document.createDocumentFragment(),
+            temp = document.createElement("div");
+        temp.innerHTML = htmlString;
+        while (temp.firstChild) {
+            fragment.appendChild(temp.firstChild);
+        }
+        return fragment;
+    }
+    document.body.insertBefore(createFragment(templateA), document.body.childNodes[0]);
+    document.body.insertBefore(createFragment(templateB), document.body.childNodes[0]);
+    document.body.insertBefore(createFragment(templateT), document.body.childNodes[0]);
 
     ko.bindingHandlers["algorithm"] = {
         init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {

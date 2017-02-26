@@ -1,10 +1,7 @@
-﻿/// <reference path="../typings/jquery/jquery.d.ts" />
-/// <reference path="../typings/qunit/qunit.d.ts" />
-/// <reference path="../widget/algorithm.ts" />
+﻿import { AlgorithmViewModel, AlgorithmItemBlockModel, ItemHolder } from "../sources/algorithm";
 
-module Algorithm.Tests {
 
-    QUnit.module("Algorithm algorithm view model tests");
+QUnit.module("Algorithm algorithm view model tests");
 
     var algorithm1 = {
         items: [
@@ -309,5 +306,3 @@ module Algorithm.Tests {
         assert.equal(algorithmViewModel.blocks()[3].id(), 4);
         assert.equal(algorithmViewModel.blocks()[4].id(), 5);
     });
-
-} 

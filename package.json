@@ -1,19 +1,59 @@
-﻿{
-    "name": "algorithm-dev-dependencies",
-    "version": "0.0.0",
-    "devDependencies": {
-        "grunt": "^0.4.5",
-        "grunt-typescript": "latest",
-        "grunt-open": "^0.2.3",
-        "grunt-contrib-watch": "^0.6.1",
-        "grunt-contrib-less": "^1.0.0",
-        "grunt-contrib-uglify": "^0.8.0",
-        "grunt-contrib-copy": "^0.8.0",
-        "grunt-contrib-cssmin": "^0.12.2",
-        "grunt-contrib-concat": "^0.5.1",
-        "grunt-bower-task": "~0.4.0",
-        "grunt-contrib-qunit": "^0.7.0",
-        "grunt-qunit-junit": "^0.3.1",
-        "grunt-coveralls": "^1.0.0"
-    }
+{
+  "name": "tsv-widget-algorithm",
+  "version": "0.3.0",
+  "description": "Algorihtm visualization component",
+  "homepage": "http://tsv2013.github.io/algorithm",
+  "authors": [
+    "Serge T <@domain.com>"
+  ],
+  "private": false,
+  "license": "MIT",
+  "main": [
+    "dist/algorithm.js",
+    "dist/algorithm.min.js",
+    "dist/algorithm.css",
+    "dist/algorithm.min.css"
+  ],
+  "moduleType": "umd",
+  "ignore": [
+    ".coveralls.yml"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tsv2013/algorithm.git"
+  },
+  "scripts": {
+    "test": "karma start",
+    "start": "webpack-dev-server"
+  },
+  "dependencies": {
+    "jquery": "^1.7.2",
+    "knockout": "^3.0.0"
+  },
+  "devDependencies": {
+    "@types/jquery": "^2.0.40",
+    "@types/knockout": "^3.4.39",
+    "@types/node": "^7.0.5",
+    "@types/qunit": "^2.0.31",
+    "css-loader": "^0.20.1",
+    "extract-text-webpack-plugin": "latest",
+    "json-loader": "latest",
+    "karma": "1.4.0",
+    "karma-chrome-launcher": "2.0.0",
+    "karma-junit-reporter": "1.0.0",
+    "karma-phantomjs-launcher": "1.0.0",
+    "karma-qunit": "^1.2.1",
+    "karma-sourcemap-loader": "0.3.7",
+    "karma-webpack": "2.0.2",
+    "node-sass": "^3.3.3",
+    "phantomjs-prebuilt": "latest",
+    "qunitjs": "2.0.1",
+    "sass-loader": "^3.0.0",
+    "style-loader": "^0.12.4",
+    "text-loader": "latest",
+    "ts-loader": "latest",
+    "typescript": "latest",
+    "underscore": "^1.8.3",
+    "webpack": "^2.2.1"
+  }
 }

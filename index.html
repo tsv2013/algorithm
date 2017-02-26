@@ -2,14 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Algorithm widget sample</title>
-    <script src="vendor/jquery/dist/jquery.js"></script>
-    <script src="vendor/knockout/dist/knockout.debug.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
 
-    <script src="dist/algorithm.js"></script>
-    <script type="text/html" src="dist/algorithm.html"></script>
-    <link href="dist/algorithm.min.css" rel="stylesheet" />
+    <link href="dist/algorithm.css" rel="stylesheet" />
 
-    <script src="index.js"></script>
     <script type="text/html" id="algorithm-addon-template">
         <!-- ko if: item.additional -->
         <div data-bind="text: item.additional.info"></div>
@@ -17,28 +14,8 @@
     </script>
 </head>
 <body>
-    <div id="algorithm-host" style="margin: 10px; padding: 10px; border: 1px solid black" data-bind="algorithm: { value: algorithm }">
-    </div>
-    <script>
-        (function () {
-            var promises = $("script[type='text/html']").map(function (_, script) {
-                if (script.src) {
-                    var deffered = $.Deferred();
-                    $.get(script.src, function (template) {
-                        script.text = template;
-                        if (template.indexOf('type="text/html"') !== -1 || template.indexOf("type='text/html'") !== -1) {
-                            $(document.body).append(template);
-                        }
-                        deffered.resolve();
-                    })
-                    return deffered.promise();
-                }
-            });
-            $.when.apply($.when, promises).done(function () {
-                //alert("done");
-                init();
-            });
-        })()
-    </script>
+    <div id="algorithm-host" style="margin: 10px; padding: 10px; border: 1px solid black" data-bind="algorithm: { value: algorithm }"></div>
+    <script src="dist/algorithm.js"></script>
+    <script src="index.js"></script>
 </body>
 </html>

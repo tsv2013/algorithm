@@ -24,7 +24,8 @@
   },
   "scripts": {
     "test": "karma start",
-    "start": "webpack-dev-server"
+    "start": "webpack-dev-server",
+    "release": "standard-version"
   },
   "dependencies": {
     "jquery": "^1.7.2",
@@ -49,6 +50,7 @@
     "phantomjs-prebuilt": "latest",
     "qunitjs": "2.0.1",
     "sass-loader": "^3.0.0",
+    "standard-version": "^4.0.0",
     "style-loader": "^0.12.4",
     "text-loader": "latest",
     "ts-loader": "latest",

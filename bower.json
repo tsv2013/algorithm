@@ -8,12 +8,7 @@
   ],
   "private": false,
   "license": "MIT",
-  "main": [
-    "dist/algorithm.js",
-    "dist/algorithm.min.js",
-    "dist/algorithm.css",
-    "dist/algorithm.min.css"
-  ],
+  "main": "dist/algorithm.min.js",
   "keywords": [
     "algorithm",
     "visualization",

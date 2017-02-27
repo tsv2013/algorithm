@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.4"></a>
+## [0.3.4](https://github.com/tsv2013/algorithm/compare/v0.3.3...v0.3.4) (2017-02-27)
+
+
+### Bug Fixes
+
+* npmjs api key (2) ([128d4e7](https://github.com/tsv2013/algorithm/commit/128d4e7))
+
+
+
 <a name="0.3.3"></a>
 ## [0.3.3](https://github.com/tsv2013/algorithm/compare/v0.3.2...v0.3.3) (2017-02-27)
 

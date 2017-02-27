@@ -1,7 +1,7 @@
 {
-  "name": "tsv-widget-algorithm",
+  "name": "tsvw-algorithm",
   "version": "0.3.0",
-  "description": "Algorihtm visualization component",
+  "description": "Algorihtm visualization widget",
   "homepage": "http://tsv2013.github.io/algorithm",
   "authors": [
     "Serge T <@domain.com>"
@@ -14,9 +14,18 @@
     "dist/algorithm.css",
     "dist/algorithm.min.css"
   ],
+  "keywords": [
+    "algorithm",
+    "visualization",
+    "widget",
+    "knockout"
+  ],
   "moduleType": "umd",
   "ignore": [
-    ".coveralls.yml"
+    ".travis.yml",
+    ".coveralls.yml",
+    ".bithoundrc",
+    "deploy-ghpages.cmd"
   ],
   "repository": {
     "type": "git",

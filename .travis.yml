@@ -1,12 +1,17 @@
 language: node_js
-
 node_js:
-  - "6"
-
+- '6'
 env:
- global:
- - GH_REF: github.com/tsv2013/algorithm.git
- 
+  global:
+  - GH_REF: github.com/tsv2013/algorithm.git
 script:
-  - webpack 
-  - karma start --single-run
+- webpack
+- karma start --single-run
+deploy:
+  provider: npm
+  email: tsv2013@hotmail.com
+  api_key:
+    secure: njSAl9W9ZGG7QCQrFdt4B/hIktMtcArRqu0zF9JK8ZdTI0GsfrKCrTDCsPd6s5V6UwFih0P1LjH0M4wLeKQSsTz64XXkZtwS4Gd4DJa5Xtdtbtho9sJK4Asto96KClK0I8iyfNubXZhAplpOkN+JKsIvpPmsa/5N1c5FBlmCsKnz2VF2gRkrRZMqt+b4U6ll3P+grw01X7TcznPUtGFX0fXkfE9kk/ZY6dx1MzyXp7u+99awR/SMJnlBuLMOA6ly7OXlVCB1CpvT+X+nj7mHjLzJRA7uH4EnB43oi25lrcGERfeK1+YN8Thfd3AlLmY7XkhjsQhDajoIip8p1FWn/CGyh4JWaM39AKQd3qvUCBscolpGJHTNMIh9H4/gpGC3jmvtKr7IeY0jriWW9FWPQPBgXGp7RfZMsxd6FBWr7O46wm7tCo23IZMRwEHOoc41CBPdzfCnuXZThDAjyfMPhDmB4zb+xpyvNpvhRcunv9xgvhozYw6aOk4zgiSwh3NZ099i4WcQ3ydnqp+Ozf7PL58iakGobYhaIOgES/mxcttkeErf5PaX/IKG0HWklkrrKz3LAhNcsEu2AiEQoEJ1QJ7th7WmxYgZhQnJocpiQQnWbDzzQc79c3dLOog49Jq7kUabmVGF2Q1EkVJFez53igT8TdyBLA8x7Z05ALj/ufU=
+  on:
+    tags: true
+    repo: tsv2013/algorithm

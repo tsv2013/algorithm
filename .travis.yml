@@ -10,6 +10,7 @@ script:
 deploy:
   provider: npm
   email: tsv2013@users.noreply.github.com
+  skip_cleanup: true
   apikey:
     secure: cYJUqNXbSo5i+1Yt2TGUWeeK1aQDZpeJeAVFjV3/1/QFTqKS6EdvmGHh5fykejWR33GdmTZo433WfadiXkJBkSK2cMKTYttDX0/AXfJJ2UefJPKCmulR/wQr5Xp89XRezdORH2HtYmTLkWA8UxgKDFc/J3/pPzgChtV0tvwxNAvs0iv4Te3hueQiHZeX44PLmhW+LdG2kMZgbhwxolYaFBampzwpiKGpYhuW+PSfBD8SCwKdAicszavMdJgDNKXUlFReT34hiMXPaeYyd5B+z5whi2l7FV8Bbkr9nSvd363bR80F7CuraZd4dDw1rKtPX+V9+UEGmSL0jnv4JFeymeTQ5NHfW6nZFDq0l/JDNWNCqHvpOw0jzFRF+wX1hJzEjfN3KVbzvCI2MwZzj/pKbMwDpL1p5BxcQw9j9u45BVehetFVwdNpB35u3BQVcSXbn8UuKhxNR+hQ8RRwIC5Eqc87q69TSZoKQ3poFLTesDm6xlbFyOrhETq+hOWqbxY9uAwXX2R7o/I4QTliB6PN6R06V0EVxrzcS6wfAeNFASa4uoDAzf/VDh+W4/RxV5cDUYBORd2Jgg9L10Y9hAY80s2T+LsmdUnLw9B+A/orOS4QBhugqqNacnXdAA8AxH2wRs6qRal+Cp5Pt3E7REVE+8s1qq01jhAzMYjSj793XJs=
   on:

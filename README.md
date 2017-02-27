@@ -4,6 +4,8 @@
 
 Algorithm visualization widget (jQuery+KnockoutJS)
 
+[![NPM](https://nodei.co/npm/tsvw-algorithm.png)](https://npmjs.org/package/tsvw-algorithm)
+
 The demo page: http://tsv2013.github.io/algorithm/.
 
 Algorithm is defined via JSON, for instance:

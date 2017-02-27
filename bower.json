@@ -1,39 +1,41 @@
 {
-    "name": "tsvw-algorithm",
-    "version": "0.3.0",
-    "description": "Algorihtm visualization widget",
-    "homepage": "http://tsv2013.github.io/algorithm",
-    "authors": [ "Serge T <@domain.com>" ],
-    "private": false,
-    "license": "MIT",
-    "main": [
-        "dist/algorithm.js",
-        "dist/algorithm.min.js",
-        "dist/algorithm.css",
-        "dist/algorithm.min.css"
-    ],
-    "keywords": [
-        "algorithm",
-        "visualization",
-        "widget",
-        "knockout"
-    ],
-    "moduleType": "umd",
-    "ignore": [
-        ".travis.yml",
-        ".coveralls.yml",
-        ".bithoundrc",
-        "deploy-ghpages.cmd"
-    ], 
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/tsv2013/algorithm.git"
-    },
-    "dependencies": {
-        "jquery": "^1.7.2",
-        "knockout": "^3.0.0"
-    },
-    "devDependencies": {
-        "qunit": "latest"
-    }
+  "name": "tsvw-algorithm",
+  "version": "0.3.1",
+  "description": "Algorihtm visualization widget",
+  "homepage": "http://tsv2013.github.io/algorithm",
+  "authors": [
+    "Serge T <@domain.com>"
+  ],
+  "private": false,
+  "license": "MIT",
+  "main": [
+    "dist/algorithm.js",
+    "dist/algorithm.min.js",
+    "dist/algorithm.css",
+    "dist/algorithm.min.css"
+  ],
+  "keywords": [
+    "algorithm",
+    "visualization",
+    "widget",
+    "knockout"
+  ],
+  "moduleType": "umd",
+  "ignore": [
+    ".travis.yml",
+    ".coveralls.yml",
+    ".bithoundrc",
+    "deploy-ghpages.cmd"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tsv2013/algorithm.git"
+  },
+  "dependencies": {
+    "jquery": "^1.7.2",
+    "knockout": "^3.0.0"
+  },
+  "devDependencies": {
+    "qunit": "latest"
+  }
 }

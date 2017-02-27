@@ -1,6 +1,6 @@
 {
   "name": "tsvw-algorithm",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Algorihtm visualization widget",
   "homepage": "http://tsv2013.github.io/algorithm",
   "authors": [
@@ -34,7 +34,7 @@
   "scripts": {
     "test": "karma start",
     "start": "webpack-dev-server",
-    "release": "standard-version"
+    "release": "standard-version --message \"Release: %s\""
   },
   "dependencies": {
     "jquery": "^1.7.2",

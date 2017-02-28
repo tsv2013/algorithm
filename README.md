@@ -10,8 +10,13 @@ The demo page: http://tsv2013.github.io/algorithm/.
 
 ##How to visualize algorithm
 
-Define algorithm via JSON, for instance:
+1. **Add the following markup to your page:**
+	```
+    <div data-bind="algorithm: { value: algorithm }"></div>
+	```
 
+2. **Define algorithm via JSON, for instance:**
+	```
     var model = {
         algorithm: {
             items: [
@@ -38,14 +43,13 @@ Define algorithm via JSON, for instance:
             ]
         }
     };
+	```
 
-Bind model via KnockoutJS:
-
+3. **Bind model via KnockoutJS:**
+	```
     ko.applyBindings(model);
+	```
 
-To the following markup:
-
-    <div data-bind="algorithm: { value: algorithm }"></div>
     
 ##Building tsvw-algorithm from sources
 

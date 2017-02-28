@@ -1,4 +1,4 @@
-function init() {
+
     var model = {
         algorithm: {
             items: [
@@ -27,4 +27,3 @@ function init() {
     };
 
     ko.applyBindings(model);
-}

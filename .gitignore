@@ -1,11 +1,7 @@
+dist
 .vscode
-obj/**
-bin/**
 _build/**
 out/**
-*.user
-*.suo
-*.sln
 node_modules/**
 vendor/**
 typings/**

@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/tsv2013/algorithm.svg)](https://travis-ci.org/tsv2013/algorithm) [![Coverage Status](https://coveralls.io/repos/tsv2013/algorithm/badge.svg?branch=master&service=github)](https://coveralls.io/github/tsv2013/algorithm?branch=master) [![bitHound Score](https://www.bithound.io/github/tsv2013/algorithm/badges/score.svg)](https://www.bithound.io/github/tsv2013/algorithm) [![Codacy Badge](https://www.codacy.com/project/badge/f23d9de79b914ec88ab42470b96a189a)](https://www.codacy.com/app/tsv2013/algorithm) [![GitHub version](https://badge.fury.io/gh/tsv2013%2Falgorithm.svg)](http://badge.fury.io/gh/tsv2013%2Falgorithm) [![Bower version](https://badge.fury.io/bo/tsv-widget-algorithm.svg)](http://badge.fury.io/bo/tsv-widget-algorithm) [![Standard Version](https://img.shields.io/badge/release-standard%20version-brightgreen.svg)](https://github.com/conventional-changelog/standard-version)
 
-##Algorithm visualization widget (jQuery+KnockoutJS)##
+##Algorithm visualization and editing widget (jQuery+KnockoutJS)##
 ##Live demo at: http://tsv2013.github.io/algorithm/##
 
 [![NPM](https://nodei.co/npm/tsvw-algorithm.png)](https://npmjs.org/package/tsvw-algorithm)
@@ -50,7 +50,12 @@
     ko.applyBindings(model);
 	```
 
-    
+
+##How to modify algorithm
+
+While hovering mouse over algorithm blocks you will see control points to add blocks above and below, delete block and drag to link this block with other one.
+
+
 ##Building tsvw-algorithm from sources
 
  1. **Clone the repo from GitHub**  

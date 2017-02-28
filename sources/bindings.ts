@@ -19,12 +19,14 @@ module Algorithm {
         }
         return fragment;
     }
-    document.body.insertBefore(createFragment(templateA), document.body.childNodes[0]);
-    document.body.insertBefore(createFragment(templateB), document.body.childNodes[0]);
-    document.body.insertBefore(createFragment(templateT), document.body.childNodes[0]);
 
     ko.bindingHandlers["algorithm"] = {
         init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+            if($("#algorithm-view-template").length === 0) {
+                document.body.insertBefore(createFragment(templateA), document.body.childNodes[0]);
+                document.body.insertBefore(createFragment(templateB), document.body.childNodes[0]);
+                document.body.insertBefore(createFragment(templateT), document.body.childNodes[0]);
+            }
             var options = ko.unwrap(valueAccessor());
             var $algorithmTemplate = $("#algorithm-view-template"),
                 algorithmViewHolderWidth = ko.observable(500),

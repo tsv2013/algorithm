@@ -5,7 +5,8 @@
     <script src="https://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.0/knockout-min.js"></script>
 
-    <link href="dist/algorithm.css" rel="stylesheet" />
+    <link href="https://unpkg.com/tsvw-algorithm/dist/algorithm.css" rel="stylesheet" />
+    <!--<link href="../dist/algorithm.css" rel="stylesheet" />-->
 
     <script type="text/html" id="algorithm-addon-template">
         <!-- ko if: item.additional -->
@@ -15,7 +16,8 @@
 </head>
 <body>
     <div id="algorithm-host" style="margin: 10px; padding: 10px; border: 1px solid black" data-bind="algorithm: { value: algorithm }"></div>
-    <script src="dist/algorithm.js"></script>
+    <script src="https://unpkg.com/tsvw-algorithm"></script>
+    <!--<script src="../dist/algorithm.js"></script>-->
     <script src="index.js"></script>
 </body>
 </html>

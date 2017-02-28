@@ -27,8 +27,8 @@
     "url": "https://github.com/tsv2013/algorithm.git"
   },
   "scripts": {
+    "build": "webpack",
     "test": "karma start",
-    "start": "webpack-dev-server",
     "release": "standard-version --message \"Release: %s\""
   },
   "dependencies": {
@@ -60,7 +60,6 @@
     "ts-loader": "latest",
     "typescript": "latest",
     "underscore": "^1.8.3",
-    "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.4.1"
+    "webpack": "^2.2.1"
   }
 }

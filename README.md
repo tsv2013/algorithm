@@ -8,7 +8,9 @@ Algorithm visualization widget (jQuery+KnockoutJS)
 
 The demo page: http://tsv2013.github.io/algorithm/.
 
-Algorithm is defined via JSON, for instance:
+##How to visualize algorithm
+
+Define algorithm via JSON, for instance:
 
     var model = {
         algorithm: {
@@ -37,10 +39,36 @@ Algorithm is defined via JSON, for instance:
         }
     };
 
-and is bound via KnockoutJS:
+Bind model via KnockoutJS:
 
     ko.applyBindings(model);
 
-and following markup:
+To the following markup:
 
     <div data-bind="algorithm: { value: algorithm }"></div>
+    
+##Building tsvw-algorithm from sources
+
+ 1. **Clone the repo from GitHub**  
+	```
+	git clone https://github.com/tsv2013/algorithm.git
+	cd algorithm
+	```
+
+ 2. **Acquire build dependencies.** Make sure you have [Node.js](http://nodejs.org/) installed on your workstation. This is only needed to _build_ algorithm from sources.  
+	```
+	npm install -g karma-cli
+	npm install
+	```
+
+ 3. **Build the library**
+	```
+	npm run build
+	```
+	After that you should have the library at 'dist' directory.
+
+ 4. **Run unit tests**
+	```
+	karma start
+	```
+	This command will run unit tests usign [Karma](https://karma-runner.github.io/0.13/index.html)

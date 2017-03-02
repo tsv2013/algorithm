@@ -1,0 +1,10 @@
+.vscode
+_build/**
+out/**
+node_modules/**
+vendor/**
+typings/**
+lib/**
+**/*.map
+*.log
+tmp

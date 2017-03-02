@@ -1,7 +1,7 @@
 {
   "name": "tsvw-algorithm",
   "version": "0.3.9",
-  "description": "Algorihtm visualization widget",
+  "description": "Algorithm block diagram visualization and editing widget",
   "homepage": "http://tsv2013.github.io/algorithm",
   "authors": [
     "Serge T <@domain.com>"
